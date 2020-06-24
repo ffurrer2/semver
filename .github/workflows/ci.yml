@@ -1,0 +1,36 @@
+# SPDX-License-Identifier: MIT
+name: CI
+
+on:
+  push:
+    branches:
+    - master
+    - feature/**
+    paths-ignore:
+    - '**.md'
+    - '.gitignore'
+
+env:
+  GO_VERSION: 1.14
+  TASK_VERSION: 2.8.1
+
+jobs:
+  build:
+    name: Local build
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ env.GO_VERSION }}
+    - name: Set up task
+      run: |
+        sudo bash -c 'curl -fsSL https://taskfile.dev/install.sh | bash -s -- -b /usr/local/bin v${{ env.TASK_VERSION }}'
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build
+      run: |
+        task build
+    - name: Test
+      run: |
+        task test

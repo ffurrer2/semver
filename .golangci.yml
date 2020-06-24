@@ -1,0 +1,59 @@
+# SPDX-License-Identifier: MIT
+run:
+  timeout: 15m
+
+linters:
+  disable-all: true
+  enable:
+  - bodyclose
+  - deadcode
+  - depguard
+  - dogsled
+  - errcheck
+  - funlen
+  - goconst
+  - gocritic
+  - gocyclo
+  - gofmt
+  - goimports
+  - golint
+  - gomnd
+  - goprintffuncname
+  - gosec
+  - gosimple
+  - govet
+  - ineffassign
+  - interfacer
+  - lll
+  - misspell
+  - nakedret
+  - nolintlint
+  - rowserrcheck
+  - scopelint
+  - staticcheck
+  - structcheck
+  - stylecheck
+  - typecheck
+  - unconvert
+  - unparam
+  - unused
+  - varcheck
+  - whitespace
+  - asciicheck
+  - gocognit
+  - godox
+  - gomodguard
+  - maligned
+  - nestif
+  - prealloc
+  - testpackage
+
+  # don't enable:
+  # - gochecknoglobals
+  # - gochecknoinits
+  # - goerr113
+  # - godot
+  # - dupl
+
+  # check later:
+  # - wsl

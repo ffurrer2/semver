@@ -1,0 +1,141 @@
+# SPDX-License-Identifier: MIT
+project_name: semver
+
+env:
+- GO111MODULE=on
+
+release:
+  github:
+    owner: ffurrer2
+    name: semver
+  draft: false
+  prerelease: auto
+  name_template: '{{.Tag}}'
+
+brews:
+- name: semver
+  github:
+    owner: ffurrer2
+    name: homebrew-tap
+  commit_author:
+    name: goreleaserbot
+    email: ffurrer2@users.noreply.github.com
+  folder: Formula
+  install: |
+    bin.install "semver"
+  test: |
+    system "#{bin}/semver version"
+  description: A semantic versioning command line utility written in Go.
+  homepage: https://github.com/ffurrer2/semver
+  skip_upload: 'false'
+  ids:
+  - semver
+
+scoop:
+  name: semver
+  bucket:
+    owner: ffurrer2
+    name: scoop-bucket
+  commit_author:
+    name: goreleaserbot
+    email: ffurrer2@users.noreply.github.com
+  commit_msg_template: Scoop update for {{ .ProjectName }} version {{ .Tag }}
+  homepage: https://github.com/ffurrer2/semver
+  description: A semantic versioning command line utility written in Go.
+  license: MIT
+
+builds:
+- id: semver
+  goos:
+  - darwin
+  - linux
+  - windows
+  goarch:
+  - '386'
+  - amd64
+  ignore:
+  - goos: darwin
+    goarch: '386'
+  main: ./cmd/semver
+  ldflags:
+  - -X github.com/ffurrer2/semver/internal/pkg/app.version={{.Version}} -X github.com/ffurrer2/semver/internal/pkg/app.commit={{.Commit}} -X github.com/ffurrer2/semver/internal/pkg/app.date={{.Date}} -s -w
+  flags:
+  - -mod=readonly
+  - -v
+  binary: semver
+  env:
+  - CGO_ENABLED=0
+  lang: go
+archives:
+- id: semver
+  builds:
+  - semver
+  name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
+  format: tar.gz
+  format_overrides:
+  - goos: windows
+    format: zip
+  files:
+  - CHANGELOG.md
+  - LICENSE
+  - README.md
+
+snapshot:
+  name_template: '{{ .Tag }}-SNAPSHOT-{{.ShortCommit}}'
+
+checksum:
+  name_template: '{{ .ProjectName }}_checksums.txt'
+  algorithm: sha256
+
+dockers:
+- binaries:
+  - semver
+  builds:
+  - semver
+  goos: linux
+  goarch: amd64
+  dockerfile: build/docker/Dockerfile
+  image_templates:
+  - docker.io/ffurrer/semver:latest
+  - docker.io/ffurrer/semver:{{ .Tag }}
+  - docker.io/ffurrer/semver:{{ .Major }}
+  - docker.io/ffurrer/semver:{{ .Major }}.{{ .Minor }}
+  skip_push: 'false'
+  build_flag_templates:
+  - --pull
+  - --build-arg=BUILD_DATE={{ .Date }}
+  - --build-arg=GIT_SHA={{ .FullCommit }}
+  - --build-arg=BUILD_VERSION={{ .Version }}
+
+- binaries:
+  - semver
+  builds:
+  - semver
+  goos: linux
+  goarch: amd64
+  dockerfile: build/docker/Dockerfile.alpine
+  image_templates:
+  - docker.io/ffurrer/semver:alpine
+  - docker.io/ffurrer/semver:{{ .Tag }}-alpine
+  - docker.io/ffurrer/semver:{{ .Major }}-alpine
+  - docker.io/ffurrer/semver:{{ .Major }}.{{ .Minor }}-alpine
+  skip_push: 'false'
+  build_flag_templates:
+  - --pull
+  - --build-arg=BUILD_DATE={{ .Date }}
+  - --build-arg=GIT_SHA={{ .FullCommit }}
+  - --build-arg=BUILD_VERSION={{ .Version }}
+
+changelog:
+  skip: true
+
+dist: artifacts/dist
+
+before:
+  hooks:
+  - go mod download
+  - go mod verify
+
+source:
+  name_template: '{{ .ProjectName }}-{{ .Version }}'
+  format: tar.gz

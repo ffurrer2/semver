@@ -1,0 +1,122 @@
+# SPDX-License-Identifier: MIT
+version: '2'
+
+vars:
+  PROJECT_NAME: semver
+  PROJECT_OWNER: ffurrer2
+  BUILD_VERSION: {sh: bash ./scripts/version.sh}
+  BUILD_VERSION_SHORT: {sh: bash ./scripts/version.sh --short}
+  BUILD_DATE: '{{dateInZone "2006-01-02T15:04:05Z" now "UTC"}}'
+  GIT_BRANCH: {sh: bash ./scripts/branch.sh}
+  GIT_SHA: {sh: git rev-parse HEAD}
+  GIT_SHA_SHORT: {sh: git rev-parse --short HEAD}
+  GO_BUILD_ENV: CGO_ENABLED=0
+  LDFLAGS: >-
+    -X github.com/ffurrer2/semver/internal/pkg/app.version={{.BUILD_VERSION}}
+    -X github.com/ffurrer2/semver/internal/pkg/app.commit={{.GIT_SHA}}
+    -X github.com/ffurrer2/semver/internal/pkg/app.date={{.BUILD_DATE}} -s -w
+
+tasks:
+  default:
+    cmds:
+    - task --list
+    silent: true
+
+  clean:
+    desc: Delete build artifacts
+    cmds:
+    - rm -rf artifacts/
+
+  prepare:
+    desc: Download required dependencies
+    cmds:
+    - go mod download
+
+  verify:
+    desc: Verify downloaded dependencies
+    cmds:
+    - go mod verify
+
+  build:
+    desc: Build {{.PROJECT_NAME}}
+    cmds:
+    - task: prepare
+    - mkdir -p artifacts/bin
+    - |-
+      {{.GO_BUILD_ENV}} go build -o artifacts/bin -ldflags='{{.LDFLAGS}}' -mod readonly -v ./cmd/semver
+
+  test:
+    desc: Run tests
+    cmds:
+    - task: prepare
+    - mkdir -p artifacts/coverage-results
+    - mkdir -p artifacts/test-results
+    - TEST_RESULT_DIR=../../artifacts/test-results go test -v -mod readonly -coverprofile artifacts/coverage-results/coverage.out -covermode count ./...
+    - go tool cover -html artifacts/coverage-results/coverage.out -o artifacts/coverage-results/coverage.html
+
+  install:
+    desc: Install {{.PROJECT_NAME}} into $GOPATH/bin
+    cmds:
+    - task: prepare
+    - |-
+      {{.GO_BUILD_ENV}} go install -ldflags='{{.LDFLAGS}}' -mod readonly -v ./cmd/semver
+
+  tidy:
+    desc: Tidy go.mod
+    cmds:
+    - go mod tidy -v
+
+  show-dependency-updates:
+    desc: Show dependency updates
+    cmds:
+    - |-
+      go list -u -f {{`'{{if (and (not (or .Main .Indirect)) .Update)}}{{.Path}}: {{.Version}} -> {{.Update.Version}}{{end}}'`}} -m all 2>/dev/null
+
+  goreleaser:check:
+    desc: Check GoReleaser configuration
+    cmds:
+    - goreleaser check
+
+  goreleaser:snapshot:
+    desc: Create snapshot release with GoReleaser
+    cmds:
+    - goreleaser release --snapshot --skip-publish --rm-dist --debug
+
+  goreleaser:release-dry-run:
+    desc: Create release with GoReleaser without publishing artifacts
+    cmds:
+    - goreleaser release --skip-publish --rm-dist
+
+  lint:
+    desc: Run all linters
+    cmds:
+    - task: shellcheck
+    - task: yamllint
+    - task: hadolint
+    - task: golangci-lint
+    silent: true
+
+  shellcheck:
+    desc: Lint shell scripts
+    cmds:
+    - shellcheck --check-sourced --color=always --format=tty --enable=all --shell=bash --severity=style --source-path=scripts scripts/branch.sh scripts/version.sh
+    silent: true
+
+  yamllint:
+    desc: Lint YAML files
+    cmds:
+    - yamllint --format auto --strict .
+    silent: true
+
+  hadolint:
+    desc: Lint Dockerfiles
+    dir: build/docker
+    cmds:
+    - hadolint --format tty Dockerfile Dockerfile.alpine
+    silent: true
+
+  golangci-lint:
+    desc: Lint Go code
+    cmds:
+    - golangci-lint run --out-format colored-line-number --tests --print-resources-usage
+    silent: true
