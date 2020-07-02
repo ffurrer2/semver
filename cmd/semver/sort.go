@@ -19,7 +19,7 @@ var sortCmd = &cobra.Command{
 	Args:                  cobra.ArbitraryArgs,
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
-		sort := func(s []string) {
+		sort := func(args []string) {
 			semverSlice := make([]semver.SemVer, 0)
 			for _, s := range args {
 				semVer, err := semver.Parse(s)
