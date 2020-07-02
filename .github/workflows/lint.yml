@@ -8,10 +8,10 @@ on:
     - feature/**
     paths:
     - '**.go'
+    - '**.md'
     - '**.sh'
-    - '**.yaml'
-    - '**.yml'
-    - '**Dockerfile*'
+    - '**.ya?ml'
+    - '**/Dockerfile*'
 
 env:
   GOLANGCI_LINT_VERSION: 1.27
@@ -26,7 +26,7 @@ jobs:
       uses: docker://koalaman/shellcheck:latest
       with:
         entrypoint: /bin/shellcheck
-        args: '--check-sourced --color=always --format=tty --enable=all --shell=bash --severity=style --source-path=scripts scripts/branch.sh scripts/version.sh'
+        args: '--check-sourced --color=auto --format=tty --enable=all --shell=bash --severity=style --source-path=scripts scripts/branch.sh scripts/version.sh'
 
   yamllint:
     runs-on: ubuntu-18.04
@@ -57,4 +57,16 @@ jobs:
       uses: golangci/golangci-lint-action@v1
       with:
         version: v${{ env.GOLANGCI_LINT_VERSION }}
-        args: --tests --issues-exit-code 0
+        args: '--tests --issues-exit-code 0'
+
+  markdownlint:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: markdownlint
+      uses: nosborn/github-action-markdown-cli@v1.1.1
+      with:
+        files: .
+        config_file: .markdownlint.yml
+        ignore_files: SECURITY.md

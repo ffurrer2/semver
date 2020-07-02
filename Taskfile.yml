@@ -93,13 +93,14 @@ tasks:
     - task: shellcheck
     - task: yamllint
     - task: hadolint
+    - task: markdownlint
     - task: golangci-lint
     silent: true
 
   shellcheck:
     desc: Lint shell scripts
     cmds:
-    - shellcheck --check-sourced --color=always --format=tty --enable=all --shell=bash --severity=style --source-path=scripts scripts/branch.sh scripts/version.sh
+    - shellcheck --check-sourced --color=auto --format=tty --enable=all --shell=bash --severity=style --source-path=scripts scripts/branch.sh scripts/version.sh
     silent: true
 
   yamllint:
@@ -113,6 +114,12 @@ tasks:
     dir: build/docker
     cmds:
     - hadolint --format tty Dockerfile Dockerfile.alpine
+    silent: true
+
+  markdownlint:
+    desc: Lint Markdown files
+    cmds:
+    - docker run -it --rm --volume $(pwd):/work tmknom/markdownlint:latest
     silent: true
 
   golangci-lint:
