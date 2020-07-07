@@ -1,0 +1,55 @@
+schemaVersion: 2.0.0
+
+commandTests:
+- name: 'semver help'
+  command: '/semver'
+  args: ['-h']
+  exitCode: 0
+- name: 'semver version'
+  command: '/semver'
+  args: ['version']
+  expectedOutput:
+  - |-
+    semver version (0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?
+    commit: [a-f0-9]{40}
+    built at: \d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(([+-]\d\d:\d\d)|Z)?
+  exitCode: 0
+
+fileExistenceTests:
+- name: 'semver binary'
+  path: '/semver'
+  shouldExist: true
+  permissions: '-rwxr-xr-x'
+  uid: 0
+  gid: 0
+  isExecutableBy: 'any'
+
+metadataTest:
+  labels:
+  - key: 'org.opencontainers.image.authors'
+    value: 'Felix Furrer'
+  - key: 'org.opencontainers.image.created'
+    value: '^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(([+-]\d\d:\d\d)|Z)?$'
+    isRegex: true
+  - key: 'org.opencontainers.image.description'
+    value: 'A semantic versioning command line utility written in Go.'
+  - key: 'org.opencontainers.image.documentation'
+    value: 'https://github.com/ffurrer2/semver/blob/master/README.md'
+  - key: 'org.opencontainers.image.licenses'
+    value: 'MIT'
+  - key: 'org.opencontainers.image.revision'
+    value: '^[a-f0-9]{40}$'
+    isRegex: true
+  - key: 'org.opencontainers.image.source'
+    value: 'https://github.com/ffurrer2/semver.git'
+  - key: 'org.opencontainers.image.title'
+    value: 'SemVer'
+  - key: 'org.opencontainers.image.url'
+    value: 'https://github.com/ffurrer2/semver'
+  - key: 'org.opencontainers.image.vendor'
+    value: 'Felix Furrer'
+  - key: 'org.opencontainers.image.version'
+    value: '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
+    isRegex: true
+  entrypoint: ['/semver']
+  cmd: ['help']

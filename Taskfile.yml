@@ -129,3 +129,9 @@ tasks:
     cmds:
     - golangci-lint run --issues-exit-code 0 --out-format colored-line-number --tests --print-resources-usage --config build/ci/.golangci.yml
     silent: true
+
+  container-structure-test:
+    desc: Run container structure tests
+    cmds:
+    - container-structure-test test --image ffurrer/semver:latest --config test/semver_container_test.yml
+    - container-structure-test test --image ffurrer/semver:alpine --config test/semver_alpine_container_test.yml
