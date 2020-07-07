@@ -81,7 +81,7 @@ archives:
   - README.md
 
 snapshot:
-  name_template: '{{ .Tag }}-SNAPSHOT-{{.ShortCommit}}'
+  name_template: '{{.Env.SNAPSHOT_VERSION}}'
 
 checksum:
   name_template: '{{ .ProjectName }}_checksums.txt'
@@ -94,12 +94,12 @@ dockers:
   - semver
   goos: linux
   goarch: amd64
-  dockerfile: build/docker/Dockerfile
+  dockerfile: build/package/Dockerfile
   image_templates:
   - docker.io/ffurrer/semver:latest
-  - docker.io/ffurrer/semver:{{ .Tag }}
-  - docker.io/ffurrer/semver:{{ .Major }}
-  - docker.io/ffurrer/semver:{{ .Major }}.{{ .Minor }}
+  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}
+  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}
+  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}
   skip_push: 'false'
   build_flag_templates:
   - --pull
@@ -113,12 +113,12 @@ dockers:
   - semver
   goos: linux
   goarch: amd64
-  dockerfile: build/docker/Dockerfile.alpine
+  dockerfile: build/package/Dockerfile.alpine
   image_templates:
   - docker.io/ffurrer/semver:alpine
-  - docker.io/ffurrer/semver:{{ .Tag }}-alpine
-  - docker.io/ffurrer/semver:{{ .Major }}-alpine
-  - docker.io/ffurrer/semver:{{ .Major }}.{{ .Minor }}-alpine
+  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}-alpine
+  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}-alpine
+  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}-alpine
   skip_push: 'false'
   build_flag_templates:
   - --pull
@@ -135,6 +135,7 @@ before:
   hooks:
   - go mod download
   - go mod verify
+  - go test -v -mod readonly ./...
 
 source:
   name_template: '{{ .ProjectName }}-{{ .Version }}'

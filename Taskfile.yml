@@ -75,17 +75,19 @@ tasks:
   goreleaser:check:
     desc: Check GoReleaser configuration
     cmds:
-    - goreleaser check
+    - goreleaser check --config build/package/.goreleaser.yml
 
   goreleaser:snapshot:
     desc: Create snapshot release with GoReleaser
+    env:
+      SNAPSHOT_VERSION: '{{.BUILD_VERSION}}'
     cmds:
-    - goreleaser release --snapshot --skip-publish --rm-dist --debug
+    - goreleaser release --config build/package/.goreleaser.yml --snapshot --skip-publish --rm-dist --debug
 
   goreleaser:release-dry-run:
     desc: Create release with GoReleaser without publishing artifacts
     cmds:
-    - goreleaser release --skip-publish --rm-dist
+    - goreleaser release --config build/package/.goreleaser.yml --skip-publish --rm-dist
 
   lint:
     desc: Run all linters
@@ -100,18 +102,18 @@ tasks:
   shellcheck:
     desc: Lint shell scripts
     cmds:
-    - shellcheck --check-sourced --color=auto --format=tty --enable=all --shell=bash --severity=style --source-path=scripts scripts/branch.sh scripts/version.sh
+    - shellcheck --check-sourced --color=auto --format=tty --enable=all --source-path=scripts --shell=bash --severity=style scripts/branch.sh scripts/version.sh
     silent: true
 
   yamllint:
     desc: Lint YAML files
     cmds:
-    - yamllint --format auto --strict .
+    - yamllint --config-file build/ci/.yamllint.yml --format auto --strict .
     silent: true
 
   hadolint:
     desc: Lint Dockerfiles
-    dir: build/docker
+    dir: build/package
     cmds:
     - hadolint --format tty Dockerfile Dockerfile.alpine
     silent: true
@@ -119,11 +121,11 @@ tasks:
   markdownlint:
     desc: Lint Markdown files
     cmds:
-    - docker run -it --rm --volume $(pwd):/work tmknom/markdownlint:latest
+    - docker run -it --rm --volume "$(pwd):/work" tmknom/markdownlint:latest --config build/ci/.markdownlint.yml .
     silent: true
 
   golangci-lint:
     desc: Lint Go code
     cmds:
-    - golangci-lint run --out-format colored-line-number --tests --print-resources-usage
+    - golangci-lint run --issues-exit-code 0 --out-format colored-line-number --tests --print-resources-usage --config build/ci/.golangci.yml
     silent: true

@@ -1,12 +1,11 @@
 # SPDX-License-Identifier: MIT
-# docker.io/library/alpine:3.12.0
-FROM alpine@sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321
+FROM scratch
+
+COPY semver /
 
 ARG BUILD_DATE
 ARG GIT_SHA
 ARG BUILD_VERSION
-
-COPY semver /usr/local/bin/
 
 LABEL org.opencontainers.image.authors="Felix Furrer" \
       org.opencontainers.image.created="${BUILD_DATE}" \
@@ -20,5 +19,5 @@ LABEL org.opencontainers.image.authors="Felix Furrer" \
       org.opencontainers.image.vendor="Felix Furrer" \
       org.opencontainers.image.version="${BUILD_VERSION}"
 
-ENTRYPOINT ["semver"]
+ENTRYPOINT ["/semver"]
 CMD ["help"]

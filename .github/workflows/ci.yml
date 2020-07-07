@@ -13,6 +13,7 @@ on:
 env:
   GO_VERSION: 1.14
   TASK_VERSION: 2.8.1
+  GORELEASER_VERSION: 0.138.0
 
 jobs:
   build:
@@ -28,9 +29,32 @@ jobs:
         sudo bash -c 'curl -fsSL https://taskfile.dev/install.sh | bash -s -- -b /usr/local/bin v${{ env.TASK_VERSION }}'
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - name: Build
       run: |
         task build
     - name: Test
       run: |
         task test
+    - name: Check release config
+      uses: goreleaser/goreleaser-action@v2
+      with:
+        version: v${{ env.GORELEASER_VERSION }}
+        args: check --config build/package/.goreleaser.yml
+    - name: Set up SNAPSHOT_VERSION environment variable
+      run: |
+        echo "::set-env name=SNAPSHOT_VERSION::$(./scripts/version.sh)"
+    - name: Create snapshot release
+      uses: goreleaser/goreleaser-action@v2
+      with:
+        version: v${{ env.GORELEASER_VERSION }}
+        args: release --config build/package/.goreleaser.yml --snapshot --skip-publish --rm-dist --debug
+    - name: Container structure test (scratch)
+      uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest
+      with:
+        args: 'test --image ffurrer/semver:latest --config test/semver_container_test.yml'
+    - name: Container structure test (alpine)
+      uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest
+      with:
+        args: 'test --image ffurrer/semver:alpine --config test/semver_alpine_container_test.yml'
