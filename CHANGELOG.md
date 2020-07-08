@@ -9,6 +9,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+* Dependencies updated
+* CI workflows improved
+
 ### Deprecated
 
 ### Removed
@@ -21,7 +24,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-* Fixed pipeline support of sort command
+* Fixed pipe support of sort command
 
 ## [1.0.0] - 2020-06-24
 
