@@ -8,6 +8,7 @@ on:
     - feature/**
     paths:
     - '**/Dockerfile*'
+    - '**/hadolint.yml'
 
 jobs:
   hadolint:

@@ -8,6 +8,8 @@ on:
     - feature/**
     paths:
     - '**.go'
+    - '**/.golangci.yml'
+    - '**/golangci-lint.yml'
 
 env:
   GOLANGCI_LINT_VERSION: 1.27

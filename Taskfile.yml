@@ -127,7 +127,7 @@ tasks:
   golangci-lint:
     desc: Lint Go code
     cmds:
-    - golangci-lint run --issues-exit-code 0 --out-format colored-line-number --tests --print-resources-usage --config build/ci/.golangci.yml
+    - golangci-lint run --out-format colored-line-number --issues-exit-code 0 --tests --print-resources-usage --config build/ci/.golangci.yml
     silent: true
 
   container-structure-test:
