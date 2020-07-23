@@ -14,7 +14,7 @@ release:
 
 brews:
 - name: semver
-  github:
+  tap:
     owner: ffurrer2
     name: homebrew-tap
   commit_author:

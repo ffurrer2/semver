@@ -12,7 +12,7 @@ on:
     - '**/golangci-lint.yml'
 
 env:
-  GOLANGCI_LINT_VERSION: 1.27
+  GOLANGCI_LINT_VERSION: 1.29
 
 jobs:
   golangci-lint:
@@ -21,7 +21,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: golangci-lint
-      uses: golangci/golangci-lint-action@v1
+      uses: golangci/golangci-lint-action@v2
       with:
         version: v${{ env.GOLANGCI_LINT_VERSION }}
         args: '--issues-exit-code 0 --tests --config build/ci/.golangci.yml'
