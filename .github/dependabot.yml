@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: MIT
+version: 2
+
+updates:
+- package-ecosystem: 'github-actions'
+  directory: '/'
+  rebase-strategy: 'auto'
+  schedule:
+    interval: 'daily'
+
+- package-ecosystem: 'gomod'
+  directory: '/'
+  schedule:
+    interval: 'daily'
+  rebase-strategy: 'auto'
+  allow:
+  - dependency-type: 'direct'
