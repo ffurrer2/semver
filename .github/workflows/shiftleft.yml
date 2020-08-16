@@ -29,13 +29,14 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
-      with:
-        languages: go
+    # - name: Initialize CodeQL
+    #   uses: github/codeql-action/init@v1
+    #   with:
+    #     languages: go
     - name: Build
       run: |
         task build
+        task install
     - name: Perform ShiftLeft scan
       uses: ShiftLeftSecurity/scan-action@master
       env:
