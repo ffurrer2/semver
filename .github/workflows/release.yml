@@ -7,13 +7,13 @@ on:
     - '*.*.*'
 
 env:
-  GO_VERSION: 1.14
-  GORELEASER_VERSION: 0.140.1
+  GO_VERSION: 1.15
+  GORELEASER_VERSION: 0.141.0
 
 jobs:
   create-release:
     name: Create release
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
     - name: Set up Go
       uses: actions/setup-go@v2
