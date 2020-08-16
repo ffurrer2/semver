@@ -18,4 +18,5 @@ jobs:
     - name: yamllint
       uses: docker://ffurrer/yamllint:latest
       with:
-        args: '--config-file build/ci/.yamllint.yml --format auto --strict .'
+        entrypoint: /usr/bin/yamllint
+        args: '--config-file build/ci/yamllint.yml --format auto --strict .'

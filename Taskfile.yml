@@ -75,19 +75,19 @@ tasks:
   goreleaser:check:
     desc: Check GoReleaser configuration
     cmds:
-    - goreleaser check --config build/package/.goreleaser.yml
+    - goreleaser check --config build/package/goreleaser.yml
 
   goreleaser:snapshot:
     desc: Create snapshot release with GoReleaser
     env:
       SNAPSHOT_VERSION: '{{.BUILD_VERSION}}'
     cmds:
-    - goreleaser release --config build/package/.goreleaser.yml --snapshot --skip-publish --rm-dist --debug
+    - goreleaser release --config build/package/goreleaser.yml --snapshot --skip-publish --rm-dist --debug
 
   goreleaser:release-dry-run:
     desc: Create release with GoReleaser without publishing artifacts
     cmds:
-    - goreleaser release --config build/package/.goreleaser.yml --skip-publish --rm-dist
+    - goreleaser release --config build/package/goreleaser.yml --skip-publish --rm-dist
 
   lint:
     desc: Run all linters
@@ -108,7 +108,7 @@ tasks:
   yamllint:
     desc: Lint YAML files
     cmds:
-    - yamllint --config-file build/ci/.yamllint.yml --format auto --strict .
+    - yamllint --config-file build/ci/yamllint.yml --format auto --strict .
     silent: true
 
   hadolint:
@@ -121,13 +121,13 @@ tasks:
   markdownlint:
     desc: Lint Markdown files
     cmds:
-    - docker run -it --rm --volume "$(pwd):/work" tmknom/markdownlint:latest --config build/ci/.markdownlint.yml .
+    - docker run -it --rm --volume "$(pwd):/work" tmknom/markdownlint:latest --config build/ci/markdownlint.yml .
     silent: true
 
   golangci-lint:
     desc: Lint Go code
     cmds:
-    - golangci-lint run --out-format colored-line-number --issues-exit-code 0 --tests --print-resources-usage --config build/ci/.golangci.yml
+    - golangci-lint run --out-format colored-line-number --issues-exit-code 0 --tests --print-resources-usage --config build/ci/golangci.yml
     silent: true
 
   container-structure-test:
@@ -135,3 +135,9 @@ tasks:
     cmds:
     - container-structure-test test --image ffurrer/semver:latest --config test/semver_container_test.yml
     - container-structure-test test --image ffurrer/semver:alpine --config test/semver_alpine_container_test.yml
+
+  shiftleft:
+    desc: Run shiftleft scan
+    cmds:
+    - docker run --rm -e DISABLE_TELEMETRY=true -v "$(pwd):/app" shiftleft/scan scan --build --type bash,credscan,go,yaml --out_dir artifacts/shiftleft-reports
+    silent: true

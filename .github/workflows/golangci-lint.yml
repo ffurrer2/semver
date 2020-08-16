@@ -8,7 +8,7 @@ on:
     - feature/**
     paths:
     - '**.go'
-    - '**/.golangci.yml'
+    - '**/golangci.yml'
     - '**/golangci-lint.yml'
 
 env:
@@ -24,4 +24,4 @@ jobs:
       uses: golangci/golangci-lint-action@v2.3.0
       with:
         version: v${{ env.GOLANGCI_LINT_VERSION }}
-        args: '--issues-exit-code 0 --tests --config build/ci/.golangci.yml'
+        args: '--issues-exit-code 0 --tests --config build/ci/golangci.yml'

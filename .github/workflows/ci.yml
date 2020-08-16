@@ -45,7 +45,7 @@ jobs:
       uses: goreleaser/goreleaser-action@v2
       with:
         version: v${{ env.GORELEASER_VERSION }}
-        args: check --config build/package/.goreleaser.yml
+        args: check --config build/package/goreleaser.yml
     - name: Set up SNAPSHOT_VERSION environment variable
       run: |
         echo "::set-env name=SNAPSHOT_VERSION::$(./scripts/version.sh)"
@@ -53,7 +53,7 @@ jobs:
       uses: goreleaser/goreleaser-action@v2
       with:
         version: v${{ env.GORELEASER_VERSION }}
-        args: release --config build/package/.goreleaser.yml --snapshot --skip-publish --rm-dist --debug
+        args: release --config build/package/goreleaser.yml --snapshot --skip-publish --rm-dist --debug
     - name: Container structure test (scratch)
       uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest
       with:

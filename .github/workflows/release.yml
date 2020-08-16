@@ -34,4 +34,4 @@ jobs:
       uses: goreleaser/goreleaser-action@v2
       with:
         version: v${{ env.GORELEASER_VERSION }}
-        args: release --config build/package/.goreleaser.yml --release-notes=RELEASE_NOTES.md --rm-dist
+        args: release --config build/package/goreleaser.yml --release-notes=RELEASE_NOTES.md --rm-dist

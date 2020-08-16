@@ -4,14 +4,24 @@ version: 2
 updates:
 - package-ecosystem: 'github-actions'
   directory: '/'
-  rebase-strategy: 'auto'
   schedule:
-    interval: 'daily'
+    interval: 'weekly'
+  assignees:
+  - 'ffurrer2'
+  open-pull-requests-limit: 42
+  rebase-strategy: 'auto'
+  reviewers:
+  - 'ffurrer2'
 
 - package-ecosystem: 'gomod'
   directory: '/'
   schedule:
-    interval: 'daily'
-  rebase-strategy: 'auto'
+    interval: 'weekly'
   allow:
   - dependency-type: 'direct'
+  assignees:
+  - 'ffurrer2'
+  open-pull-requests-limit: 42
+  rebase-strategy: 'auto'
+  reviewers:
+  - 'ffurrer2'
