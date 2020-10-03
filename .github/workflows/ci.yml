@@ -16,7 +16,7 @@ on:
 
 env:
   GO_VERSION: 1.15
-  TASK_VERSION: 2.8.1
+  TASK_VERSION: 3.0.0
   GORELEASER_VERSION: 0.141.0
 
 jobs:
@@ -46,7 +46,7 @@ jobs:
       with:
         version: v${{ env.GORELEASER_VERSION }}
         args: check --config build/package/goreleaser.yml
-    - name: Set up SNAPSHOT_VERSION environment variable
+    - name: Set up environment variables
       run: |
         echo "::set-env name=SNAPSHOT_VERSION::$(./scripts/version.sh)"
     - name: Create snapshot release
@@ -62,3 +62,13 @@ jobs:
       uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest
       with:
         args: 'test --image ffurrer/semver:alpine --config test/semver_alpine_container_test.yml'
+    - name: Container Scan (scratch)
+      uses: azure/container-scan@v0
+      with:
+        image-name: ffurrer/semver:latest
+        severity-threshold: UNKNOWN
+    - name: Container Scan (alpine)
+      uses: azure/container-scan@v0
+      with:
+        image-name: ffurrer/semver:alpine
+        severity-threshold: UNKNOWN

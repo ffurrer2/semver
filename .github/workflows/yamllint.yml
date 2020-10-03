@@ -6,6 +6,7 @@ on:
     branches:
     - master
     - feature/**
+    - dependabot/**
     paths:
     - '**.ya?ml'
 
@@ -19,4 +20,4 @@ jobs:
       uses: docker://ffurrer/yamllint:latest
       with:
         entrypoint: /usr/bin/yamllint
-        args: '--config-file build/ci/yamllint.yml --format auto --strict .'
+        args: '--config-file .github/linters/.yaml-lint.yml --format github --strict .'

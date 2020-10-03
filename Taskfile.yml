@@ -1,15 +1,16 @@
 # SPDX-License-Identifier: MIT
+# https://taskfile.dev
 version: '2'
 
 vars:
   PROJECT_NAME: semver
   PROJECT_OWNER: ffurrer2
-  BUILD_VERSION: {sh: bash ./scripts/version.sh}
-  BUILD_VERSION_SHORT: {sh: bash ./scripts/version.sh --short}
+  BUILD_VERSION: { sh: bash ./scripts/version.sh }
+  BUILD_VERSION_SHORT: { sh: bash ./scripts/version.sh --short }
   BUILD_DATE: '{{dateInZone "2006-01-02T15:04:05Z" now "UTC"}}'
-  GIT_BRANCH: {sh: bash ./scripts/branch.sh}
-  GIT_SHA: {sh: git rev-parse HEAD}
-  GIT_SHA_SHORT: {sh: git rev-parse --short HEAD}
+  GIT_BRANCH: { sh: bash ./scripts/branch.sh }
+  GIT_SHA: { sh: git rev-parse HEAD }
+  GIT_SHA_SHORT: { sh: git rev-parse --short HEAD }
   GO_BUILD_ENV: CGO_ENABLED=0
   LDFLAGS: >-
     -X github.com/ffurrer2/semver/internal/pkg/app.version={{.BUILD_VERSION}}
@@ -30,7 +31,7 @@ tasks:
   prepare:
     desc: Download required dependencies
     cmds:
-    - go mod download
+    - go mod download -x
 
   verify:
     desc: Verify downloaded dependencies
@@ -92,23 +93,25 @@ tasks:
   lint:
     desc: Run all linters
     cmds:
-    - task: shellcheck
-    - task: yamllint
+    - task: dockle
+    - task: golangci-lint
     - task: hadolint
     - task: markdownlint
-    - task: golangci-lint
+    - task: trivy
+    - task: yamllint
     silent: true
 
-  shellcheck:
-    desc: Lint shell scripts
+  dockle:
+    desc: Run Dockle (container image linter)
     cmds:
-    - shellcheck --check-sourced --color=auto --format=tty --enable=all --source-path=scripts --shell=bash --severity=style scripts/branch.sh scripts/version.sh
+    - dockle ffurrer/semver:latest
+    - dockle ffurrer/semver:alpine
     silent: true
 
-  yamllint:
-    desc: Lint YAML files
+  golangci-lint:
+    desc: Lint Go code
     cmds:
-    - yamllint --config-file build/ci/yamllint.yml --format auto --strict .
+    - golangci-lint run --out-format colored-line-number --issues-exit-code 0 --tests --print-resources-usage --config .github/linters/.golangci.yml
     silent: true
 
   hadolint:
@@ -121,13 +124,27 @@ tasks:
   markdownlint:
     desc: Lint Markdown files
     cmds:
-    - docker run -it --rm --volume "$(pwd):/work" tmknom/markdownlint:latest --config build/ci/markdownlint.yml .
+    - docker run -it --rm --volume "$(pwd):/work" tmknom/markdownlint:latest --config .github/linters/.markdown-lint.yml .
     silent: true
 
-  golangci-lint:
-    desc: Lint Go code
+  trivy:
+    desc: Run trivy (vulnerability scanner)
     cmds:
-    - golangci-lint run --out-format colored-line-number --issues-exit-code 0 --tests --print-resources-usage --config build/ci/golangci.yml
+    - trivy image --format table ffurrer/semver:latest
+    - trivy image --skip-update --format table ffurrer/semver:alpine
+
+    silent: true
+
+  yamllint:
+    desc: Lint YAML files
+    cmds:
+    - yamllint --config-file .github/linters/.yaml-lint.yml --format auto --strict .
+    silent: true
+
+  shiftleft:go:
+    desc: Run shiftleft scan
+    cmds:
+    - docker run --rm -e DISABLE_TELEMETRY=true -v "$(pwd):/app" shiftleft/scan scan --build --type credscan,go,yaml,bash,depscan --out_dir artifacts/shiftleft-reports
     silent: true
 
   container-structure-test:
@@ -135,9 +152,3 @@ tasks:
     cmds:
     - container-structure-test test --image ffurrer/semver:latest --config test/semver_container_test.yml
     - container-structure-test test --image ffurrer/semver:alpine --config test/semver_alpine_container_test.yml
-
-  shiftleft:
-    desc: Run shiftleft scan
-    cmds:
-    - docker run --rm -e DISABLE_TELEMETRY=true -v "$(pwd):/app" shiftleft/scan scan --build --type bash,credscan,go,yaml --out_dir artifacts/shiftleft-reports
-    silent: true

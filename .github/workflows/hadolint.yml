@@ -6,9 +6,10 @@ on:
     branches:
     - master
     - feature/**
+    - dependabot/**
     paths:
     - '**/Dockerfile*'
-    - '**/hadolint.yml'
+    - '.github/workflows/hadolint.yml'
 
 jobs:
   hadolint:
