@@ -4,7 +4,7 @@ set -euo pipefail
 
 for cmd in {git,tr}; do
   if [[ ! -x "$(command -v "${cmd}")" ]]; then
-    printf "error: command not found: %s\n" "${cmd}" >&2
+    printf 'error: command not found: %s\n' "${cmd}" >&2
     exit 1
   fi
 done
@@ -12,7 +12,7 @@ done
 # ###################################################################################### #
 # Prints the cleaned name of the current Git branch                                      #
 #                                                                                        #
-# VERSION: 1.1.0                                                                         #
+# VERSION: 1.3.0                                                                         #
 #                                                                                        #
 # DEPENDENCIES:                                                                          #
 #  - git                                                                                 #

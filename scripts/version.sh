@@ -11,7 +11,7 @@ set -euo pipefail
 #   <pre-release>       ::= <cleaned-branch-name>                                        #
 #   <build-metadata>    ::= <yyyymmdd>.<commit-hash>                                     #
 #                                                                                        #
-# VERSION: 1.1.0                                                                         #
+# VERSION: 1.3.0                                                                         #
 #                                                                                        #
 # DEPENDENCIES:                                                                          #
 #  - git                                                                                 #
@@ -27,7 +27,7 @@ set -euo pipefail
 
 for cmd in {git,sed}; do
   if [[ ! -x "$(command -v "${cmd}")" ]]; then
-    printf "error: command not found: %s\n" "${cmd}" >&2
+    printf 'error: command not found: %s\n' "${cmd}" >&2
     exit 1
   fi
 done
@@ -92,10 +92,7 @@ lastAccessibleTag() {
 
 nextPatchVersion() {
   local version="$1"
-  IFS='.' read -r -a version_array <<<"${version}"
-  local major="${version_array[0]}"
-  local minor="${version_array[1]}"
-  local patch="${version_array[2]}"
+  IFS='.' read -r major minor patch _ <<<"${version}"
   local next_patch="$((patch + 1))"
   printf '%s.%s.%s' "${major}" "${minor}" "${next_patch}"
 }
