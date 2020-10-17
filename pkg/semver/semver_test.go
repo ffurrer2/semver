@@ -9,7 +9,7 @@ import (
 	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
 
-	"github.com/ffurrer2/semver/internal/pkg/numeric"
+	"github.com/ffurrer2/semver/internal/pkg/number"
 	"github.com/ffurrer2/semver/pkg/semver"
 )
 
@@ -674,7 +674,7 @@ var _ = Describe("semver:", func() {
 	Describe("Calling func mustParseUint(s string) uint", func() {
 		Context("when s is a valid unsigned integer", func() {
 			DescribeTable("it should return the correct uint value", func(input string, expected uint) {
-				actual := numeric.MustParseUint(input)
+				actual := number.MustParseUint(input)
 				Expect(actual).To(Equal(expected))
 			},
 				Entry("0", "0", uint(0)),
@@ -687,7 +687,7 @@ var _ = Describe("semver:", func() {
 		Context("when s is not a valid unsigned integer", func() {
 			It("should panic", func() {
 				sut := func() {
-					numeric.MustParseUint("0.0.0-00")
+					number.MustParseUint("0.0.0-00")
 				}
 				Expect(sut).To(Panic())
 			})

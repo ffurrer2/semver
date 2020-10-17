@@ -6,6 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/ffurrer2/semver/internal/pkg/cli"
 	"github.com/ffurrer2/semver/pkg/semver"
 )
 
@@ -24,17 +25,17 @@ var sortCmd = &cobra.Command{
 			for _, s := range args {
 				semVer, err := semver.Parse(s)
 				if err != nil {
-					cli.PrintErrf("error: %v\n", err)
+					cmd.PrintErrf("error: %v\n", err)
 					os.Exit(1)
 				}
 				semverSlice = append(semverSlice, *semVer)
 			}
 			semver.Sort(semverSlice)
 			for _, s := range semverSlice {
-				cli.Printf("%s\n", s)
+				cmd.Printf("%s\n", s)
 			}
 		}
-		cli.Map(args, sort)
+		cli.Map(args, cmd.InOrStdin(), sort)
 	},
 }
 

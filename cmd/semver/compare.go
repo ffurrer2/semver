@@ -24,16 +24,16 @@ The output will be:
 	Run: func(cmd *cobra.Command, args []string) {
 		semver1, err := semver.Parse(args[0])
 		if err != nil {
-			cli.PrintErrf("error: %v\n", err)
+			cmd.PrintErrf("error: %v\n", err)
 			os.Exit(1)
 		}
 		semver2, err := semver.Parse(args[1])
 		if err != nil {
-			cli.PrintErrf("error: %v\n", err)
+			cmd.PrintErrf("error: %v\n", err)
 			os.Exit(1)
 		}
 		result := semver1.CompareTo(*semver2)
-		cli.Printf("%d\n", result)
+		cmd.Printf("%d\n", result)
 	},
 }
 

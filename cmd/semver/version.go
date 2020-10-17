@@ -20,7 +20,7 @@ var versionCmd = &cobra.Command{
 	Args:                  cobra.NoArgs,
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
-		cli.Printf(versionFormat, app.BuildVersion(), app.CommitHash(), app.BuildDate())
+		cmd.Printf(versionFormat, app.BuildVersion(), app.CommitHash(), app.BuildDate())
 	},
 }
 

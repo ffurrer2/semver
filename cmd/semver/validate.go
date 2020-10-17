@@ -6,6 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/ffurrer2/semver/internal/pkg/cli"
 	"github.com/ffurrer2/semver/pkg/semver"
 )
 
@@ -29,7 +30,7 @@ The exit code will be:
 				os.Exit(1)
 			}
 		}
-		cli.Apply(args, isValid)
+		cli.Apply(args, cmd.InOrStdin(), isValid)
 	},
 }
 

@@ -8,7 +8,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/ffurrer2/semver/internal/pkg/numeric"
+	"github.com/ffurrer2/semver/internal/pkg/number"
 )
 
 const MaxMajor = ^uint(0)
@@ -58,11 +58,11 @@ func Parse(s string) (*SemVer, error) {
 		name := groupNames[groupIdx]
 		switch name {
 		case "major":
-			semver.Major = numeric.MustParseUint(group)
+			semver.Major = number.MustParseUint(group)
 		case "minor":
-			semver.Minor = numeric.MustParseUint(group)
+			semver.Minor = number.MustParseUint(group)
 		case "patch":
-			semver.Patch = numeric.MustParseUint(group)
+			semver.Patch = number.MustParseUint(group)
 		case "prerelease":
 			semver.PreRelease = splitDotSeparatedString(group)
 		case "buildmetadata":
@@ -180,11 +180,11 @@ func (s SemVer) IsValid() bool {
 
 func (s SemVer) CompareTo(o SemVer) int {
 	// Major, minor, and patch versions are always compared numerically.
-	if res := numeric.CompareUint(s.Major, o.Major); res != 0 {
+	if res := number.CompareUint(s.Major, o.Major); res != 0 {
 		return res
-	} else if res := numeric.CompareUint(s.Minor, o.Minor); res != 0 {
+	} else if res := number.CompareUint(s.Minor, o.Minor); res != 0 {
 		return res
-	} else if res := numeric.CompareUint(s.Patch, o.Patch); res != 0 {
+	} else if res := number.CompareUint(s.Patch, o.Patch); res != 0 {
 		return res
 	}
 	// => Major, minor, and patch are equal and pre-release identifiers are not equal
@@ -202,7 +202,7 @@ func (s SemVer) CompareTo(o SemVer) int {
 	// comparing each dot separated identifier from left to right until a difference is found as follows: identifiers
 	// consisting of only digits are compared numerically and identifiers with letters or hyphens are compared
 	// lexically in ASCII sort order.
-	for i := 0; i < numeric.MinInt(len(s.PreRelease), len(o.PreRelease)); i++ {
+	for i := 0; i < number.MinInt(len(s.PreRelease), len(o.PreRelease)); i++ {
 		if res := comparePreReleaseIdentifier(s.PreRelease[i], o.PreRelease[i]); res != 0 {
 			return res
 		}
@@ -254,8 +254,8 @@ func comparePreReleaseIdentifier(a, b string) int {
 	if a == b {
 		return 0
 	}
-	if numeric.IsNumeric(a) && numeric.IsNumeric(b) {
-		return numeric.CompareUint(numeric.MustParseUint(a), numeric.MustParseUint(b))
+	if number.IsNumeric(a) && number.IsNumeric(b) {
+		return number.CompareUint(number.MustParseUint(a), number.MustParseUint(b))
 	}
 	return strings.Compare(a, b)
 }

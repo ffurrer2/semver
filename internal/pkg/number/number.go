@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-package numeric
+package number
 
 import (
 	"math/bits"

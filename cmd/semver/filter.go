@@ -4,6 +4,7 @@ package main
 import (
 	"github.com/spf13/cobra"
 
+	"github.com/ffurrer2/semver/internal/pkg/cli"
 	"github.com/ffurrer2/semver/pkg/semver"
 )
 
@@ -21,10 +22,10 @@ var (
 			filter := func(s string) {
 				ok := semver.IsValid(s)
 				if ok != invalid {
-					cli.Printf("%s\n", s)
+					cmd.Printf("%s\n", s)
 				}
 			}
-			cli.Apply(args, filter)
+			cli.Apply(args, cmd.InOrStdin(), filter)
 		},
 	}
 )

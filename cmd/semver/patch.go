@@ -6,6 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/ffurrer2/semver/internal/pkg/cli"
 	"github.com/ffurrer2/semver/pkg/semver"
 )
 
@@ -20,12 +21,12 @@ var patchCmd = &cobra.Command{
 		nextPatch := func(s string) {
 			semver, err := semver.Parse(s)
 			if err != nil {
-				cli.PrintErrf("error: %v\n", err)
+				cmd.PrintErrf("error: %v\n", err)
 				os.Exit(1)
 			}
-			cli.Printf("%s\n", semver.NextPatch().String())
+			cmd.Printf("%s\n", semver.NextPatch().String())
 		}
-		cli.Apply(args, nextPatch)
+		cli.Apply(args, cmd.InOrStdin(), nextPatch)
 	},
 }
 

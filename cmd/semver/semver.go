@@ -5,8 +5,6 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-
-	"github.com/ffurrer2/semver/internal/pkg/app"
 )
 
 const usageTemplate = `Usage:{{if .Runnable}}
@@ -34,17 +32,17 @@ Additional help topics:{{range .Commands}}{{if .IsAdditionalHelpTopicCommand}}
 Use "{{.CommandPath}} [command] --help" for more information about a command.{{end}}
 `
 
-var cli app.CLI
-
 var rootCmd = &cobra.Command{
 	Use:  "semver",
 	Long: "The semantic version utility",
 }
 
 func init() {
-	cli = app.NewCLI()
 	rootCmd.SetUsageTemplate(usageTemplate)
 	rootCmd.Flags().FlagUsages()
+	rootCmd.SetIn(os.Stdin)
+	rootCmd.SetOut(os.Stdout)
+	rootCmd.SetErr(os.Stderr)
 }
 
 func main() {

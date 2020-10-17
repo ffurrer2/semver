@@ -8,6 +8,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/ffurrer2/semver/internal/pkg/cli"
 	"github.com/ffurrer2/semver/pkg/semver"
 )
 
@@ -41,12 +42,12 @@ type SemVer struct {
 		text := args[0]
 		tpl, err := template.New("semver").Parse(text)
 		if err != nil {
-			cli.PrintErrf("error: %v\n", err)
+			cmd.PrintErrf("error: %v\n", err)
 		}
 		format := func(s string) {
 			semver, err := semver.Parse(s)
 			if err != nil {
-				cli.PrintErrf("error: %v\n", err)
+				cmd.PrintErrf("error: %v\n", err)
 				os.Exit(1)
 			}
 			data := semVer{
@@ -58,11 +59,11 @@ type SemVer struct {
 			}
 			err = tpl.Execute(os.Stdout, data)
 			if err != nil {
-				cli.PrintErrf("error: %v\n", err)
+				cmd.PrintErrf("error: %v\n", err)
 			}
-			cli.Printf("\n")
+			cmd.Printf("\n")
 		}
-		cli.Apply(args[1:], format)
+		cli.Apply(args[1:], cmd.InOrStdin(), format)
 	},
 }
 
