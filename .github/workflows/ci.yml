@@ -46,9 +46,9 @@ jobs:
       with:
         version: v${{ env.GORELEASER_VERSION }}
         args: check --config build/package/goreleaser.yml
-    - name: Set up environment variables
+    - name: Set environment variables
       run: |
-        echo "::set-env name=SNAPSHOT_VERSION::$(./scripts/version.sh)"
+        echo "SNAPSHOT_VERSION=$(./scripts/version.sh)" >>"${GITHUB_ENV}"
     - name: Create snapshot release
       uses: goreleaser/goreleaser-action@v2
       with:
