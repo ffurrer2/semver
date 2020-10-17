@@ -9,6 +9,8 @@ import (
 	"github.com/ffurrer2/semver/pkg/semver"
 )
 
+const compareCmdExactArgs = 2
+
 var compareCmd = &cobra.Command{
 	Use:   "compare [flag] semver1 semver2",
 	Short: "Compare semantic versions",
@@ -19,7 +21,7 @@ The output will be:
   0 if semver1 == semver2
   1 if semver1 > semver2`,
 	Example:               `  semver compare 1.0.0 1.0.0-alpha.1`,
-	Args:                  cobra.ExactArgs(2),
+	Args:                  cobra.ExactArgs(compareCmdExactArgs),
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
 		semver1, err := semver.Parse(args[0])
