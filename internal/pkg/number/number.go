@@ -17,7 +17,10 @@ func init() {
 
 func ParseUint(s string) (uint, error) {
 	u64, err := strconv.ParseUint(s, 10, bits.UintSize)
-	return uint(u64), err
+	if err != nil {
+		return 0, err
+	}
+	return uint(u64), nil
 }
 
 func MustParseUint(s string) uint {
