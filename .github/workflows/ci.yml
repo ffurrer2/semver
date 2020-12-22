@@ -66,9 +66,9 @@ jobs:
       uses: azure/container-scan@v0
       with:
         image-name: ffurrer/semver:latest
-        severity-threshold: UNKNOWN
+        severity-threshold: HIGH
     - name: Container Scan (alpine)
       uses: azure/container-scan@v0
       with:
         image-name: ffurrer/semver:alpine
-        severity-threshold: UNKNOWN
+        severity-threshold: HIGH
