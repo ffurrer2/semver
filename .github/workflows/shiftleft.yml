@@ -4,7 +4,7 @@ name: shiftleft
 on:
   push:
     branches:
-    - master
+    - main
     - feature/**
     paths-ignore:
     - '**.md'

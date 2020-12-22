@@ -35,7 +35,7 @@ metadataTest:
   - key: 'org.opencontainers.image.description'
     value: 'A semantic versioning command line utility written in Go.'
   - key: 'org.opencontainers.image.documentation'
-    value: 'https://github.com/ffurrer2/semver/blob/master/README.md'
+    value: 'https://github.com/ffurrer2/semver/blob/main/README.md'
   - key: 'org.opencontainers.image.licenses'
     value: 'MIT'
   - key: 'org.opencontainers.image.revision'

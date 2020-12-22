@@ -19,7 +19,7 @@ done
 #  - tr                                                                                  #
 #                                                                                        #
 # EXAMPLES:                                                                              #
-#  master => master                                                                      #
+#  main => main                                                                      #
 #  feature/my-feature => feature-my-feature                                              #
 #  poc/Other_Feature => poc-other-feature                                                #
 #                                                                                        #

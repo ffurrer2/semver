@@ -4,7 +4,7 @@ name: hadolint
 on:
   push:
     branches:
-    - master
+    - main
     - feature/**
     - dependabot/**
     paths:

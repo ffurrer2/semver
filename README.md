@@ -3,7 +3,7 @@
 
 [![CI](https://github.com/ffurrer2/semver/workflows/CI/badge.svg)](https://github.com/ffurrer2/semver/actions?query=workflow%3ACI)
 [![Go Report Card](https://goreportcard.com/badge/github.com/ffurrer2/semver)](https://goreportcard.com/report/github.com/ffurrer2/semver)
-[![MIT License](https://img.shields.io/github/license/ffurrer2/semver)](https://github.com/ffurrer2/semver/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/github/license/ffurrer2/semver)](https://github.com/ffurrer2/semver/blob/main/LICENSE)
 [![GitHub Release](https://img.shields.io/github/v/release/ffurrer2/semver?sort=semver)](https://github.com/ffurrer2/semver/releases/latest)
 
 SemVer is a command-line utility for working with [Semantic Versions](https://semver.org/).

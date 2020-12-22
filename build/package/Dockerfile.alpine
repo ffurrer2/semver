@@ -11,7 +11,7 @@ ARG BUILD_VERSION
 LABEL org.opencontainers.image.authors="Felix Furrer" \
       org.opencontainers.image.created="${BUILD_DATE}" \
       org.opencontainers.image.description="A semantic versioning command line utility written in Go." \
-      org.opencontainers.image.documentation="https://github.com/ffurrer2/semver/blob/master/README.md" \
+      org.opencontainers.image.documentation="https://github.com/ffurrer2/semver/blob/main/README.md" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.revision="${GIT_SHA}" \
       org.opencontainers.image.source="https://github.com/ffurrer2/semver.git" \
