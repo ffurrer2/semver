@@ -190,11 +190,12 @@ func (s SemVer) CompareTo(o SemVer) int {
 	// => Major, minor, and patch are equal and pre-release identifiers are not equal
 
 	// When major, minor, and patch are equal, a pre-release version has lower precedence than a normal version.
-	if len(s.PreRelease) == 0 && len(o.PreRelease) == 0 {
+	switch {
+	case len(s.PreRelease) == 0 && len(o.PreRelease) == 0:
 		return 0
-	} else if len(s.PreRelease) == 0 {
+	case len(s.PreRelease) == 0:
 		return 1
-	} else if len(o.PreRelease) == 0 {
+	case len(o.PreRelease) == 0:
 		return -1
 	}
 
