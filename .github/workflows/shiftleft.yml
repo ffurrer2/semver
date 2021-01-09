@@ -12,7 +12,7 @@ on:
 
 env:
   GO_VERSION: 1.15
-  TASK_VERSION: 3.0.0
+  TASK_VERSION: 3.2.1
 
 jobs:
   shiftleft:
