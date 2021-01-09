@@ -51,8 +51,7 @@ tasks:
     cmds:
     - task: prepare
     - mkdir -p artifacts/coverage-results
-    - mkdir -p artifacts/test-results
-    - TEST_RESULT_DIR=../../artifacts/test-results go test -v -mod readonly -coverprofile artifacts/coverage-results/coverage.out -covermode count ./...
+    - go test -race -v -mod readonly -covermode atomic -coverprofile artifacts/coverage-results/coverage.out ./...
     - go tool cover -html artifacts/coverage-results/coverage.out -o artifacts/coverage-results/coverage.html
 
   install:
