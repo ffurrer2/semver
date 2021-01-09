@@ -88,9 +88,7 @@ checksum:
   algorithm: sha256
 
 dockers:
-- binaries:
-  - semver
-  builds:
+- ids:
   - semver
   goos: linux
   goarch: amd64
@@ -107,9 +105,7 @@ dockers:
   - --build-arg=GIT_SHA={{ .FullCommit }}
   - --build-arg=BUILD_VERSION={{ .Version }}
 
-- binaries:
-  - semver
-  builds:
+- ids:
   - semver
   goos: linux
   goarch: amd64
