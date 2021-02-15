@@ -21,7 +21,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: golangci-lint
-      uses: golangci/golangci-lint-action@v2.3.0
+      uses: golangci/golangci-lint-action@v2.4.0
       with:
         version: v${{ env.GOLANGCI_LINT_VERSION }}
         args: '--issues-exit-code 0 --tests --config .github/linters/.golangci.yml'
