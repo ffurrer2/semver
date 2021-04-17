@@ -9,9 +9,6 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-* Dependencies updated
-* CI workflows improved
-
 ### Deprecated
 
 ### Removed
@@ -19,6 +16,14 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 ### Security
+
+## [1.1.0] - 2021-04-17
+
+### Changed
+
+* Dependencies updated
+* Bump alpine from 3.12.3 to 3.13.5
+* CI workflow improved
 
 ## [1.0.1] - 2020-07-02
 
