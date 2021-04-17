@@ -4,14 +4,14 @@ name: Release
 on:
   push:
     tags:
-    - '*.*.*'
+    - 'v*.*.*'
 
 env:
-  GO_VERSION: 1.15
-  GORELEASER_VERSION: 0.154.0
+  GO_VERSION: 1.16
+  GORELEASER_VERSION: 0.162.0
 
 jobs:
-  create-release:
+  release:
     name: Create release
     runs-on: ubuntu-20.04
     steps:

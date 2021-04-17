@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-name: shiftleft
+name: ShiftLeft
 
 on:
   push:
@@ -11,8 +11,8 @@ on:
     - '.gitignore'
 
 env:
-  GO_VERSION: 1.15
-  TASK_VERSION: 3.2.1
+  GO_VERSION: 1.16
+  TASK_VERSION: 3.2.2
 
 jobs:
   shiftleft:

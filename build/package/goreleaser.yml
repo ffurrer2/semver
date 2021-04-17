@@ -129,7 +129,6 @@ dist: artifacts/dist
 
 before:
   hooks:
-  - go mod download
   - go mod verify
   - go test -v -mod readonly ./...
 

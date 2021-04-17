@@ -15,9 +15,9 @@ on:
     - main
 
 env:
-  GO_VERSION: 1.15
-  TASK_VERSION: 3.2.1
-  GORELEASER_VERSION: 0.154.0
+  GO_VERSION: 1.16
+  TASK_VERSION: 3.3.0
+  GORELEASER_VERSION: 0.162.0
 
 jobs:
   build:
