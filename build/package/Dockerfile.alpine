@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 # docker.io/library/alpine:3.13.5
-FROM alpine@sha256:827525365ff718681b0688621e09912af49a17611701ee4d421ba50d57c13f7e
+FROM alpine@sha256:def822f9851ca422481ec6fee59a9966f12b351c62ccb9aca841526ffaa9f748
 
 COPY semver /usr/local/bin/
 
