@@ -83,7 +83,7 @@ currentTag() {
 
 lastAccessibleTag() {
   local tag
-  tag="$(git describe --tags --abbrev=0 2>/dev/null)"
+  tag="$(git describe --tags --match "v*.*.*" --abbrev=0 2>/dev/null)"
   if [[ -z "${tag}" ]]; then
     tag="0.0.0"
   fi
@@ -99,7 +99,7 @@ nextPatchVersion() {
 
 isValid() {
   local version="$1"
-  if [[ "${version}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
+  if [[ "${version}" =~ ^v?(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
     return 0
   else
     return 1
