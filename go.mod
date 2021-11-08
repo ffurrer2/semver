@@ -5,6 +5,6 @@ go 1.16
 
 require (
 	github.com/onsi/ginkgo v1.16.5
-	github.com/onsi/gomega v1.16.0
+	github.com/onsi/gomega v1.17.0
 	github.com/spf13/cobra v1.2.1
 )
