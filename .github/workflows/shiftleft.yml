@@ -11,8 +11,8 @@ on:
     - '.gitignore'
 
 env:
-  GO_VERSION: 1.16
-  TASK_VERSION: 3.2.2
+  GO_VERSION: 1.17
+  TASK_VERSION: 3.9.2
 
 jobs:
   shiftleft:

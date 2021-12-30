@@ -7,7 +7,7 @@ on:
     - 'v*.*.*'
 
 env:
-  GO_VERSION: 1.16
+  GO_VERSION: 1.17
   GORELEASER_VERSION: 0.162.0
 
 jobs:
