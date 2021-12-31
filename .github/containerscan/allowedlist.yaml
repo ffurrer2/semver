@@ -4,3 +4,4 @@ general:
   # - CVE-0000-0000
   bestPracticeViolations:
   - CIS-DI-0006  # Add HEALTHCHECK instruction to the container image
+  - DKL-DI-0006  # Avoid 'latest' tag

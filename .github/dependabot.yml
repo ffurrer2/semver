@@ -8,7 +8,9 @@ updates:
     interval: 'weekly'
   assignees:
   - 'ffurrer2'
-  open-pull-requests-limit: 42
+  labels:
+  - 'dependabot'
+  open-pull-requests-limit: 999
   rebase-strategy: 'auto'
 
 - package-ecosystem: 'gomod'
@@ -19,5 +21,7 @@ updates:
   - dependency-type: 'direct'
   assignees:
   - 'ffurrer2'
-  open-pull-requests-limit: 42
+  labels:
+  - 'dependabot'
+  open-pull-requests-limit: 999
   rebase-strategy: 'auto'
