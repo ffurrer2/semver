@@ -16,7 +16,7 @@ on:
 env:
   GO_VERSION: 1.17
   TASK_VERSION: 3.9.2
-  GORELEASER_VERSION: 1.2.2
+  GORELEASER_VERSION: 1.2.5
 
 jobs:
   local-build:
