@@ -8,7 +8,6 @@ release:
   github:
     owner: ffurrer2
     name: semver
-  draft: false
   prerelease: auto
   name_template: '{{.Tag}}'
 
@@ -30,6 +29,7 @@ brews:
   skip_upload: 'false'
   ids:
   - semver
+  goarm: '6'
 
 scoop:
   name: semver
@@ -53,9 +53,15 @@ builds:
   goarch:
   - '386'
   - amd64
+  - arm64
+  goarm:
+  - '6'
   ignore:
   - goos: darwin
     goarch: '386'
+  - goos: windows
+    goarch: arm64
+  dir: .
   main: ./cmd/semver
   ldflags:
   - -X github.com/ffurrer2/semver/internal/pkg/app.version={{.Version}} -X github.com/ffurrer2/semver/internal/pkg/app.commit={{.Commit}} -X github.com/ffurrer2/semver/internal/pkg/app.date={{.Date}} -s -w
@@ -65,7 +71,9 @@ builds:
   binary: semver
   env:
   - CGO_ENABLED=0
-  lang: go
+  builder: go
+  gobinary: go
+
 archives:
 - id: semver
   builds:
@@ -76,9 +84,9 @@ archives:
   - goos: windows
     format: zip
   files:
-  - CHANGELOG.md
-  - LICENSE
-  - README.md
+  - src: CHANGELOG.md
+  - src: LICENSE
+  - src: README.md
 
 snapshot:
   name_template: '{{.Env.SNAPSHOT_VERSION}}'
@@ -104,7 +112,7 @@ dockers:
   - --build-arg=BUILD_DATE={{ .Date }}
   - --build-arg=GIT_SHA={{ .FullCommit }}
   - --build-arg=BUILD_VERSION={{ .Version }}
-
+  use: docker
 - ids:
   - semver
   goos: linux
@@ -121,6 +129,7 @@ dockers:
   - --build-arg=BUILD_DATE={{ .Date }}
   - --build-arg=GIT_SHA={{ .FullCommit }}
   - --build-arg=BUILD_VERSION={{ .Version }}
+  use: docker
 
 changelog:
   skip: true
@@ -130,8 +139,13 @@ dist: artifacts/dist
 before:
   hooks:
   - go mod verify
+  - go mod tidy
+  - go generate ./...
   - go test -v -mod readonly ./...
 
 source:
   name_template: '{{ .ProjectName }}-{{ .Version }}'
   format: tar.gz
+
+gomod:
+  gobinary: go

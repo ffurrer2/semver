@@ -16,10 +16,10 @@ on:
 env:
   GO_VERSION: 1.17
   TASK_VERSION: 3.9.2
-  GORELEASER_VERSION: 0.162.0
+  GORELEASER_VERSION: 1.2.2
 
 jobs:
-  build:
+  local-build:
     name: Local build
     runs-on: ubuntu-20.04
     steps:
@@ -65,7 +65,7 @@ jobs:
       uses: goreleaser/goreleaser-action@v2
       with:
         version: v${{ env.GORELEASER_VERSION }}
-        args: check --config build/package/goreleaser.yml
+        args: check --config build/package/.goreleaser.yaml
 
     - name: Set environment variables
       run: |
@@ -75,7 +75,7 @@ jobs:
       uses: goreleaser/goreleaser-action@v2
       with:
         version: v${{ env.GORELEASER_VERSION }}
-        args: release --config build/package/goreleaser.yml --snapshot --skip-publish --rm-dist --debug
+        args: release --config build/package/.goreleaser.yaml --snapshot --skip-publish --rm-dist --debug
 
     - name: Container structure test (scratch)
       uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest

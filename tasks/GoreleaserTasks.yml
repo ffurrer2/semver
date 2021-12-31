@@ -6,7 +6,7 @@ tasks:
   check:
     desc: Check GoReleaser configuration
     cmds:
-    - goreleaser check --config build/package/goreleaser.yml
+    - goreleaser check --config build/package/.goreleaser.yaml
     silent: true
 
   snapshot:
@@ -14,11 +14,11 @@ tasks:
     env:
       SNAPSHOT_VERSION: '{{.BUILD_VERSION}}'
     cmds:
-    - goreleaser release --config build/package/goreleaser.yml --rm-dist --snapshot
+    - goreleaser release --config build/package/.goreleaser.yaml --rm-dist --snapshot
     silent: true
 
   release-dry-run:
     desc: Create release with GoReleaser without publishing artifacts
     cmds:
-    - goreleaser release --config build/package/goreleaser.yml --rm-dist --skip-publish
+    - goreleaser release --config build/package/.goreleaser.yaml --rm-dist --skip-publish
     silent: true
