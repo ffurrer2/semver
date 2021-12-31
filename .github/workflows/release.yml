@@ -19,15 +19,21 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: ${{ env.GO_VERSION }}
+
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
     - name: Create release notes file
       uses: ffurrer2/extract-release-notes@v1
       with:
         release_notes_file: ./RELEASE_NOTES.md
+
     - name: Login into Docker Hub registry
       run: |
         echo '${{ secrets.DOCKERHUB_TOKEN }}' | docker login --username ${{ secrets.DOCKERHUB_USER }} --password-stdin
+
     - name: GoReleaser
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

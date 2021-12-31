@@ -23,6 +23,11 @@ jobs:
     name: Local build
     runs-on: ubuntu-20.04
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
@@ -31,11 +36,6 @@ jobs:
     - name: Set up task
       run: |
         sudo bash -c 'curl -fsSL https://taskfile.dev/install.sh | bash -s -- -b /usr/local/bin v${{ env.TASK_VERSION }}'
-
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
 
     - name: Build
       run: |
@@ -49,13 +49,15 @@ jobs:
     name: Simulate GoReleaser release
     runs-on: ubuntu-20.04
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
         go-version: ${{ env.GO_VERSION }}
-
-    - name: Checkout repository
-      uses: actions/checkout@v2
 
     - name: Set environment variables
       run: |
@@ -66,10 +68,6 @@ jobs:
       with:
         version: v${{ env.GORELEASER_VERSION }}
         args: check --config build/package/.goreleaser.yaml
-
-    - name: Set environment variables
-      run: |
-        echo "SNAPSHOT_VERSION=$(./scripts/version.sh)" >>"${GITHUB_ENV}"
 
     - name: Create snapshot release
       uses: goreleaser/goreleaser-action@v2
@@ -92,6 +90,7 @@ jobs:
       with:
         image-name: ffurrer/semver:latest
         severity-threshold: HIGH
+
     - name: Container Scan (alpine)
       uses: azure/container-scan@v0
       with:
