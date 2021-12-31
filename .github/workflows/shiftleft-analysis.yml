@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-name: ShiftLeft
+name: shiftleft
 
 on:
   push:
@@ -9,26 +9,26 @@ on:
     paths-ignore:
     - '**.md'
     - '.gitignore'
+  pull_request:
+    branches:
+    - main
 
 env:
   GO_VERSION: 1.17
-  TASK_VERSION: 3.9.2
 
 jobs:
   shiftleft:
+    name: ShiftLeft
     runs-on: ubuntu-20.04
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
         go-version: ${{ env.GO_VERSION }}
-    - name: Set up task
-      run: |
-        sudo bash -c 'curl -fsSL https://taskfile.dev/install.sh | bash -s -- -b /usr/local/bin v${{ env.TASK_VERSION }}'
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
+
     - name: Perform ShiftLeft scan
       uses: ShiftLeftSecurity/scan-action@master
       env:
@@ -39,6 +39,7 @@ jobs:
       with:
         type: credscan,go,yaml,bash,depscan
         output: artifacts/shiftleft-reports
+
     - name: Upload ShiftLeft reports
       uses: github/codeql-action/upload-sarif@v1
       with:

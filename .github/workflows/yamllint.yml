@@ -6,16 +6,22 @@ on:
     branches:
     - main
     - feature/**
-    - dependabot/**
+    paths:
+    - '**.ya?ml'
+  pull_request:
+    branches:
+    - main
     paths:
     - '**.ya?ml'
 
 jobs:
   yamllint:
+    name: yamllint
     runs-on: ubuntu-20.04
     steps:
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v2
+
     - name: yamllint
       uses: docker://ghcr.io/ffurrer2/yamllint:latest
       with:

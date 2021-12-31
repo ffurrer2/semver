@@ -6,16 +6,22 @@ on:
     branches:
     - main
     - feature/**
-    - dependabot/**
+    paths:
+    - '**/Dockerfile*'
+    - '.github/workflows/hadolint.yml'
+  pull_request:
+    branches:
+    - main
     paths:
     - '**/Dockerfile*'
     - '.github/workflows/hadolint.yml'
 
 jobs:
   hadolint:
+    name: hadolint
     runs-on: ubuntu-20.04
     steps:
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v2
     - name: hadolint
       uses: docker://hadolint/hadolint:latest

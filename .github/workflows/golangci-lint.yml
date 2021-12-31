@@ -8,17 +8,25 @@ on:
     - feature/**
     paths:
     - '**.go'
-    - '**/golangci.yml'
     - '**/golangci-lint.yml'
+    - '**/golangci.yml'
+  pull_request:
+    branches:
+    - main
+    paths:
+    - '**.go'
+    - '**/golangci-lint.yml'
+    - '**/golangci.yml'
 
 env:
   GOLANGCI_LINT_VERSION: 1.28
 
 jobs:
   golangci-lint:
+    name: golangci-lint
     runs-on: ubuntu-20.04
     steps:
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v2
     - name: golangci-lint
       uses: golangci/golangci-lint-action@v2.5.2
