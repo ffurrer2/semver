@@ -8,15 +8,27 @@ release:
   github:
     owner: ffurrer2
     name: semver
-  draft: true
+  draft: false
   prerelease: auto
   name_template: '{{.Tag}}'
+  footer: |
+    ## Docker images
+
+    - `docker pull docker.io/ffurrer/semver:{{ .Major }}.{{ .Minor }}.{{ .Patch }}`
+    - `docker pull docker.io/ffurrer/semver:{{ .Major }}.{{ .Minor }}`
+    - `docker pull docker.io/ffurrer/semver:{{ .Major }}`
+    - `docker pull docker.io/ffurrer/semver:latest`
+    - `docker pull docker.io/ffurrer/semver:{{ .Major }}.{{ .Minor }}.{{ .Patch }}-alpine`
+    - `docker pull docker.io/ffurrer/semver:{{ .Major }}.{{ .Minor }}-alpine`
+    - `docker pull docker.io/ffurrer/semver:{{ .Major }}-alpine`
+    - `docker pull docker.io/ffurrer/semver:alpine`
 
 brews:
 - name: semver
   tap:
     owner: ffurrer2
     name: homebrew-tap
+    branch: main
   commit_author:
     name: goreleaserbot
     email: ffurrer2@users.noreply.github.com
@@ -27,7 +39,7 @@ brews:
     system "#{bin}/semver version"
   description: A semantic versioning command line utility written in Go.
   homepage: https://github.com/ffurrer2/semver
-  skip_upload: 'false'
+  license: MIT
   ids:
   - semver
   goarm: '6'
@@ -103,10 +115,10 @@ dockers:
   goarch: amd64
   dockerfile: build/package/Dockerfile
   image_templates:
-  - docker.io/ffurrer/semver:latest
   - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}
   - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}
   - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}
+  - docker.io/ffurrer/semver:latest
   skip_push: 'false'
   build_flag_templates:
   - --pull
@@ -120,10 +132,10 @@ dockers:
   goarch: amd64
   dockerfile: build/package/Dockerfile.alpine
   image_templates:
-  - docker.io/ffurrer/semver:alpine
   - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}-alpine
-  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}-alpine
   - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}-alpine
+  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}-alpine
+  - docker.io/ffurrer/semver:alpine
   skip_push: 'false'
   build_flag_templates:
   - --pull
@@ -133,7 +145,7 @@ dockers:
   use: docker
 
 changelog:
-  skip: true
+  skip: false
 
 dist: artifacts/dist
 

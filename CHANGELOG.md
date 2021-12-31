@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
-## [1.2.0] - 2021-12-31
+## [1.2.0] - 2022-01-01
 
 ### Added
 
