@@ -1,4 +1,5 @@
 <!-- SPDX-License-Identifier: MIT -->
+
 # SemVer
 
 [![CI](https://github.com/ffurrer2/semver/workflows/CI/badge.svg)](https://github.com/ffurrer2/semver/actions?query=workflow%3ACI)
