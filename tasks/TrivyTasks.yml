@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: MIT
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  image:
+    desc: Run trivy (vulnerability scanner)
+    preconditions:
+    - sh: '{{if empty .IMAGE_NAME}}false{{end}}'
+      msg: 'error: variable "IMAGE_NAME" is required (e.g. task trivy:image IMAGE_NAME=docker.io/library/alpine:latest)'
+    cmds:
+    - trivy image --format table {{.IMAGE_NAME}}
+    silent: true

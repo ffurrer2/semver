@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: MIT
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  lint:
+    desc: Lint Go code
+    cmds:
+    - golangci-lint run --out-format colored-line-number --issues-exit-code 0 --tests --print-resources-usage --config .github/linters/.golangci.yml
+    silent: true

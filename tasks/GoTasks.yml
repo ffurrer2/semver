@@ -1,0 +1,86 @@
+# SPDX-License-Identifier: MIT
+# https://taskfile.dev
+version: '3'
+
+vars:
+  GO_BUILD_ENV: CGO_ENABLED=0
+  LDFLAGS: >-
+    -X github.com/ffurrer2/semver/internal/pkg/app.version={{.BUILD_VERSION}}
+    -X github.com/ffurrer2/semver/internal/pkg/app.commit={{.GIT_SHA}}
+    -X github.com/ffurrer2/semver/internal/pkg/app.date={{.BUILD_DATE}} -s -w
+
+tasks:
+  clean:
+    desc: Delete build artifacts
+    cmds:
+    - rm -rf artifacts/
+    silent: true
+
+  prepare:
+    desc: Download required dependencies
+    cmds:
+    - go mod download -x
+    silent: true
+
+  verify:
+    desc: Verify downloaded dependencies
+    cmds:
+    - go mod verify
+    silent: true
+
+  build:
+    desc: Build {{.PROJECT_NAME}}
+    cmds:
+    - task: prepare
+    - mkdir -p artifacts/bin
+    - |-
+      {{.GO_BUILD_ENV}} go build -o artifacts/bin -ldflags='{{.LDFLAGS}}' -mod readonly -v ./cmd/semver
+    silent: true
+
+  test:
+    desc: Run tests
+    cmds:
+    - task: prepare
+    - mkdir -p artifacts/coverage-results
+    - go test -race -v -mod readonly -covermode atomic -coverprofile artifacts/coverage-results/coverage.out ./...
+    - go tool cover -html artifacts/coverage-results/coverage.out -o artifacts/coverage-results/coverage.html
+    silent: true
+
+  install:
+    desc: Install {{.PROJECT_NAME}} into $GOPATH/bin
+    cmds:
+    - task: prepare
+    - |-
+      {{.GO_BUILD_ENV}} go install -ldflags='{{.LDFLAGS}}' -mod readonly -v ./cmd/semver
+    silent: true
+
+  tidy:
+    desc: Tidy go.mod
+    cmds:
+    - go mod tidy -v
+    silent: true
+
+  vendor:
+    desc: Create vendor directory
+    cmds:
+    - go mod vendor -v
+    silent: true
+
+  check-dependency-updates:
+    desc: Check dependency updates
+    cmds:
+    - |-
+      go list -u -f {{`'{{if (and (not (or .Main .Indirect)) .Update)}}{{.Path}}: {{.Version}} -> {{.Update.Version}}{{end}}'`}} -m all 2>/dev/null
+    silent: true
+
+  gofmt:
+    desc: Format Go code with gofmt
+    cmds:
+    - go fmt ./...
+    silent: true
+
+  gofumpt:
+    desc: Format Go code with gofumpt
+    cmds:
+    - gofumpt -l -w .
+    silent: true

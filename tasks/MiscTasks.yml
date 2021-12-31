@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: MIT
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  container-structure-test:
+    desc: Run container structure tests
+    cmds:
+    - container-structure-test test --image ffurrer/semver:latest --config test/semver_container_test.yml
+    - container-structure-test test --image ffurrer/semver:alpine --config test/semver_alpine_container_test.yml

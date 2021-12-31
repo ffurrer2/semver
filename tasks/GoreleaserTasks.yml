@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: MIT
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  check:
+    desc: Check GoReleaser configuration
+    cmds:
+    - goreleaser check --config build/package/goreleaser.yml
+    silent: true
+
+  snapshot:
+    desc: Create snapshot release with GoReleaser
+    env:
+      SNAPSHOT_VERSION: '{{.BUILD_VERSION}}'
+    cmds:
+    - goreleaser release --config build/package/goreleaser.yml --rm-dist --snapshot
+    silent: true
+
+  release-dry-run:
+    desc: Create release with GoReleaser without publishing artifacts
+    cmds:
+    - goreleaser release --config build/package/goreleaser.yml --rm-dist --skip-publish
+    silent: true

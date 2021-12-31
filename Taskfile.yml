@@ -2,20 +2,28 @@
 # https://taskfile.dev
 version: '3'
 
+includes:
+  dockle: ./tasks/DockleTasks.yml
+  git: ./tasks/GitTasks.yml
+  go: ./tasks/GoTasks.yml
+  golangci: ./tasks/GolangciLintTasks.yml
+  goreleaser: ./tasks/GoreleaserTasks.yml
+  hadolint: ./tasks/HadolintTasks.yml
+  markdownlint: ./tasks/MarkdownlintTasks.yml
+  misc: ./tasks/MiscTasks.yml
+  shiftleft: ./tasks/ShiftleftTasks.yml
+  trivy: ./tasks/TrivyTasks.yml
+  yamllint: ./tasks/YamllintTasks.yml
+
 vars:
   PROJECT_NAME: semver
   PROJECT_OWNER: ffurrer2
   BUILD_VERSION: { sh: bash ./scripts/version.sh }
   BUILD_VERSION_SHORT: { sh: bash ./scripts/version.sh --short }
-  BUILD_DATE: '{{dateInZone "2006-01-02T15:04:05Z" now "UTC"}}'
+  BUILD_DATE: '1970-01-01T00:00:00Z'
   GIT_BRANCH: { sh: bash ./scripts/branch.sh }
   GIT_SHA: { sh: git rev-parse HEAD }
   GIT_SHA_SHORT: { sh: git rev-parse --short HEAD }
-  GO_BUILD_ENV: CGO_ENABLED=0
-  LDFLAGS: >-
-    -X github.com/ffurrer2/semver/internal/pkg/app.version={{.BUILD_VERSION}}
-    -X github.com/ffurrer2/semver/internal/pkg/app.commit={{.GIT_SHA}}
-    -X github.com/ffurrer2/semver/internal/pkg/app.date={{.BUILD_DATE}} -s -w
 
 tasks:
   default:
@@ -26,128 +34,58 @@ tasks:
   clean:
     desc: Delete build artifacts
     cmds:
-    - rm -rf artifacts/
-
-  prepare:
-    desc: Download required dependencies
-    cmds:
-    - go mod download -x
-
-  verify:
-    desc: Verify downloaded dependencies
-    cmds:
-    - go mod verify
+    - task: go:clean
+    silent: true
 
   build:
     desc: Build {{.PROJECT_NAME}}
     cmds:
-    - task: prepare
-    - mkdir -p artifacts/bin
-    - |-
-      {{.GO_BUILD_ENV}} go build -o artifacts/bin -ldflags='{{.LDFLAGS}}' -mod readonly -v ./cmd/semver
+    - task: go:build
+    silent: true
 
   test:
-    desc: Run tests
+    desc: Test {{.PROJECT_NAME}}
     cmds:
-    - task: prepare
-    - mkdir -p artifacts/coverage-results
-    - go test -race -v -mod readonly -covermode atomic -coverprofile artifacts/coverage-results/coverage.out ./...
-    - go tool cover -html artifacts/coverage-results/coverage.out -o artifacts/coverage-results/coverage.html
-
-  install:
-    desc: Install {{.PROJECT_NAME}} into $GOPATH/bin
-    cmds:
-    - task: prepare
-    - |-
-      {{.GO_BUILD_ENV}} go install -ldflags='{{.LDFLAGS}}' -mod readonly -v ./cmd/semver
-
-  tidy:
-    desc: Tidy go.mod
-    cmds:
-    - go mod tidy -v
-
-  show-dependency-updates:
-    desc: Show dependency updates
-    cmds:
-    - |-
-      go list -u -f {{`'{{if (and (not (or .Main .Indirect)) .Update)}}{{.Path}}: {{.Version}} -> {{.Update.Version}}{{end}}'`}} -m all 2>/dev/null
-
-  goreleaser:check:
-    desc: Check GoReleaser configuration
-    cmds:
-    - goreleaser check --config build/package/goreleaser.yml
-
-  goreleaser:snapshot:
-    desc: Create snapshot release with GoReleaser
-    env:
-      SNAPSHOT_VERSION: '{{.BUILD_VERSION}}'
-    cmds:
-    - goreleaser release --config build/package/goreleaser.yml --snapshot --skip-publish --rm-dist --debug
-
-  goreleaser:release-dry-run:
-    desc: Create release with GoReleaser without publishing artifacts
-    cmds:
-    - goreleaser release --config build/package/goreleaser.yml --skip-publish --rm-dist
+    - task: go:test
+    silent: true
 
   lint:
     desc: Run all linters
     cmds:
-    - task: dockle
-    - task: golangci-lint
-    - task: hadolint
-    - task: markdownlint
-    - task: trivy
-    - task: yamllint
+    - task: dockle:lint
+      vars:
+        IMAGE_NAME: 'ffurrer/semver:alpine'
+    - task: golangci:lint
+    - task: lint:hadolint
+      vars:
+        IMAGE_NAME: 'build/package/Dockerfile'
+    - task: lint:hadolint
+      vars:
+        IMAGE_NAME: 'build/package/Dockerfile.alpine'
+    - task: lint:markdownlint
+    - task: lint:yamllint
     silent: true
 
-  dockle:
-    desc: Run Dockle (container image linter)
+  scan:
+    desc: Run image scans
     cmds:
-    - dockle ffurrer/semver:latest
-    - dockle ffurrer/semver:alpine
+    - task: dockle:lint
+      vars:
+        IMAGE_NAME: 'ffurrer/semver:latest'
+    - task: dockle:lint
+      vars:
+        IMAGE_NAME: 'ffurrer/semver:alpine'
+    - task: golangci:lint
+    - task: trivy:image
+      vars:
+        IMAGE_NAME: 'ffurrer/semver:latest'
+    - task: trivy:image
+      vars:
+        IMAGE_NAME: 'ffurrer/semver:alpine'
     silent: true
 
-  golangci-lint:
-    desc: Lint Go code
+  fmt:
+    desc: Format code
     cmds:
-    - golangci-lint run --out-format colored-line-number --issues-exit-code 0 --tests --print-resources-usage --config .github/linters/.golangci.yml
+    - task: go:gofumpt
     silent: true
-
-  hadolint:
-    desc: Lint Dockerfiles
-    dir: build/package
-    cmds:
-    - hadolint --format tty Dockerfile Dockerfile.alpine
-    silent: true
-
-  markdownlint:
-    desc: Lint Markdown files
-    cmds:
-    - docker run -it --rm --volume "$(pwd):/work" tmknom/markdownlint:latest --config .github/linters/.markdown-lint.yml .
-    silent: true
-
-  trivy:
-    desc: Run trivy (vulnerability scanner)
-    cmds:
-    - trivy image --format table ffurrer/semver:latest
-    - trivy image --skip-update --format table ffurrer/semver:alpine
-
-    silent: true
-
-  yamllint:
-    desc: Lint YAML files
-    cmds:
-    - yamllint --config-file .github/linters/.yaml-lint.yml --format auto --strict .
-    silent: true
-
-  shiftleft:
-    desc: Run shiftleft scan
-    cmds:
-    - docker run --rm -e DISABLE_TELEMETRY=true -v "$(pwd):/app" shiftleft/scan scan --build --type credscan,go,yaml,bash,depscan --out_dir artifacts/shiftleft-reports
-    silent: true
-
-  container-structure-test:
-    desc: Run container structure tests
-    cmds:
-    - container-structure-test test --image ffurrer/semver:latest --config test/semver_container_test.yml
-    - container-structure-test test --image ffurrer/semver:alpine --config test/semver_alpine_container_test.yml

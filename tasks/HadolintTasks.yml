@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: MIT
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  lint:
+    desc: Lint Dockerfiles
+    vars:
+      DOCKERFILE: '{{ default "Dockerfile" .DOCKERFILE }}'
+    cmds:
+    - hadolint --format tty {{.DOCKERFILE}} --failure-threshold style
+    silent: true
