@@ -9,6 +9,14 @@ tasks:
     - goreleaser check --config build/package/.goreleaser.yaml
     silent: true
 
+  build:
+    desc: Check GoReleaser configuration
+    env:
+      SNAPSHOT_VERSION: '{{.BUILD_VERSION}}'
+    cmds:
+    - goreleaser build --config build/package/.goreleaser.yaml --rm-dist --snapshot
+    silent: true
+
   snapshot:
     desc: Create snapshot release with GoReleaser
     env:
