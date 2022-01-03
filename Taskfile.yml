@@ -21,7 +21,6 @@ vars:
   BUILD_VERSION: { sh: bash ./scripts/version.sh }
   BUILD_VERSION_SHORT: { sh: bash ./scripts/version.sh --short }
   BUILD_DATE: '{{dateInZone "2006-01-02T15:04:05Z" now "UTC"}}'
-  GIT_BRANCH: { sh: bash ./scripts/branch.sh }
   GIT_SHA: { sh: git rev-parse HEAD }
   GIT_SHA_SHORT: { sh: git rev-parse --short HEAD }
 
@@ -52,18 +51,15 @@ tasks:
   lint:
     desc: Run all linters
     cmds:
-    - task: dockle:lint
-      vars:
-        IMAGE_NAME: 'ffurrer/semver:alpine'
     - task: golangci:lint
-    - task: lint:hadolint
+    - task: hadolint:lint
       vars:
-        IMAGE_NAME: 'build/package/Dockerfile'
-    - task: lint:hadolint
+        DOCKERFILE: 'build/package/Dockerfile'
+    - task: hadolint:lint
       vars:
-        IMAGE_NAME: 'build/package/Dockerfile.alpine'
-    - task: lint:markdownlint
-    - task: lint:yamllint
+        DOCKERFILE: 'build/package/Dockerfile.alpine'
+    - task: markdownlint:lint
+    - task: yamllint:lint
     silent: true
 
   scan:
@@ -75,7 +71,6 @@ tasks:
     - task: dockle:lint
       vars:
         IMAGE_NAME: 'ffurrer/semver:alpine'
-    - task: golangci:lint
     - task: trivy:image
       vars:
         IMAGE_NAME: 'ffurrer/semver:latest'

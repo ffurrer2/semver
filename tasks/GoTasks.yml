@@ -6,8 +6,9 @@ vars:
   GO_BUILD_ENV: CGO_ENABLED=0
   LDFLAGS: >-
     -X github.com/ffurrer2/semver/internal/pkg/app.version={{.BUILD_VERSION}}
+    -X github.com/ffurrer2/semver/internal/pkg/app.date={{.BUILD_DATE}}
     -X github.com/ffurrer2/semver/internal/pkg/app.commit={{.GIT_SHA}}
-    -X github.com/ffurrer2/semver/internal/pkg/app.date={{.BUILD_DATE}} -s -w
+    -s -w
 
 tasks:
   clean:
