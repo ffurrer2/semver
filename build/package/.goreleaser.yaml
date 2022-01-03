@@ -9,7 +9,7 @@ release:
   prerelease: auto
   name_template: '{{.Tag}}'
   footer: |-
-    
+
     ## Docker images
 
     - `docker pull docker.io/ffurrer/semver:{{ .Major }}.{{ .Minor }}.{{ .Patch }}`
@@ -75,7 +75,11 @@ builds:
   dir: .
   main: ./cmd/semver
   ldflags:
-  - -X github.com/ffurrer2/semver/internal/pkg/app.version={{.Version}} -X github.com/ffurrer2/semver/internal/pkg/app.commit={{.Commit}} -X github.com/ffurrer2/semver/internal/pkg/app.date={{.Date}} -s -w
+  - -X github.com/ffurrer2/semver/internal/pkg/app.version={{.Version}}
+  - -X github.com/ffurrer2/semver/internal/pkg/app.date={{.Date}}
+  - -X github.com/ffurrer2/semver/internal/pkg/app.commit={{.Commit}}
+  - -s
+  - -w
   flags:
   - -mod=readonly
   - -v

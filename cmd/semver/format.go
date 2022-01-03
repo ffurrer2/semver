@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+
 package main
 
 import (
@@ -43,6 +44,7 @@ type SemVer struct {
 		tpl, err := template.New("semver").Parse(text)
 		if err != nil {
 			cmd.PrintErrf("error: %v\n", err)
+			os.Exit(1)
 		}
 		format := func(s string) {
 			semver, err := semver.Parse(s)
@@ -60,6 +62,7 @@ type SemVer struct {
 			err = tpl.Execute(os.Stdout, data)
 			if err != nil {
 				cmd.PrintErrf("error: %v\n", err)
+				os.Exit(1)
 			}
 			cmd.Printf("\n")
 		}

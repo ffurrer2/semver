@@ -13,7 +13,6 @@ import (
 )
 
 var _ = Describe("number: ", func() {
-
 	var (
 		maxUint         = uint(1<<bits.UintSize - 1)
 		maxUintAsString = fmt.Sprintf("%d", maxUint)
@@ -30,7 +29,7 @@ var _ = Describe("number: ", func() {
 				Expect(err).ShouldNot(HaveOccurred())
 			})
 		})
-		Context("when s corresponds to a negativ number", func() {
+		Context("when s corresponds to a negative number", func() {
 			It("should return 0", func() {
 				number, _ := number.ParseUint("-1")
 				Expect(number).To(Equal(uint(0)))
@@ -51,9 +50,7 @@ var _ = Describe("number: ", func() {
 			})
 		})
 		Context("when s corresponds to the maximum unsigned integer + 1", func() {
-			var (
-				maxUintPlusOneAsString = fmt.Sprintf("%.0f", float64(maxUint)+1.0)
-			)
+			maxUintPlusOneAsString := fmt.Sprintf("%.0f", float64(maxUint)+1.0)
 			It("should return 0", func() {
 				number, _ := number.ParseUint(maxUintPlusOneAsString)
 				Expect(number).To(Equal(uint(0)))

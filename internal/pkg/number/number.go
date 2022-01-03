@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+
 package number
 
 import (
@@ -7,7 +8,10 @@ import (
 	"strconv"
 )
 
-const pattern = `^(0|[1-9]\d*)$`
+const (
+	pattern = `^(0|[1-9]\d*)$`
+	base    = 10
+)
 
 var /* const */ numericRegexp *regexp.Regexp
 
@@ -16,7 +20,7 @@ func init() {
 }
 
 func ParseUint(s string) (uint, error) {
-	u64, err := strconv.ParseUint(s, 10, bits.UintSize)
+	u64, err := strconv.ParseUint(s, base, bits.UintSize)
 	if err != nil {
 		return 0, err
 	}

@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+
 package semver
 
 import (
@@ -11,9 +12,11 @@ import (
 	"github.com/ffurrer2/semver/internal/pkg/number"
 )
 
-const MaxMajor = ^uint(0)
-const MaxMinor = ^uint(0)
-const MaxPatch = ^uint(0)
+const (
+	MaxMajor = ^uint(0)
+	MaxMinor = ^uint(0)
+	MaxPatch = ^uint(0)
+)
 
 const NamedGroupsPattern = `^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)` +
 	`(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?` +
@@ -209,7 +212,7 @@ func (s SemVer) CompareTo(o SemVer) int {
 		}
 	}
 
-	// A larger set of pre-release fields has a higher precedence than a smaller set, if all of the preceding
+	// A larger set of pre-release fields has a higher precedence than a smaller set, if all the preceding
 	// identifiers are equal.
 	if len(s.PreRelease) > len(o.PreRelease) {
 		return 1
