@@ -123,10 +123,18 @@ dockers:
   - docker.io/ffurrer/semver:latest
   skip_push: 'false'
   build_flag_templates:
-  - --pull
-  - --build-arg=BUILD_DATE={{ .Date }}
-  - --build-arg=GIT_SHA={{ .FullCommit }}
-  - --build-arg=BUILD_VERSION={{ .Version }}
+  - '--pull'
+  - '--label=org.opencontainers.image.authors=Felix Furrer'
+  - '--label=org.opencontainers.image.created={{ .Date }}'
+  - '--label=org.opencontainers.image.description=A semantic versioning command line utility written in Go.'
+  - '--label=org.opencontainers.image.documentation=https://github.com/ffurrer2/semver/blob/main/README.md'
+  - '--label=org.opencontainers.image.licenses=MIT'
+  - '--label=org.opencontainers.image.revision={{ .FullCommit }}'
+  - '--label=org.opencontainers.image.source=https://github.com/ffurrer2/semver'
+  - '--label=org.opencontainers.image.title=SemVer'
+  - '--label=org.opencontainers.image.url=https://github.com/ffurrer2/semver'
+  - '--label=org.opencontainers.image.vendor=Felix Furrer'
+  - '--label=org.opencontainers.image.version={{ .Version }}'
   use: docker
 - ids:
   - semver
@@ -140,10 +148,18 @@ dockers:
   - docker.io/ffurrer/semver:alpine
   skip_push: 'false'
   build_flag_templates:
-  - --pull
-  - --build-arg=BUILD_DATE={{ .Date }}
-  - --build-arg=GIT_SHA={{ .FullCommit }}
-  - --build-arg=BUILD_VERSION={{ .Version }}
+  - '--pull'
+  - '--label=org.opencontainers.image.authors=Felix Furrer'
+  - '--label=org.opencontainers.image.created={{ .Date }}'
+  - '--label=org.opencontainers.image.description=A semantic versioning command line utility written in Go.'
+  - '--label=org.opencontainers.image.documentation=https://github.com/ffurrer2/semver/blob/main/README.md'
+  - '--label=org.opencontainers.image.licenses=MIT'
+  - '--label=org.opencontainers.image.revision={{ .FullCommit }}'
+  - '--label=org.opencontainers.image.source=https://github.com/ffurrer2/semver'
+  - '--label=org.opencontainers.image.title=SemVer'
+  - '--label=org.opencontainers.image.url=https://github.com/ffurrer2/semver'
+  - '--label=org.opencontainers.image.vendor=Felix Furrer'
+  - '--label=org.opencontainers.image.version={{ .Version }}'
   use: docker
 
 changelog:

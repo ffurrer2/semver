@@ -3,11 +3,11 @@ schemaVersion: 2.0.0
 
 commandTests:
 - name: 'semver help'
-  command: '/semver'
+  command: 'semver'
   args: [ '-h' ]
   exitCode: 0
 - name: 'semver version'
-  command: '/semver'
+  command: 'semver'
   args: [ 'version' ]
   expectedOutput:
   - |-
@@ -18,11 +18,11 @@ commandTests:
 
 fileExistenceTests:
 - name: 'semver binary'
-  path: '/semver'
+  path: '/usr/local/bin/semver'
   shouldExist: true
   permissions: '-rwxr-xr-x'
-  uid: 0
-  gid: 0
+  uid: 65532
+  gid: 65532
   isExecutableBy: 'any'
 
 metadataTest:
@@ -42,7 +42,7 @@ metadataTest:
     value: '^[a-f0-9]{40}$'
     isRegex: true
   - key: 'org.opencontainers.image.source'
-    value: 'https://github.com/ffurrer2/semver.git'
+    value: 'https://github.com/ffurrer2/semver'
   - key: 'org.opencontainers.image.title'
     value: 'SemVer'
   - key: 'org.opencontainers.image.url'
@@ -52,5 +52,5 @@ metadataTest:
   - key: 'org.opencontainers.image.version'
     value: '^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
     isRegex: true
-  entrypoint: [ '/semver' ]
+  entrypoint: [ '/usr/local/bin/semver' ]
   cmd: [ 'help' ]

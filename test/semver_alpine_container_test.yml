@@ -21,8 +21,8 @@ fileExistenceTests:
   path: '/usr/local/bin/semver'
   shouldExist: true
   permissions: '-rwxr-xr-x'
-  uid: 0
-  gid: 0
+  uid: 101
+  gid: 101
   isExecutableBy: 'any'
 
 metadataTest:
@@ -42,7 +42,7 @@ metadataTest:
     value: '^[a-f0-9]{40}$'
     isRegex: true
   - key: 'org.opencontainers.image.source'
-    value: 'https://github.com/ffurrer2/semver.git'
+    value: 'https://github.com/ffurrer2/semver'
   - key: 'org.opencontainers.image.title'
     value: 'SemVer'
   - key: 'org.opencontainers.image.url'
@@ -52,5 +52,5 @@ metadataTest:
   - key: 'org.opencontainers.image.version'
     value: '^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
     isRegex: true
-  entrypoint: [ 'semver' ]
+  entrypoint: [ '/usr/local/bin/semver' ]
   cmd: [ 'help' ]

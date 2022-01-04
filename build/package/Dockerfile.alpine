@@ -1,23 +1,13 @@
 # SPDX-License-Identifier: MIT
 FROM docker.io/library/alpine:3.15.0
 
-COPY semver /usr/local/bin/
+RUN set -ex \
+    && addgroup -g 101 -S semver \
+    && adduser -h /dev/null -g semver -S -D -G semver -H -u 101 semver
 
-ARG BUILD_DATE
-ARG GIT_SHA
-ARG BUILD_VERSION
+COPY --chown=semver:semver semver /usr/local/bin/semver
 
-LABEL org.opencontainers.image.authors="Felix Furrer" \
-      org.opencontainers.image.created="${BUILD_DATE}" \
-      org.opencontainers.image.description="A semantic versioning command line utility written in Go." \
-      org.opencontainers.image.documentation="https://github.com/ffurrer2/semver/blob/main/README.md" \
-      org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.revision="${GIT_SHA}" \
-      org.opencontainers.image.source="https://github.com/ffurrer2/semver.git" \
-      org.opencontainers.image.title="SemVer" \
-      org.opencontainers.image.url="https://github.com/ffurrer2/semver" \
-      org.opencontainers.image.vendor="Felix Furrer" \
-      org.opencontainers.image.version="${BUILD_VERSION}"
+USER semver
 
-ENTRYPOINT ["semver"]
+ENTRYPOINT ["/usr/local/bin/semver"]
 CMD ["help"]
