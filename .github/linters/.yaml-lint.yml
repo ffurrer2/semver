@@ -26,4 +26,5 @@ rules:
 
 ignore: |
   .git/
+  .licenses/
   artifacts/

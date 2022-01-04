@@ -9,6 +9,7 @@ includes:
   golangci: ./tasks/GolangciLintTasks.yml
   goreleaser: ./tasks/GoreleaserTasks.yml
   hadolint: ./tasks/HadolintTasks.yml
+  licensed: ./tasks/LicensedTasks.yml
   markdownlint: ./tasks/MarkdownlintTasks.yml
   misc: ./tasks/MiscTasks.yml
   trivy: ./tasks/TrivyTasks.yml
