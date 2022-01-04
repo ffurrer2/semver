@@ -7,3 +7,4 @@ USER nonroot
 
 ENTRYPOINT ["/usr/local/bin/semver"]
 CMD ["help"]
+
