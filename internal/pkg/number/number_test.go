@@ -56,7 +56,6 @@ var _ = Describe("number: ", func() {
 				Expect(number).To(Equal(uint(0)))
 			})
 			It("should error", func() {
-				fmt.Println(maxUintPlusOneAsString)
 				_, err := number.ParseUint(maxUintPlusOneAsString)
 				Expect(err).Should(HaveOccurred())
 			})
