@@ -3,7 +3,6 @@
 package main
 
 import (
-	"encoding/json"
 	"os"
 	"text/template"
 
@@ -14,15 +13,15 @@ import (
 )
 
 type semVer struct {
-	Major         uint   `json:"Major"`
-	Minor         uint   `json:"Minor"`
-	Patch         uint   `json:"Patch"`
-	PreRelease    string `json:"PreRelease"`
-	BuildMetadata string `json:"BuildMetadata"`
+	Major         uint
+	Minor         uint
+	Patch         uint
+	PreRelease    string
+	BuildMetadata string
 }
 
 var formatCmd = &cobra.Command{
-	Use:   "format [flag] format [semver]",
+	Use:   "format [flag] FORMAT [semver]",
 	Short: "Format and print semantic versions",
 	Long: `This command formats and prints the given semantic versions according to the given format template.
 
@@ -73,12 +72,4 @@ type SemVer struct {
 func init() {
 	formatCmd.SetUsageTemplate(usageTemplate)
 	rootCmd.AddCommand(formatCmd)
-}
-
-func (s semVer) String() string {
-	jsonStr, err := json.Marshal(s)
-	if err != nil {
-		panic(err)
-	}
-	return string(jsonStr)
 }

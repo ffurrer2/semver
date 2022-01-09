@@ -32,8 +32,8 @@ type SemVer struct {
 	Major         uint     `json:"major"`
 	Minor         uint     `json:"minor"`
 	Patch         uint     `json:"patch"`
-	PreRelease    []string `json:"pre_release"`
-	BuildMetadata []string `json:"build_metadata"`
+	PreRelease    []string `json:"preRelease"`
+	BuildMetadata []string `json:"buildMetadata"`
 }
 
 type BySemVer []SemVer

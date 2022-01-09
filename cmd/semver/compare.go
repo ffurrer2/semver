@@ -13,14 +13,14 @@ import (
 const compareCmdExactArgs = 2
 
 var compareCmd = &cobra.Command{
-	Use:   "compare [flag] semver1 semver2",
+	Use:   "compare [flag] SEMVER1 SEMVER2",
 	Short: "Compare semantic versions",
 	Long: `This command compares two semantic versions.
 
 The output will be:
- -1 if semver1 < semver2
-  0 if semver1 == semver2
-  1 if semver1 > semver2`,
+ -1 if SEMVER1 < SEMVER2
+  0 if SEMVER1 == SEMVER2
+  1 if SEMVER1 > SEMVER2`,
 	Example:               `  semver compare 1.0.0 1.0.0-alpha.1`,
 	Args:                  cobra.ExactArgs(compareCmdExactArgs),
 	DisableFlagsInUseLine: true,
