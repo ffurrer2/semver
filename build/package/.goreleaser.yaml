@@ -10,7 +10,7 @@ release:
   name_template: '{{.Tag}}'
   footer: |-
 
-    ## Docker images
+    ## Docker Hub images
 
     - `docker pull docker.io/ffurrer/semver:{{ .Major }}.{{ .Minor }}.{{ .Patch }}`
     - `docker pull docker.io/ffurrer/semver:{{ .Major }}.{{ .Minor }}`
@@ -20,6 +20,17 @@ release:
     - `docker pull docker.io/ffurrer/semver:{{ .Major }}.{{ .Minor }}-alpine`
     - `docker pull docker.io/ffurrer/semver:{{ .Major }}-alpine`
     - `docker pull docker.io/ffurrer/semver:alpine`
+
+    ## GitHub Container registry images
+
+    - `docker pull gcr.io/ffurrer2/semver:{{ .Major }}.{{ .Minor }}.{{ .Patch }}`
+    - `docker pull gcr.io/ffurrer2/semver:{{ .Major }}.{{ .Minor }}`
+    - `docker pull gcr.io/ffurrer2/semver:{{ .Major }}`
+    - `docker pull gcr.io/ffurrer2/semver:latest`
+    - `docker pull gcr.io/ffurrer2/semver:{{ .Major }}.{{ .Minor }}.{{ .Patch }}-alpine`
+    - `docker pull gcr.io/ffurrer2/semver:{{ .Major }}.{{ .Minor }}-alpine`
+    - `docker pull gcr.io/ffurrer2/semver:{{ .Major }}-alpine`
+    - `docker pull gcr.io/ffurrer2/semver:alpine`
 
 brews:
 - name: semver
@@ -121,6 +132,10 @@ dockers:
   - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}
   - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}
   - docker.io/ffurrer/semver:latest
+  - gcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}
+  - gcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}
+  - gcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}
+  - gcr.io/ffurrer2/semver:latest
   skip_push: 'false'
   build_flag_templates:
   - '--pull'
@@ -146,6 +161,10 @@ dockers:
   - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}-alpine
   - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}-alpine
   - docker.io/ffurrer/semver:alpine
+  - gcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}-alpine
+  - gcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}-alpine
+  - gcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}-alpine
+  - gcr.io/ffurrer2/semver:alpine
   skip_push: 'false'
   build_flag_templates:
   - '--pull'
