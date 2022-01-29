@@ -19,7 +19,7 @@ on:
     - '**/golangci.yml'
 
 env:
-  GOLANGCI_LINT_VERSION: 1.28
+  GOLANGCI_LINT_VERSION: 1.44
 
 jobs:
   golangci-lint:

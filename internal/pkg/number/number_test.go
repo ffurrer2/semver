@@ -5,11 +5,10 @@ import (
 	"fmt"
 	"math/bits"
 
+	"github.com/ffurrer2/semver/internal/pkg/number"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
-
-	"github.com/ffurrer2/semver/internal/pkg/number"
 )
 
 var _ = Describe("number: ", func() {

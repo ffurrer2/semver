@@ -3,9 +3,8 @@
 package main
 
 import (
-	"github.com/spf13/cobra"
-
 	"github.com/ffurrer2/semver/internal/pkg/app"
+	"github.com/spf13/cobra"
 )
 
 const versionFormat = `semver version %s

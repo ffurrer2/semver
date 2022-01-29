@@ -2,10 +2,9 @@
 package semver_test
 
 import (
+	"github.com/ffurrer2/semver/pkg/semver"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-
-	"github.com/ffurrer2/semver/pkg/semver"
 )
 
 var _ = Describe("semver:", func() {

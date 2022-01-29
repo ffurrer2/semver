@@ -5,12 +5,11 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/ffurrer2/semver/internal/pkg/number"
+	"github.com/ffurrer2/semver/pkg/semver"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
-
-	"github.com/ffurrer2/semver/internal/pkg/number"
-	"github.com/ffurrer2/semver/pkg/semver"
 )
 
 var _ = Describe("semver:", func() {

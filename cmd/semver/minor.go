@@ -5,10 +5,9 @@ package main
 import (
 	"os"
 
-	"github.com/spf13/cobra"
-
 	"github.com/ffurrer2/semver/internal/pkg/cli"
 	"github.com/ffurrer2/semver/pkg/semver"
+	"github.com/spf13/cobra"
 )
 
 var minorCmd = &cobra.Command{

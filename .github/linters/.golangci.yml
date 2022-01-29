@@ -5,51 +5,84 @@ run:
 linters:
   disable-all: true
   enable:
+  - asciicheck
+  - bidichk
   - bodyclose
+  - contextcheck
   - deadcode
   - depguard
   - dogsled
+  - durationcheck
   - errcheck
+  - errname
+  - errorlint
+  - exhaustive
+  - exportloopref
+  - forbidigo
+  - forcetypeassert
   - funlen
+  - gci
+  - gocognit
   - goconst
   - gocritic
   - gocyclo
+  - godox
   - gofmt
+  - gofumpt
+  - goheader
   - goimports
   - gomnd
+  - gomoddirectives
+  - gomodguard
   - goprintffuncname
   - gosec
   - gosimple
   - govet
+  - ifshort
+  - importas
   - ineffassign
+  - ireturn
   - lll
+  - makezero
   - misspell
   - nakedret
+  - nestif
+  - nilerr
+  - nilnil
+  - noctx
   - nolintlint
+  - paralleltest
+  - prealloc
+  - predeclared
+  - promlinter
+  - revive
   - rowserrcheck
+  - sqlclosecheck
   - staticcheck
   - structcheck
   - stylecheck
+  - tagliatelle
+  - tenv
+  - testpackage
+  - thelper
+  - tparallel
   - typecheck
   - unconvert
   - unparam
   - unused
   - varcheck
+  - wastedassign
   - whitespace
-  - asciicheck
-  - gocognit
-  - godox
-  - gomodguard
-  - nestif
-  - prealloc
-  - testpackage
+  - wrapcheck
 
   # don't enable:
+  # - cyclop
+  # - dupl
+  # - exhaustivestruct
   # - gochecknoglobals
   # - gochecknoinits
-  # - goerr113
   # - godot
-  # - dupl
-
-  # check later:
+  # - goerr113
+  # - nlreturn
+  # - varnamelen
   # - wsl

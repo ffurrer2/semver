@@ -3,6 +3,7 @@
 package number
 
 import (
+	"fmt"
 	"math/bits"
 	"regexp"
 	"strconv"
@@ -22,7 +23,7 @@ func init() {
 func ParseUint(s string) (uint, error) {
 	u64, err := strconv.ParseUint(s, base, bits.UintSize)
 	if err != nil {
-		return 0, err
+		return 0, fmt.Errorf("failed to parse uint: %w", err)
 	}
 	return uint(u64), nil
 }

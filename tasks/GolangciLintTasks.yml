@@ -8,3 +8,15 @@ tasks:
     cmds:
     - golangci-lint run --out-format colored-line-number --issues-exit-code 0 --tests --print-resources-usage --config .github/linters/.golangci.yml
     silent: true
+
+  lint:fix:
+    desc: Lint Go code and fix errors
+    cmds:
+    - golangci-lint run --out-format colored-line-number --issues-exit-code 0 --tests --print-resources-usage --config .github/linters/.golangci.yml --fix
+    silent: true
+
+  linters:
+    desc: List golangci-lint linters
+    cmds:
+    - golangci-lint linters --config .github/linters/.golangci.yml
+    silent: true

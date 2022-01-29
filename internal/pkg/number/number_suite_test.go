@@ -10,6 +10,7 @@ import (
 )
 
 func TestNumber(t *testing.T) {
+	t.Parallel()
 	RegisterFailHandler(Fail)
 	config.DefaultReporterConfig.Verbose = true
 	RunSpecs(t, "Number Suite")

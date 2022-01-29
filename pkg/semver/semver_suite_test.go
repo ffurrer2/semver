@@ -10,6 +10,7 @@ import (
 )
 
 func TestSemver(t *testing.T) {
+	t.Parallel()
 	RegisterFailHandler(Fail)
 	config.DefaultReporterConfig.Verbose = true
 	RunSpecs(t, "Semver Suite")
