@@ -20,6 +20,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+## [1.4.0] - 2022-01-30
+
+### Added
+
+- Docker images are now available in the `GitHub Container registry`
+
+### Changed
+
+- Dependencies updated
+
 ## [1.3.0] - 2022-01-29
 
 ### Changed
@@ -58,7 +68,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Initial release of `semver`
 
-[unreleased]: https://github.com/ffurrer2/semver/compare/v1.3.0...HEAD
+[unreleased]: https://github.com/ffurrer2/semver/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/ffurrer2/semver/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/ffurrer2/semver/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/ffurrer2/semver/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/ffurrer2/semver/compare/v1.0.1...v1.1.0
