@@ -30,12 +30,13 @@ jobs:
         go-version: ${{ env.GO_VERSION }}
 
     - name: Perform ShiftLeft scan
-      uses: ShiftLeftSecurity/scan-action@master
+      uses: ShiftLeftSecurity/scan-action@v1.3.0
       env:
         WORKSPACE: ''
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SCAN_AUTO_BUILD: true
         DISABLE_TELEMETRY: true
+        SKIP_BOT_TRIGGERS: false
       with:
         type: credscan,go,yaml,bash,depscan
         output: artifacts/shiftleft-reports
