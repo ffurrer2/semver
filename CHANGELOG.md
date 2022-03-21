@@ -20,6 +20,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+## [1.5.0] - 2022-03-21
+
+### Changed
+
+- Dependencies updated
+- Bumped Alpine base image from 3.15.0 to 3.15.1
+
 ## [1.4.0] - 2022-01-30
 
 ### Added
@@ -68,7 +75,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Initial release of `semver`
 
-[unreleased]: https://github.com/ffurrer2/semver/compare/v1.4.0...HEAD
+[unreleased]: https://github.com/ffurrer2/semver/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/ffurrer2/semver/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/ffurrer2/semver/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/ffurrer2/semver/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/ffurrer2/semver/compare/v1.1.0...v1.2.0
