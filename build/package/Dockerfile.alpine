@@ -3,12 +3,12 @@
 FROM docker.io/library/alpine:3.15.1
 
 RUN set -ex \
-    && addgroup -g 101 -S semver \
-    && adduser -h /dev/null -g semver -S -D -G semver -H -u 101 semver
+    && addgroup -g 65532 -S semver \
+    && adduser -h /dev/null -g semver -S -D -G semver -H -u 65532 semver
 
-COPY --chown=semver:semver semver /usr/local/bin/semver
+COPY semver /usr/local/bin/semver
 
-USER semver
+USER 65532:65532
 
 ENTRYPOINT ["/usr/local/bin/semver"]
 CMD ["help"]

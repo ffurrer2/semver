@@ -21,8 +21,8 @@ fileExistenceTests:
   path: '/usr/local/bin/semver'
   shouldExist: true
   permissions: '-rwxr-xr-x'
-  uid: 101
-  gid: 101
+  uid: 0
+  gid: 0
   isExecutableBy: 'any'
 
 metadataTest:
