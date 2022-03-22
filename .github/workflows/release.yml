@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-name: release
+name: Release
 
 on:
   push:
@@ -15,10 +15,10 @@ jobs:
     name: Create release
     runs-on: ubuntu-20.04
     steps:
-    - name: Checkout repository
+    - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Set up Go
+    - name: Setup Go
       uses: actions/setup-go@v3
       with:
         go-version: ${{ env.GO_VERSION }}

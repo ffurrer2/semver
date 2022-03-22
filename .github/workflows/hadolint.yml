@@ -16,14 +16,11 @@ on:
     - '**/Dockerfile*'
     - '.github/workflows/hadolint.yml'
 
+permissions: { }
+
 jobs:
   hadolint:
     name: hadolint
-    runs-on: ubuntu-20.04
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    - name: hadolint
-      uses: docker://hadolint/hadolint:latest
-      with:
-        args: 'hadolint --format tty build/package/Dockerfile build/package/Dockerfile.alpine'
+    uses: ffurrer2/shared-workflows/.github/workflows/hadolint.yml@main
+    with:
+      args: 'hadolint --format tty build/package/Dockerfile build/package/Dockerfile.alpine'

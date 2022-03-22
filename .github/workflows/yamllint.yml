@@ -14,16 +14,9 @@ on:
     paths:
     - '**.ya?ml'
 
+permissions: { }
+
 jobs:
   yamllint:
     name: yamllint
-    runs-on: ubuntu-20.04
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: yamllint
-      uses: docker://ghcr.io/ffurrer2/yamllint:latest
-      with:
-        entrypoint: /usr/bin/yamllint
-        args: '--config-file .github/linters/.yaml-lint.yml --format github --strict .'
+    uses: ffurrer2/shared-workflows/.github/workflows/yamllint.yml@main

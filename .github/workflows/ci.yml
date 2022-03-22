@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-name: ci
+name: CI
 
 on:
   push:
@@ -13,6 +13,8 @@ on:
     branches:
     - main
 
+permissions: { }
+
 env:
   GO_VERSION: 1.18
   TASK_VERSION: 3.12.0
@@ -23,17 +25,17 @@ jobs:
     name: Local build
     runs-on: ubuntu-20.04
     steps:
-    - name: Checkout repository
+    - name: Checkout
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
-    - name: Set up Go
+    - name: Setup Go
       uses: actions/setup-go@v3
       with:
         go-version: ${{ env.GO_VERSION }}
 
-    - name: Set up task
+    - name: Setup task
       run: |
         sudo bash -c 'curl -fsSL https://taskfile.dev/install.sh | bash -s -- -b /usr/local/bin v${{ env.TASK_VERSION }}'
 
@@ -51,12 +53,12 @@ jobs:
     permissions:
       checks: write
     steps:
-    - name: Checkout repository
+    - name: Checkout
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
-    - name: Set up Go
+    - name: Setup Go
       uses: actions/setup-go@v3
       with:
         go-version: ${{ env.GO_VERSION }}
