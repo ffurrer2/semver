@@ -67,16 +67,16 @@ tasks:
     cmds:
     - task: dockle:lint
       vars:
-        IMAGE_NAME: 'ffurrer/semver:latest'
+        IMAGE_NAME: 'ghcr.io/ffurrer2/semver:latest'
     - task: dockle:lint
       vars:
-        IMAGE_NAME: 'ffurrer/semver:alpine'
+        IMAGE_NAME: 'ghcr.io/ffurrer2/semver:alpine'
     - task: trivy:image
       vars:
-        IMAGE_NAME: 'ffurrer/semver:latest'
+        IMAGE_NAME: 'ghcr.io/ffurrer2/semver:latest'
     - task: trivy:image
       vars:
-        IMAGE_NAME: 'ffurrer/semver:alpine'
+        IMAGE_NAME: 'ghcr.io/ffurrer2/semver:alpine'
     silent: true
 
   fmt:

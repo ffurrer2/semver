@@ -92,7 +92,6 @@ builds:
   - -s
   - -w
   flags:
-  - -mod=readonly
   - -v
   binary: semver
   env:
@@ -189,9 +188,9 @@ dist: artifacts/dist
 before:
   hooks:
   - go mod verify
-  - go mod tidy
+  - go mod tidy -v
   - go generate ./...
-  - go test -v -mod readonly ./...
+  - go test -race -v ./...
 
 source:
   name_template: '{{ .ProjectName }}-{{ .Version }}'

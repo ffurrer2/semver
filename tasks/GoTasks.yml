@@ -35,7 +35,7 @@ tasks:
     - task: prepare
     - mkdir -p artifacts/bin
     - |-
-      {{.GO_BUILD_ENV}} go build -o artifacts/bin -ldflags='{{.LDFLAGS}}' -mod readonly -v ./cmd/semver
+      {{.GO_BUILD_ENV}} go build -o artifacts/bin -v -ldflags='{{.LDFLAGS}}' ./cmd/semver
     silent: true
 
   test:
@@ -43,7 +43,7 @@ tasks:
     cmds:
     - task: prepare
     - mkdir -p artifacts/coverage-results
-    - go test -race -v -mod readonly -covermode atomic -coverprofile artifacts/coverage-results/coverage.out ./...
+    - go test -race -v -covermode atomic -coverprofile artifacts/coverage-results/coverage.out ./...
     - go tool cover -html artifacts/coverage-results/coverage.out -o artifacts/coverage-results/coverage.html
     silent: true
 
@@ -52,7 +52,7 @@ tasks:
     cmds:
     - task: prepare
     - |-
-      {{.GO_BUILD_ENV}} go install -ldflags='{{.LDFLAGS}}' -mod readonly -v ./cmd/semver
+      {{.GO_BUILD_ENV}} go install -ldflags='{{.LDFLAGS}}' -v ./cmd/semver
     silent: true
 
   tidy:
@@ -75,13 +75,20 @@ tasks:
     silent: true
 
   gofmt:
-    desc: Format Go code with gofmt
+    desc: Format code with gofmt
     cmds:
     - go fmt ./...
     silent: true
 
   gofumpt:
-    desc: Format Go code with gofumpt
+    desc: Format code with gofumpt
     cmds:
     - gofumpt -l -w .
+    silent: true
+
+  # https://github.com/oligot/go-mod-upgrade
+  go-mod-upgrade:
+    desc: Run go-mod-upgrade
+    cmds:
+    - go-mod-upgrade
     silent: true

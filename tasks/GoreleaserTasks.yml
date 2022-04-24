@@ -10,7 +10,7 @@ tasks:
     silent: true
 
   build:
-    desc: Check GoReleaser configuration
+    desc: Build with GoReleaser
     env:
       SNAPSHOT_VERSION: '{{.BUILD_VERSION}}'
     cmds:

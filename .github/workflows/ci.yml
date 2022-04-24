@@ -48,6 +48,8 @@ jobs:
   docker-build:
     name: Simulate GoReleaser release
     runs-on: ubuntu-20.04
+    permissions:
+      checks: write
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -78,21 +80,21 @@ jobs:
     - name: Container structure test (scratch)
       uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest
       with:
-        args: 'test --image ffurrer/semver:latest --config test/semver_container_test.yml'
+        args: 'test --image ghcr.io/ffurrer2/semver:latest --config test/semver_container_test.yml'
 
     - name: Container structure test (alpine)
       uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest
       with:
-        args: 'test --image ffurrer/semver:alpine --config test/semver_alpine_container_test.yml'
+        args: 'test --image ghcr.io/ffurrer2/semver:alpine --config test/semver_alpine_container_test.yml'
 
     - name: Container Scan (scratch)
       uses: azure/container-scan@v0
       with:
-        image-name: ffurrer/semver:latest
+        image-name: ghcr.io/ffurrer2/semver:latest
         severity-threshold: HIGH
 
     - name: Container Scan (alpine)
       uses: azure/container-scan@v0
       with:
-        image-name: ffurrer/semver:alpine
+        image-name: ghcr.io/ffurrer2/semver:alpine
         severity-threshold: HIGH

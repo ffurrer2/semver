@@ -1,20 +1,69 @@
 // SPDX-License-Identifier: MIT
 package app
 
+import (
+	"runtime/debug"
+)
+
 var (
-	version = "0.0.0"
-	date    = "1970-01-01T00:00:00Z"
-	commit  = "0000000000000000000000000000000000000000"
+	version string
+	date    string
+	commit  string
+	unknown = "unknown"
 )
 
 func BuildVersion() string {
-	return version
+	if version != "" {
+		return version
+	}
+	info, ok := debug.ReadBuildInfo()
+	if ok {
+		return info.Main.Version
+	}
+	return unknown
 }
 
 func BuildDate() string {
-	return date
+	if date != "" {
+		return date
+	}
+	info, ok := debug.ReadBuildInfo()
+	if ok {
+		for _, v := range info.Settings {
+			if v.Key == "vcs.time" {
+				return v.Value
+			}
+		}
+	}
+	return unknown
 }
 
 func CommitHash() string {
-	return commit
+	if commit != "" {
+		return commit
+	}
+	info, ok := debug.ReadBuildInfo()
+	if ok {
+		for _, v := range info.Settings {
+			if v.Key == "vcs.revision" {
+				return v.Value
+			}
+		}
+	}
+	return unknown
+}
+
+func TreeState() string {
+	info, ok := debug.ReadBuildInfo()
+	if ok {
+		for _, v := range info.Settings {
+			if v.Key == "vcs.modified" {
+				if v.Value == "true" {
+					return "dirty"
+				}
+				return "clean"
+			}
+		}
+	}
+	return unknown
 }

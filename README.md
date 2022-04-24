@@ -24,6 +24,12 @@ scoop bucket add ffurrer2 https://github.com/ffurrer2/scoop-bucket
 scoop install semver
 ```
 
+### Build from source
+
+```shell
+go install github.com/ffurrer2/semver/cmd/semver@latest
+```
+
 ## Usage
 
 ### help
