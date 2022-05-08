@@ -12,6 +12,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- Dependencies updated
+- Bumped Alpine base image from 3.15.3 to 3.15.4
+
 ### Deprecated
 
 ### Removed
