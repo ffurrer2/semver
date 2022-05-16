@@ -40,7 +40,7 @@ jobs:
         go-version: ${{ env.GO_VERSION }}
 
     - name: golangci-lint
-      uses: golangci/golangci-lint-action@v3.1.0
+      uses: golangci/golangci-lint-action@v3.2.0
       with:
         version: v${{ env.GOLANGCI_LINT_VERSION }}
         args: '--issues-exit-code 0 --tests --config .github/linters/.golangci.yml'
