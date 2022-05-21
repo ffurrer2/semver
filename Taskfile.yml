@@ -94,6 +94,7 @@ tasks:
       printf 'container-structure-test: %s\n' "$(container-structure-test version | cut -c 2-)"
       printf 'dockle:                   %s\n' "$(dockle --version | cut -d ' ' -f 3)"
       printf 'git:                      %s\n' "$(git --version | cut -d ' ' -f 3)"
+      printf 'go:                       %s\n' "$(go version | cut -d ' ' -f 3 | cut -c 3-)"
       printf 'gofumpt:                  %s\n' "$(gofumpt --version)"
       printf 'golangci-lint:            %s\n' "$(golangci-lint version --format short)"
       printf 'goreleaser:               %s\n' "$(goreleaser --version  | head -n 1 | cut -d ' ' -f 3)"
