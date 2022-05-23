@@ -68,13 +68,13 @@ jobs:
         echo "SNAPSHOT_VERSION=$(./scripts/version.sh)" >>"${GITHUB_ENV}"
 
     - name: Check release config
-      uses: goreleaser/goreleaser-action@v2
+      uses: goreleaser/goreleaser-action@v3
       with:
         version: v${{ env.GORELEASER_VERSION }}
         args: check --config build/package/.goreleaser.yaml
 
     - name: Create snapshot release
-      uses: goreleaser/goreleaser-action@v2
+      uses: goreleaser/goreleaser-action@v3
       with:
         version: v${{ env.GORELEASER_VERSION }}
         args: release --config build/package/.goreleaser.yaml --snapshot --skip-publish --rm-dist --debug

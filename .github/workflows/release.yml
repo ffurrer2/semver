@@ -44,7 +44,7 @@ jobs:
     - name: GoReleaser
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      uses: goreleaser/goreleaser-action@v2
+      uses: goreleaser/goreleaser-action@v3
       with:
         version: v${{ env.GORELEASER_VERSION }}
         args: release --config build/package/.goreleaser.yaml --release-notes=${{ runner.temp }}/RELEASE_NOTES.md
