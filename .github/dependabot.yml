@@ -2,6 +2,17 @@
 version: 2
 
 updates:
+- package-ecosystem: 'docker'
+  directory: 'build/package'
+  schedule:
+    interval: 'weekly'
+  assignees:
+  - 'ffurrer2'
+  labels:
+  - 'dependabot'
+  open-pull-requests-limit: 999
+  rebase-strategy: 'auto'
+
 - package-ecosystem: 'github-actions'
   directory: '/'
   schedule:
