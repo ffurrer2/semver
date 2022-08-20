@@ -106,8 +106,8 @@ func (s *SemVer) SetBuildMetadata(buildMetadata []string) {
 	s.BuildMetadata = buildMetadata
 }
 
-func (s SemVer) NextMajor() *SemVer {
-	if len(s.PreRelease) > 0 {
+func (s *SemVer) NextMajor() *SemVer {
+	if s.IsPreRelease() {
 		return &SemVer{
 			Major:         s.Major,
 			Minor:         s.Minor,
@@ -128,8 +128,8 @@ func (s SemVer) NextMajor() *SemVer {
 	}
 }
 
-func (s SemVer) NextMinor() *SemVer {
-	if len(s.PreRelease) > 0 {
+func (s *SemVer) NextMinor() *SemVer {
+	if s.IsPreRelease() {
 		return &SemVer{
 			Major:         s.Major,
 			Minor:         s.Minor,
@@ -150,8 +150,8 @@ func (s SemVer) NextMinor() *SemVer {
 	}
 }
 
-func (s SemVer) NextPatch() *SemVer {
-	if len(s.PreRelease) > 0 {
+func (s *SemVer) NextPatch() *SemVer {
+	if s.IsPreRelease() {
 		return &SemVer{
 			Major:         s.Major,
 			Minor:         s.Minor,
@@ -172,11 +172,31 @@ func (s SemVer) NextPatch() *SemVer {
 	}
 }
 
-func (s SemVer) IsValid() bool {
+func (s *SemVer) IsValid() bool {
 	return semverRegexp.MatchString(s.String())
 }
 
-func (s SemVer) CompareTo(o SemVer) int {
+func (s *SemVer) IsRelease() bool {
+	return s.IsNotPreRelease() && s.HasNoBuildMetadata()
+}
+
+func (s *SemVer) IsNotPreRelease() bool {
+	return len(s.PreRelease) == 0
+}
+
+func (s *SemVer) IsPreRelease() bool {
+	return len(s.PreRelease) > 0
+}
+
+func (s *SemVer) HasNoBuildMetadata() bool {
+	return len(s.BuildMetadata) == 0
+}
+
+func (s *SemVer) HasBuildMetadata() bool {
+	return len(s.BuildMetadata) > 0
+}
+
+func (s *SemVer) CompareTo(o SemVer) int {
 	// Major, minor, and patch versions are always compared numerically.
 	if res := number.CompareUint(s.Major, o.Major); res != 0 {
 		return res
@@ -189,11 +209,11 @@ func (s SemVer) CompareTo(o SemVer) int {
 
 	// When major, minor, and patch are equal, a pre-release version has lower precedence than a normal version.
 	switch {
-	case len(s.PreRelease) == 0 && len(o.PreRelease) == 0:
+	case s.IsNotPreRelease() && o.IsNotPreRelease():
 		return 0
-	case len(s.PreRelease) == 0:
+	case s.IsNotPreRelease():
 		return 1
-	case len(o.PreRelease) == 0:
+	case o.IsNotPreRelease():
 		return -1
 	}
 
@@ -219,27 +239,27 @@ func (s SemVer) CompareTo(o SemVer) int {
 	return 0
 }
 
-func (s SemVer) String() string {
+func (s *SemVer) String() string {
 	str := fmt.Sprintf("%d.%d.%d", s.Major, s.Minor, s.Patch)
-	if len(s.PreRelease) > 0 {
+	if s.IsPreRelease() {
 		str = fmt.Sprintf("%s-%s", str, s.PreReleaseString())
 	}
-	if len(s.BuildMetadata) > 0 {
+	if s.HasBuildMetadata() {
 		str = fmt.Sprintf("%s+%s", str, s.BuildMetadataString())
 	}
 	return str
 }
 
-func (s SemVer) PreReleaseString() string {
+func (s *SemVer) PreReleaseString() string {
 	return strings.Join(s.PreRelease, ".")
 }
 
-func (s SemVer) BuildMetadataString() string {
+func (s *SemVer) BuildMetadataString() string {
 	return strings.Join(s.BuildMetadata, ".")
 }
 
-func (s SemVer) Equal(o SemVer) bool {
-	return reflect.DeepEqual(s, o)
+func (s *SemVer) Equal(o SemVer) bool {
+	return reflect.DeepEqual(*s, o)
 }
 
 func splitDotSeparatedString(s string) []string {
