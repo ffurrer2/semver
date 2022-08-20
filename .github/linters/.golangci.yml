@@ -44,6 +44,7 @@ linters:
   - gosec
   - gosimple
   - govet
+  - grouper
   - importas
   - ineffassign
   - ireturn
