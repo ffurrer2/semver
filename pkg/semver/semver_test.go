@@ -33,7 +33,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func Parse(s string) (*SemVer, error)", func() {
+	Describe("func Parse(s string) (*SemVer, error)", func() {
 		Describe("when input is a valid semantic version", func() {
 			DescribeTable("it should not error and return the correct SemVer struct",
 				func(input string, major int, minor int, patch int, preRelease string, buildMetadata string) {
@@ -102,7 +102,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func MustParse(s string) *SemVer", func() {
+	Describe("func MustParse(s string) *SemVer", func() {
 		Describe("when input is a valid semantic version", func() {
 			DescribeTable("it should not panic and return the correct SemVer struct",
 				func(input string, major int, minor int, patch int, preRelease string, buildMetadata string) {
@@ -134,7 +134,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func IsValid(s string) bool", func() {
+	Describe("func IsValid(s string) bool", func() {
 		Describe("when input is a valid semantic version", func() {
 			DescribeTable("it should return true",
 				func(input string) {
@@ -194,7 +194,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func (s *SemVer) SetMajor(major uint)", func() {
+	Describe("func (s *SemVer) SetMajor(major uint)", func() {
 		It("should set the major version correctly", func() {
 			sut := semver.SemVer{
 				Major:         0,
@@ -212,7 +212,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func (s *SemVer) SetMinor(minor uint)", func() {
+	Describe("func (s *SemVer) SetMinor(minor uint)", func() {
 		It("should set the minor version correctly", func() {
 			sut := semver.SemVer{
 				Major:         0,
@@ -230,7 +230,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func (s *SemVer) SetPatch(patch uint)", func() {
+	Describe("func (s *SemVer) SetPatch(patch uint)", func() {
 		It("should set the patch version correctly", func() {
 			sut := semver.SemVer{
 				Major:         0,
@@ -248,7 +248,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func (s *SemVer) SetPreRelease(preRelease []string)", func() {
+	Describe("func (s *SemVer) SetPreRelease(preRelease []string)", func() {
 		It("should set the preRelease identifiers correctly", func() {
 			sut := semver.SemVer{
 				Major:         0,
@@ -266,7 +266,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func (s *SemVer) SetBuildMetadata(buildMetadata []string)", func() {
+	Describe("func (s *SemVer) SetBuildMetadata(buildMetadata []string)", func() {
 		It("should set the buildMetadata identifiers correctly", func() {
 			sut := semver.SemVer{
 				Major:         0,
@@ -284,7 +284,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func (s SemVer) NextMajor() *SemVer", func() {
+	Describe("func (s SemVer) NextMajor() *SemVer", func() {
 		DescribeTable("it should return the next major semantic version",
 			func(input, expected string) {
 				sut, err := semver.Parse(input)
@@ -339,7 +339,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func (s SemVer) NextMinor() *SemVer", func() {
+	Describe("func (s SemVer) NextMinor() *SemVer", func() {
 		DescribeTable("it should return the next minor semantic version",
 			func(input, expected string) {
 				sut, err := semver.Parse(input)
@@ -394,7 +394,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func (s SemVer) NextPatch() *SemVer", func() {
+	Describe("func (s SemVer) NextPatch() *SemVer", func() {
 		DescribeTable("it should return the next patch semantic version",
 			func(input, expected string) {
 				sut, err := semver.Parse(input)
@@ -449,7 +449,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func (s SemVer) IsValid() bool", func() {
+	Describe("func (s SemVer) IsValid() bool", func() {
 		Describe("when s is a valid semantic version", func() {
 			DescribeTable("it should return true",
 				func(input string) {
@@ -504,7 +504,58 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func (s SemVer) CompareTo(o SemVer) int", func() {
+	Describe("func (s *SemVer) IsRelease() bool", func() {
+		Describe("when s is valid a release version", func() {
+			DescribeTable("should return true",
+				func(input string) {
+					sut, err := semver.Parse(input)
+					Expect(err).ShouldNot(HaveOccurred())
+					actual := sut.IsRelease()
+					Expect(actual).To(BeTrue())
+				},
+				Entry("0.0.0", "0.0.0"),
+				Entry("0.0.1", "0.0.1"),
+				Entry("0.1.0", "0.1.0"),
+				Entry("1.0.0", "1.0.0"),
+				Entry("1.0.1", "1.0.1"),
+				Entry("1.1.0", "1.1.0"),
+				Entry("1.1.1", "1.1.1"),
+				Entry("1.10.0", "1.10.0"),
+				Entry("1.0.10", "1.0.10"),
+				Entry("10.0.0", "10.0.0"),
+				Entry("10.10.0", "10.10.0"),
+				Entry("10.10.10", "10.10.10"),
+			)
+		})
+		Describe("when s is valid not a release version", func() {
+			DescribeTable("should return true",
+				func(input string) {
+					sut, err := semver.Parse(input)
+					Expect(err).ShouldNot(HaveOccurred())
+					actual := sut.IsRelease()
+					Expect(actual).To(BeFalse())
+				},
+				Entry("1.0.0-0.3.7", "1.0.0-0.3.7"),
+				Entry("1.0.0-0alpha1", "1.0.0-0alpha1"),
+				Entry("1.0.0-alpha.1", "1.0.0-alpha.1"),
+				Entry("1.0.0-alpha.12", "1.0.0-alpha.12"),
+				Entry("1.0.0-alpha.beta", "1.0.0-alpha.beta"),
+				Entry("1.0.0-alpha", "1.0.0-alpha"),
+				Entry("1.0.0-alpha+001", "1.0.0-alpha+001"),
+				Entry("1.0.0-beta.11", "1.0.0-beta.11"),
+				Entry("1.0.0-beta.2", "1.0.0-beta.2"),
+				Entry("1.0.0-beta.511485", "1.0.0-beta.511485"),
+				Entry("1.0.0-beta.5114fa", "1.0.0-beta.5114fa"),
+				Entry("1.0.0-beta", "1.0.0-beta"),
+				Entry("1.0.0-beta+exp.sha.5114f85", "1.0.0-beta+exp.sha.5114f85"),
+				Entry("1.0.0-rc.1", "1.0.0-rc.1"),
+				Entry("1.0.0-x.7.z.92", "1.0.0-x.7.z.92"),
+				Entry("1.0.0+20130313144700", "1.0.0+20130313144700"),
+			)
+		})
+	})
+
+	Describe("func (s SemVer) CompareTo(o SemVer) int", func() {
 		Describe("when s != o", func() {
 			DescribeTable("it should return -1",
 				func(a string, b string) {
@@ -577,7 +628,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func (s SemVer) Equal(o SemVer) bool", func() {
+	Describe("func (s SemVer) Equal(o SemVer) bool", func() {
 		Describe("when s is equal to o", func() {
 			DescribeTable("it should return true",
 				func(a string, b string) {
@@ -625,7 +676,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func (s SemVer) String() string", func() {
+	Describe("func (s SemVer) String() string", func() {
 		Describe("when s is a valid SemVer struct", func() {
 			DescribeTable("it should return the correct semver string",
 				func(major int, minor int, patch int, preRelease string, buildMetadata string, expected string) {
@@ -671,7 +722,7 @@ var _ = Describe("semver:", func() {
 		})
 	})
 
-	Describe("Calling func mustParseUint(s string) uint", func() {
+	Describe("func mustParseUint(s string) uint", func() {
 		Context("when s is a valid unsigned integer", func() {
 			DescribeTable("it should return the correct uint value", func(input string, expected uint) {
 				actual := number.MustParseUint(input)

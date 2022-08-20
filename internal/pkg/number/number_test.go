@@ -108,4 +108,65 @@ var _ = Describe("number: ", func() {
 			Entry("should return false", "abc"),
 		)
 	})
+
+	Describe("CompareUint[T constraints.Ordered](a, b T) int", func() {
+		DescribeTable("when a == b",
+			func(a uint, b uint) {
+				result := number.CompareUint(a, b)
+				Expect(result).To(Equal(0))
+			},
+			Entry("should return 0", uint(0), uint(0)),
+			Entry("should return 0", uint(1), uint(1)),
+			Entry("should return 0", maxUint, maxUint),
+		)
+		DescribeTable("when a < b ",
+			func(a uint, b uint) {
+				result := number.CompareUint(a, b)
+				Expect(result).To(Equal(-1))
+			},
+			Entry("should return -1", uint(0), uint(1)),
+			Entry("should return -1", uint(1), uint(2)),
+			Entry("should return -1", maxUint-1, maxUint),
+		)
+		DescribeTable("when a > b ",
+			func(a uint, b uint) {
+				result := number.CompareUint(a, b)
+				Expect(result).To(Equal(1))
+			},
+			Entry("should return 1", uint(1), uint(0)),
+			Entry("should return 1", uint(2), uint(1)),
+			Entry("should return 1", maxUint, maxUint-1),
+		)
+	})
+
+	Describe("MinInt[T constraints.Ordered](x, y T) T", func() {
+		DescribeTable("when a == b",
+			func(a uint, b uint) {
+				result := number.MinInt(a, b)
+				Expect(result).To(Equal(a))
+				Expect(result).To(Equal(b))
+			},
+			Entry("should return 0", uint(0), uint(0)),
+			Entry("should return 0", uint(1), uint(1)),
+			Entry("should return 0", maxUint, maxUint),
+		)
+		DescribeTable("when a < b ",
+			func(a uint, b uint) {
+				result := number.MinInt(a, b)
+				Expect(result).To(Equal(a))
+			},
+			Entry("should return -1", uint(0), uint(1)),
+			Entry("should return -1", uint(1), uint(2)),
+			Entry("should return -1", maxUint-1, maxUint),
+		)
+		DescribeTable("when a > b ",
+			func(a uint, b uint) {
+				result := number.MinInt(a, b)
+				Expect(result).To(Equal(b))
+			},
+			Entry("should return 1", uint(1), uint(0)),
+			Entry("should return 1", uint(2), uint(1)),
+			Entry("should return 1", maxUint, maxUint-1),
+		)
+	})
 })

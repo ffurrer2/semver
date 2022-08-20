@@ -70,7 +70,6 @@ $ semver compare 1.0.0 1.0.0-alpha.1
 ```console
 $ semver filter 1.0.0 1.0 v1.0.0 1.0.0-alpha.1
 1.0.0
-1.0.0-alpha.1
 ```
 
 ### format
