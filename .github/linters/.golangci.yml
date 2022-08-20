@@ -1,21 +1,27 @@
 # SPDX-License-Identifier: MIT
-run:
-  timeout: 15m
+
+linters-settings:
+  lll:
+    line-length: 160
 
 linters:
   disable-all: true
   enable:
+  - asasalint
   - asciicheck
   - bidichk
   - bodyclose
-  - contextcheck
+  - containedctx
   - deadcode
+  - decorder
   - depguard
   - dogsled
   - durationcheck
   - errcheck
+  - errchkjson
   - errname
   - errorlint
+  - execinquery
   - exhaustive
   - exportloopref
   - forbidigo
@@ -38,11 +44,11 @@ linters:
   - gosec
   - gosimple
   - govet
-  - ifshort
   - importas
   - ineffassign
   - ireturn
   - lll
+  - maintidx
   - makezero
   - misspell
   - nakedret
@@ -51,15 +57,15 @@ linters:
   - nilnil
   - noctx
   - nolintlint
+  - nonamedreturns
+  - nosnakecase
+  - nosprintfhostport
   - paralleltest
   - prealloc
   - predeclared
   - promlinter
   - revive
-  - rowserrcheck
-  - sqlclosecheck
   - staticcheck
-  - structcheck
   - stylecheck
   - tagliatelle
   - tenv
@@ -70,15 +76,16 @@ linters:
   - unconvert
   - unparam
   - unused
+  - usestdlibvars
   - varcheck
-  - wastedassign
   - whitespace
   - wrapcheck
 
-  # don't enable:
+  # Don't enable:
   # - cyclop
   # - dupl
   # - exhaustivestruct
+  # - exhaustruct
   # - gochecknoglobals
   # - gochecknoinits
   # - godot
@@ -86,3 +93,13 @@ linters:
   # - nlreturn
   # - varnamelen
   # - wsl
+
+  # Disabled because of generics:
+  # - contextcheck
+  # - rowserrcheck
+  # - sqlclosecheck
+  # - structcheck
+  # - wastedassign
+
+run:
+  timeout: 5m
