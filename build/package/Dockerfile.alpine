@@ -8,7 +8,7 @@ RUN set -ex \
 
 COPY semver /usr/local/bin/semver
 
-USER 65532:65532
+USER semver:semver
 
 ENTRYPOINT ["/usr/local/bin/semver"]
 CMD ["help"]
