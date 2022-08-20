@@ -3,7 +3,7 @@
 package semver_test
 
 import (
-	"github.com/ffurrer2/semver/pkg/semver"
+	"github.com/ffurrer2/semver/v2/pkg/semver"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )

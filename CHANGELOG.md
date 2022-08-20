@@ -20,6 +20,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+## [2.0.0] - 2022-09-03
+
+### Added
+
+- Added flag (`-r/--reverse) to sort in reverse order
+- Added additional flags to the filter command
+
+### Changed
+
+- Changed the default behaviour of the filter command. Pre-release versions and versions containing build metadata are no longer printed by default.
+
 ## [1.8.0] - 2022-08-25
 
 ### Changed

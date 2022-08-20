@@ -28,7 +28,7 @@ scoop install semver
 ### Build from source
 
 ```shell
-go install github.com/ffurrer2/semver/cmd/semver@latest
+go install github.com/ffurrer2/semver/v2/cmd/semver@latest
 ```
 
 ## Usage
@@ -44,6 +44,7 @@ Usage:
 
 Available Commands:
   compare     Compare semantic versions
+  completion  Generate the autocompletion script for the specified shell
   filter      Filter semantic versions
   format      Format and print semantic versions
   help        Help about any command
@@ -107,9 +108,10 @@ $ echo $?
 
 ```console
 $ semver version
-semver version 1.0.0
-commit: 224394b9d709277fe5e4965a6633535c597cd2ed
-built at: 2020-06-18T20:22:25Z
+semver version: 1.8.0
+built at:       2022-08-25T12:40:39Z
+git commit:     10c573e1ec0a6aa302c6ace2d995793139ebc1e6
+git tree state: clean
 ```
 
 ## License

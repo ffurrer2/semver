@@ -78,8 +78,8 @@ branch_name() {
   branch_name="$(git rev-parse --abbrev-ref HEAD)"
   if [[ ${branch_name} == "HEAD" ]]; then
     # Try to determine branch name from GITHUB_REF environment variable (GitHub Actions)
-    if [[ -n ${GITHUB_REF:-} ]]; then
-      branch_name="${GITHUB_REF/refs\/heads\//}"
+    if [[ -n ${GITHUB_REF_NAME:-} ]]; then
+      branch_name="${GITHUB_REF_NAME}"
     # Try to determine branch name from BRANCH_NAME environment variable (Jenkins)
     elif [[ -n ${BRANCH_NAME:-} ]]; then
       branch_name="${BRANCH_NAME}"

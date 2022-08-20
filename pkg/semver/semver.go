@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/ffurrer2/semver/internal/pkg/number"
+	"github.com/ffurrer2/semver/v2/internal/pkg/number"
 )
 
 const (

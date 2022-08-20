@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"math/bits"
 
-	"github.com/ffurrer2/semver/internal/pkg/number"
+	"github.com/ffurrer2/semver/v2/internal/pkg/number"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )

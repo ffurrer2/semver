@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
-module github.com/ffurrer2/semver
+module github.com/ffurrer2/semver/v2
 
 go 1.19
-
-retract v1.7.0 // Published accidentally
 
 require (
 	github.com/onsi/ginkgo/v2 v2.1.6

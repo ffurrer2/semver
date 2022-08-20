@@ -5,7 +5,7 @@ package main
 import (
 	"os"
 
-	"github.com/ffurrer2/semver/pkg/semver"
+	"github.com/ffurrer2/semver/v2/pkg/semver"
 	"github.com/spf13/cobra"
 )
 

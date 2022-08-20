@@ -36,6 +36,7 @@ jobs:
 
     - name: Setup task
       run: |
+        set -euo pipefail
         sudo bash -c 'curl -fsSL https://taskfile.dev/install.sh | bash -s -- -b /usr/local/bin v${{ env.TASK_VERSION }}'
 
     - name: Setup GoReleaser

@@ -3,7 +3,7 @@
 package main
 
 import (
-	"github.com/ffurrer2/semver/internal/pkg/app"
+	"github.com/ffurrer2/semver/v2/internal/pkg/app"
 	"github.com/spf13/cobra"
 )
 
