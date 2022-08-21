@@ -8,12 +8,12 @@ on:
 
 env:
   GO_VERSION: 1.18
-  GORELEASER_VERSION: 1.9.1
+  GORELEASER_VERSION: 1.10.3
 
 jobs:
   release:
     name: Create release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Checkout
       uses: actions/checkout@v3
