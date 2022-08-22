@@ -3,6 +3,8 @@ module github.com/ffurrer2/semver
 
 go 1.19
 
+retract v1.7.0 // Published accidentally
+
 require (
 	github.com/onsi/ginkgo/v2 v2.1.4
 	github.com/onsi/gomega v1.20.0
