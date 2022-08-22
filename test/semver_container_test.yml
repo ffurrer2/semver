@@ -4,11 +4,11 @@ schemaVersion: 2.0.0
 commandTests:
 - name: 'semver help'
   command: 'semver'
-  args: [ '-h' ]
+  args: ['-h']
   exitCode: 0
 - name: 'semver version'
   command: 'semver'
-  args: [ 'version' ]
+  args: ['version']
   expectedOutput:
   - |-
     semver version: v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?
@@ -53,5 +53,5 @@ metadataTest:
   - key: 'org.opencontainers.image.version'
     value: '^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
     isRegex: true
-  entrypoint: [ '/usr/local/bin/semver' ]
-  cmd: [ 'help' ]
+  entrypoint: ['/usr/local/bin/semver']
+  cmd: ['help']

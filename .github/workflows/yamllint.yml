@@ -14,7 +14,7 @@ on:
     paths:
     - '**.ya?ml'
 
-permissions: { }
+permissions: {}
 
 jobs:
   yamllint:
