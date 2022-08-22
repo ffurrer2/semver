@@ -2,9 +2,9 @@
 # https://hub.docker.com/_/alpine
 FROM docker.io/library/alpine:3.16.2
 
-RUN set -ex \
-    && addgroup -g 65532 -S semver \
-    && adduser -h /dev/null -g semver -S -D -G semver -H -u 65532 semver
+RUN set -ex; \
+    addgroup -g 65532 -S semver; \
+    adduser -h /dev/null -g semver -S -D -G semver -H -u 65532 semver
 
 COPY semver /usr/local/bin/semver
 
