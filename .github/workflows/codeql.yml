@@ -22,4 +22,4 @@ jobs:
     name: codeql
     uses: ffurrer2/shared-workflows/.github/workflows/codeql.yml@main
     with:
-      languages: '[ "go" ]'
+      languages: '["go"]'
