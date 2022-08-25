@@ -13,8 +13,6 @@ on:
     branches:
     - main
 
-permissions: {}
-
 env:
   GO_VERSION: 1.19
   TASK_VERSION: 3.14.1
@@ -24,6 +22,7 @@ jobs:
   local-build:
     name: Local build
     runs-on: ubuntu-22.04
+    permissions: {}
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -51,7 +50,10 @@ jobs:
     name: Simulate GoReleaser release
     runs-on: ubuntu-22.04
     permissions:
+      actions: read
       checks: write
+      contents: read
+      security-events: write
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -89,14 +91,38 @@ jobs:
       with:
         args: 'test --image ghcr.io/ffurrer2/semver:alpine --config test/semver_alpine_container_test.yml'
 
-    - name: Container Scan (scratch)
-      uses: azure/container-scan@v0
+    - name: Run Trivy vulnerability scanner (scratch)
+      uses: aquasecurity/trivy-action@master
       with:
-        image-name: ghcr.io/ffurrer2/semver:latest
-        severity-threshold: HIGH
+        image-ref: 'ghcr.io/ffurrer2/semver:latest'
+        exit-code: '1'
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
+        format: 'sarif'
+        output: 'trivy-results-scratch.sarif'
+        github-pat: '${{ secrets.GITHUB_TOKEN }}'
 
-    - name: Container Scan (alpine)
-      uses: azure/container-scan@v0
+    - name: Upload Trivy scan results to GitHub Security tab (scratch)
+      uses: github/codeql-action/upload-sarif@v2
       with:
-        image-name: ghcr.io/ffurrer2/semver:alpine
-        severity-threshold: HIGH
+        sarif_file: 'trivy-results-scratch.sarif'
+        category: trivy-results-scratch
+      if: always()
+
+    - name: Run Trivy vulnerability scanner (alpine)
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/ffurrer2/semver:alpine'
+        exit-code: '1'
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
+        format: 'sarif'
+        output: 'trivy-results-alpine.sarif'
+        github-pat: '${{ secrets.GITHUB_TOKEN }}'
+
+    - name: Upload Trivy scan results to GitHub Security tab (alpine)
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: 'trivy-results-alpine.sarif'
+        category: trivy-results-alpine
+      if: always()
