@@ -149,7 +149,9 @@ dockers:
   - '--label=org.opencontainers.image.url=https://github.com/ffurrer2/semver'
   - '--label=org.opencontainers.image.vendor=Felix Furrer'
   - '--label=org.opencontainers.image.version={{ .Version }}'
-  use: docker
+  - '--label=org.opencontainers.image.base.name={{ .Env.IMAGE_BASE_NAME_ALPINE }}'
+  - '--label=org.opencontainers.image.base.digest={{ .Env.IMAGE_BASE_DIGEST_ALPINE }}'
+  use: buildx
 - ids:
   - semver
   goos: linux
@@ -178,7 +180,9 @@ dockers:
   - '--label=org.opencontainers.image.url=https://github.com/ffurrer2/semver'
   - '--label=org.opencontainers.image.vendor=Felix Furrer'
   - '--label=org.opencontainers.image.version={{ .Version }}'
-  use: docker
+  - '--label=org.opencontainers.image.base.name={{ .Env.IMAGE_BASE_NAME_DISTROLESS }}'
+  - '--label=org.opencontainers.image.base.digest={{ .Env.IMAGE_BASE_DIGEST_DISTROLESS }}'
+  use: buildx
 
 changelog:
   skip: false

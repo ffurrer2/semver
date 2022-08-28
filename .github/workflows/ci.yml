@@ -67,7 +67,18 @@ jobs:
 
     - name: Set environment variables
       run: |
+        set -euo pipefail
         echo "SNAPSHOT_VERSION=$(./scripts/version)" >>"${GITHUB_ENV}"
+
+        IMAGE_BASE_NAME_DISTROLESS="$(sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile | tail -n 1)"
+        echo "IMAGE_BASE_NAME_DISTROLESS=${IMAGE_BASE_NAME_DISTROLESS}" >>"${GITHUB_ENV}"
+        echo "IMAGE_BASE_DIGEST_DISTROLESS=$(docker pull "${IMAGE_BASE_NAME_DISTROLESS}" | sed -n "s/^Digest: \(.*\)$/\1/p")" >>"${GITHUB_ENV}"
+
+        IMAGE_BASE_NAME_ALPINE="$(sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile.alpine | tail -n 1)"
+        echo "IMAGE_BASE_NAME_ALPINE=${IMAGE_BASE_NAME_ALPINE}" >>"${GITHUB_ENV}"
+        echo "IMAGE_BASE_DIGEST_ALPINE=$(docker pull "${IMAGE_BASE_NAME_ALPINE}" | sed -n "s/^Digest: \(.*\)$/\1/p")" >>"${GITHUB_ENV}"
+        cat "${GITHUB_ENV}"
+
 
     - name: Check release config
       uses: goreleaser/goreleaser-action@v3

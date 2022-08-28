@@ -9,6 +9,7 @@ on:
 env:
   GO_VERSION: 1.19
   GORELEASER_VERSION: 1.10.3
+  REGISTRY: ghcr.io
 
 jobs:
   release:
@@ -26,6 +27,18 @@ jobs:
       with:
         go-version: ${{ env.GO_VERSION }}
 
+    - name: Set environment variables
+      run: |
+        set -euo pipefail
+        IMAGE_BASE_NAME_DISTROLESS="$(sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile | tail -n 1)"
+        echo "IMAGE_BASE_NAME_DISTROLESS=${IMAGE_BASE_NAME_DISTROLESS}" >>"${GITHUB_ENV}"
+        echo "IMAGE_BASE_DIGEST_DISTROLESS=$(docker pull "${IMAGE_BASE_NAME_DISTROLESS}" | sed -n "s/^Digest: \(.*\)$/\1/p")" >>"${GITHUB_ENV}"
+
+        IMAGE_BASE_NAME_ALPINE="$(sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile.alpine | tail -n 1)"
+        echo "IMAGE_BASE_NAME_ALPINE=${IMAGE_BASE_NAME_ALPINE}" >>"${GITHUB_ENV}"
+        echo "IMAGE_BASE_DIGEST_ALPINE=$(docker pull "${IMAGE_BASE_NAME_ALPINE}" | sed -n "s/^Digest: \(.*\)$/\1/p")" >>"${GITHUB_ENV}"
+        cat "${GITHUB_ENV}"
+
     - name: Create release notes file
       uses: ffurrer2/extract-release-notes@v1
       with:
@@ -40,14 +53,14 @@ jobs:
     - name: Login to GitHub Container registry
       uses: docker/login-action@v2
       with:
-        registry: ghcr.io
+        registry: ${{ env.REGISTRY }}
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: GoReleaser
+      uses: goreleaser/goreleaser-action@v3
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      uses: goreleaser/goreleaser-action@v3
       with:
         version: v${{ env.GORELEASER_VERSION }}
         args: release --config build/package/.goreleaser.yaml --release-notes=${{ runner.temp }}/RELEASE_NOTES.md
