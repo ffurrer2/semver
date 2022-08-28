@@ -18,8 +18,8 @@ includes:
 vars:
   PROJECT_NAME: semver
   PROJECT_OWNER: ffurrer2
-  BUILD_VERSION: {sh: bash ./scripts/version.sh}
-  BUILD_VERSION_SHORT: {sh: bash ./scripts/version.sh --short}
+  BUILD_VERSION: {sh: bash ./scripts/version}
+  BUILD_VERSION_SHORT: {sh: bash ./scripts/version --short}
   BUILD_DATE: '{{dateInZone "2006-01-02T15:04:05Z" now "UTC"}}'
   GIT_SHA: {sh: git rev-parse HEAD}
   GIT_SHA_SHORT: {sh: git rev-parse --short HEAD}

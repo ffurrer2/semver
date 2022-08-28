@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+set -euo pipefail
+shopt -s inherit_errexit
+shopt -s extglob
+
+# ###################################################################################### #
+# Prints the current project version                                                     #
+#                                                                                        #
+# VERSION: 2.0.0                                                                         #
+#                                                                                        #
+# DESCRIPTION:                                                                           #
+#  Versioning follows Semantic Versioning 2.0.0 (https://semver.org):                    #
+#    <version>        ::= <major>.<minor>.<patch>                                        #
+#                       | <major>.<minor>.<patch>-<pre-release>+<build-metadata>         #
+#    <major>          ::= <numeric identifier>                                           #
+#    <minor>          ::= <numeric identifier>                                           #
+#    <patch>          ::= <numeric identifier>                                           #
+#    <pre-release>    ::= <cleaned-branch-name>                                          #
+#    <build-metadata> ::= <yyyymmdd>.<short-commit-hash>                                 #
+#                       | <yyyymmdd>.<short-commit-hash>.dirty                           #
+#                                                                                        #
+# DEPENDENCIES:                                                                          #
+#  - git                                                                                 #
+#                                                                                        #
+# EXAMPLES:                                                                              #
+#  release version '1.0.0' tag:                 1.0.0                                    #
+#  snapshot version 'develop' branch:           1.0.1-develop+20200101.42a4711           #
+#  snapshot version 'hotfix/new-hotfix' branch: 1.0.1-hotfix-new-hotfix+20200101.42a4711 #
+#                                                                                        #
+# ###################################################################################### #
+
+cmd="$(command -v git)"
+if [[ ! -x ${cmd} ]]; then
+  printf 'error: command not found: %s\n' "${cmd}" >&2
+  exit 1
+fi
+
+version() {
+  local version
+  if [[ -z "$(currentTag | strip_version_prefix)" ]] || [[ -n "$(git status --porcelain)" ]]; then
+    version="$(lastAccessibleTag | strip_version_prefix)"
+    version="$(nextMinorVersion "${version}")"
+    local pre_release
+    pre_release="$(branch_name | clean_branch_name)"
+    # Strip leading zeros
+    pre_release="${pre_release##+(0)}"
+    if [[ -n ${pre_release} ]]; then
+      version="${version}-${pre_release}"
+    fi
+
+    if [[ $* != "--short" ]]; then
+      local commit_hash
+      commit_hash="$(git rev-parse --short HEAD)"
+      local build_metadata
+      build_metadata="$(date -u +%Y%m%d).${commit_hash}"
+      git_status="$(git status --porcelain)"
+      if [[ -n ${git_status} ]]; then
+        build_metadata+=".dirty"
+      fi
+      version="${version}+${build_metadata}"
+    fi
+  fi
+
+  # shellcheck disable=SC2310
+  if isInvalid "${version}"; then
+    printf 'error: invalid semantic version: %s\n' "${version}" >&2
+    exit 1
+  fi
+
+  printf '%s' "${version}"
+}
+
+branch_name() {
+  # Try to determine branch name from Git repository
+  local branch_name
+  branch_name="$(git rev-parse --abbrev-ref HEAD)"
+  if [[ ${branch_name} == "HEAD" ]]; then
+    # Try to determine branch name from GITHUB_REF environment variable (GitHub Actions)
+    if [[ -n ${GITHUB_REF:-} ]]; then
+      branch_name="${GITHUB_REF/refs\/heads\//}"
+    # Try to determine branch name from BRANCH_NAME environment variable (Jenkins)
+    elif [[ -n ${BRANCH_NAME:-} ]]; then
+      branch_name="${BRANCH_NAME}"
+    else
+      printf 'error: detached HEAD\n' >&2
+      exit 1
+    fi
+  fi
+  printf '%s' "${branch_name}"
+}
+
+clean_branch_name() {
+  local branch_name
+  branch_name="$(</dev/stdin)"
+  branch_name="${branch_name//[^-a-zA-Z0-9]/-}"
+  printf '%s' "${branch_name,,}"
+}
+
+currentTag() {
+  git describe --tags --exact-match 2>/dev/null
+}
+
+lastAccessibleTag() {
+  local tag
+  tag="$(git describe --tags --match "v*.*.*" --abbrev=0 2>/dev/null)"
+  if [[ -z ${tag} ]]; then
+    tag="0.1.0"
+  fi
+  printf '%s' "${tag}"
+}
+
+strip_version_prefix() {
+  local version
+  version="$(</dev/stdin)"
+  printf '%s' "${version/v/}"
+}
+
+nextMinorVersion() {
+  local -r version="$1"
+  IFS='.' read -r major minor patch _ <<<"${version}"
+  local next_minor="$((minor + 1))"
+  printf '%s.%s.%s' "${major}" "${next_minor}" "${patch}"
+}
+
+isInvalid() {
+  local -r version="$1"
+  if [[ ${version} =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
+    return 1
+  else
+    return 0
+  fi
+}
+
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+  version "$@"
+fi

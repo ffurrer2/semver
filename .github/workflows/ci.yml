@@ -67,7 +67,7 @@ jobs:
 
     - name: Set environment variables
       run: |
-        echo "SNAPSHOT_VERSION=$(./scripts/version.sh)" >>"${GITHUB_ENV}"
+        echo "SNAPSHOT_VERSION=$(./scripts/version)" >>"${GITHUB_ENV}"
 
     - name: Check release config
       uses: goreleaser/goreleaser-action@v3
