@@ -7,7 +7,7 @@ retract v1.7.0 // Published accidentally
 
 require (
 	github.com/onsi/ginkgo/v2 v2.1.4
-	github.com/onsi/gomega v1.20.0
+	github.com/onsi/gomega v1.20.1
 	github.com/spf13/cobra v1.5.0
 	golang.org/x/exp v0.0.0-20220722155223-a9213eeb770e
 )
