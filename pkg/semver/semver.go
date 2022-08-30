@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"reflect"
 	"regexp"
-	"sort"
 	"strings"
 
 	"github.com/ffurrer2/semver/internal/pkg/number"
@@ -85,10 +84,6 @@ func MustParse(s string) *SemVer {
 
 func IsValid(s string) bool {
 	return semverRegexp.MatchString(s)
-}
-
-func Sort(data []SemVer) {
-	sort.Sort(BySemVer(data))
 }
 
 func (s *SemVer) SetMajor(major uint) {

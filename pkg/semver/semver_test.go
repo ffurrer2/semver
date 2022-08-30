@@ -4,6 +4,7 @@ package semver_test
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/ffurrer2/semver/internal/pkg/number"
@@ -13,7 +14,26 @@ import (
 )
 
 var _ = Describe("semver:", func() {
-	Describe("Calling func Parse(input string) (*SemVer, error)", func() {
+	Describe("type SemVer struct", func() {
+		It("should implement the sort.Interface interface", func() {
+			actual := []semver.SemVer{
+				{Major: 1, Minor: 0, Patch: 0, PreRelease: []string{}, BuildMetadata: []string{}},
+				{Major: 1, Minor: 1, Patch: 1, PreRelease: []string{}, BuildMetadata: []string{}},
+				{Major: 1, Minor: 0, Patch: 1, PreRelease: []string{}, BuildMetadata: []string{}},
+				{Major: 1, Minor: 0, Patch: 0, PreRelease: []string{}, BuildMetadata: []string{}},
+			}
+			sort.Sort(semver.BySemVer(actual))
+			expected := []semver.SemVer{
+				{Major: 1, Minor: 0, Patch: 0, PreRelease: []string{}, BuildMetadata: []string{}},
+				{Major: 1, Minor: 0, Patch: 0, PreRelease: []string{}, BuildMetadata: []string{}},
+				{Major: 1, Minor: 0, Patch: 1, PreRelease: []string{}, BuildMetadata: []string{}},
+				{Major: 1, Minor: 1, Patch: 1, PreRelease: []string{}, BuildMetadata: []string{}},
+			}
+			Expect(actual).To(Equal(expected))
+		})
+	})
+
+	Describe("Calling func Parse(s string) (*SemVer, error)", func() {
 		Describe("when input is a valid semantic version", func() {
 			DescribeTable("it should not error and return the correct SemVer struct",
 				func(input string, major int, minor int, patch int, preRelease string, buildMetadata string) {
@@ -171,25 +191,6 @@ var _ = Describe("semver:", func() {
 				Entry("0.0.0-", "0.0.0-"),
 				Entry("0.0.0-alpha+", "0.0.0-alpha+"),
 			)
-		})
-	})
-
-	Describe("Calling func Sort(data []SemVer)", func() {
-		It("should sort data correctly", func() {
-			actual := []semver.SemVer{
-				{Major: 1, Minor: 0, Patch: 0, PreRelease: []string{}, BuildMetadata: []string{}},
-				{Major: 1, Minor: 1, Patch: 1, PreRelease: []string{}, BuildMetadata: []string{}},
-				{Major: 1, Minor: 0, Patch: 1, PreRelease: []string{}, BuildMetadata: []string{}},
-				{Major: 1, Minor: 0, Patch: 0, PreRelease: []string{}, BuildMetadata: []string{}},
-			}
-			semver.Sort(actual)
-			expected := []semver.SemVer{
-				{Major: 1, Minor: 0, Patch: 0, PreRelease: []string{}, BuildMetadata: []string{}},
-				{Major: 1, Minor: 0, Patch: 0, PreRelease: []string{}, BuildMetadata: []string{}},
-				{Major: 1, Minor: 0, Patch: 1, PreRelease: []string{}, BuildMetadata: []string{}},
-				{Major: 1, Minor: 1, Patch: 1, PreRelease: []string{}, BuildMetadata: []string{}},
-			}
-			Expect(actual).To(Equal(expected))
 		})
 	})
 
