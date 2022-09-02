@@ -92,6 +92,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Initial release of `semver`
 
 [unreleased]: https://github.com/ffurrer2/semver/compare/v1.7.0...HEAD
+[2.0.0]: https://github.com/ffurrer2/semver/compare/v1.8.0...v2.0.0
+[1.8.0]: https://github.com/ffurrer2/semver/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/ffurrer2/semver/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/ffurrer2/semver/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/ffurrer2/semver/compare/v1.4.0...v1.5.0
