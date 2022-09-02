@@ -33,25 +33,25 @@ release:
     - `docker pull docker.io/ffurrer/semver:alpine`
 
 brews:
-  - name: semver
-    tap:
-      owner: ffurrer2
-      name: homebrew-tap
-      branch: main
-    commit_author:
-      name: goreleaserbot
-      email: ffurrer2@users.noreply.github.com
-    commit_msg_template: Brew formula update for {{ .ProjectName }} version {{ .Tag }}
-    folder: Formula
-    install: |
-      bin.install "semver"
-    test: |
-      system "#{bin}/semver version"
-    description: A semantic versioning command line utility written in Go.
-    homepage: https://github.com/ffurrer2/semver
-    license: MIT
-    ids:
-      - semver
+- name: semver
+  tap:
+    owner: ffurrer2
+    name: homebrew-tap
+    branch: main
+  commit_author:
+    name: goreleaserbot
+    email: ffurrer2@users.noreply.github.com
+  commit_msg_template: Brew formula update for {{ .ProjectName }} version {{ .Tag }}
+  folder: Formula
+  install: |
+    bin.install "semver"
+  test: |
+    system "#{bin}/semver version"
+  description: A semantic versioning command line utility written in Go.
+  homepage: https://github.com/ffurrer2/semver
+  license: MIT
+  ids:
+  - semver
 scoop:
   name: semver
   bucket:
@@ -66,56 +66,56 @@ scoop:
   license: MIT
 
 builds:
-  - id: semver
-    goos:
-      - darwin
-      - linux
-      - windows
-    goarch:
-      - '386'
-      - amd64
-      - arm64
-    goarm:
-      - '6'
-      - '7'
-    ignore:
-      - goos: darwin
-        goarch: '386'
-      - goos: linux
-        goarch: arm
-        goarm: '7'
-      - goos: windows
-        goarch: arm64
-    dir: .
-    main: ./cmd/semver
-    binary: semver
-    builder: go
-    gobinary: go
-    command: build
-    ldflags:
-      - -X github.com/ffurrer2/semver/internal/pkg/app.version={{.Version}}
-      - -X github.com/ffurrer2/semver/internal/pkg/app.date={{.Date}}
-      - -X github.com/ffurrer2/semver/internal/pkg/app.commit={{.Commit}}
-      - -s
-      - -w
-    flags:
-      - -v
-    env:
-      - CGO_ENABLED=0
+- id: semver
+  goos:
+  - darwin
+  - linux
+  - windows
+  goarch:
+  - '386'
+  - amd64
+  - arm64
+  goarm:
+  - '6'
+  - '7'
+  ignore:
+  - goos: darwin
+    goarch: '386'
+  - goos: linux
+    goarch: arm
+    goarm: '7'
+  - goos: windows
+    goarch: arm64
+  dir: .
+  main: ./cmd/semver
+  binary: semver
+  builder: go
+  gobinary: go
+  command: build
+  ldflags:
+  - -X github.com/ffurrer2/semver/internal/pkg/app.version={{.Version}}
+  - -X github.com/ffurrer2/semver/internal/pkg/app.date={{.Date}}
+  - -X github.com/ffurrer2/semver/internal/pkg/app.commit={{.Commit}}
+  - -s
+  - -w
+  flags:
+  - -v
+  env:
+  - CGO_ENABLED=0
 
 archives:
-  - id: semver
-    builds:
-      - semver
-    name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
-    format: tar.gz
-    format_overrides:
-      - goos: windows
-        format: zip
-    files:
-      - src: CHANGELOG.md
-      - src: LICENSE
-      - src: README.md
+- id: semver
+  builds:
+  - semver
+  name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
+  format: tar.gz
+  format_overrides:
+  - goos: windows
+    format: zip
+  files:
+  - src: CHANGELOG.md
+  - src: LICENSE
+  - src: README.md
 
 snapshot:
   name_template: '{{.Env.SNAPSHOT_VERSION}}_'
@@ -125,68 +125,68 @@ checksum:
   algorithm: sha256
 
 dockers:
-  - ids:
-      - semver
-    goos: linux
-    goarch: amd64
-    dockerfile: build/package/Dockerfile.alpine
-    image_templates:
-      - docker.io/ffurrer/semver:alpine
-      - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}-alpine
-      - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}-alpine
-      - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}-alpine
-      - ghcr.io/ffurrer2/semver:alpine
-      - ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}-alpine
-      - ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}-alpine
-      - ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}-alpine
-    skip_push: 'false'
-    build_flag_templates:
-      - --pull
-      - --label=org.opencontainers.image.authors=Felix Furrer
-      - --label=org.opencontainers.image.base.digest={{ .Env.IMAGE_BASE_DIGEST_ALPINE }}
-      - --label=org.opencontainers.image.base.name={{ .Env.IMAGE_BASE_NAME_ALPINE }}
-      - --label=org.opencontainers.image.created={{ .Date }}
-      - --label=org.opencontainers.image.description=A semantic versioning command line utility written in Go.
-      - --label=org.opencontainers.image.documentation=https://github.com/ffurrer2/semver/blob/main/README.md
-      - --label=org.opencontainers.image.licenses=MIT
-      - --label=org.opencontainers.image.revision={{ .FullCommit }}
-      - --label=org.opencontainers.image.source=https://github.com/ffurrer2/semver
-      - --label=org.opencontainers.image.title=SemVer
-      - --label=org.opencontainers.image.url=https://github.com/ffurrer2/semver
-      - --label=org.opencontainers.image.vendor=Felix Furrer
-      - --label=org.opencontainers.image.version={{ .Version }}
-    use: buildx
-  - ids:
-      - semver
-    goos: linux
-    goarch: amd64
-    dockerfile: build/package/Dockerfile
-    image_templates:
-      - docker.io/ffurrer/semver:latest
-      - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}
-      - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}
-      - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}
-      - ghcr.io/ffurrer2/semver:latest
-      - ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}
-      - ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}
-      - ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}
-    skip_push: 'false'
-    build_flag_templates:
-      - --pull
-      - --label=org.opencontainers.image.authors=Felix Furrer
-      - --label=org.opencontainers.image.base.digest={{ .Env.IMAGE_BASE_DIGEST_DISTROLESS }}
-      - --label=org.opencontainers.image.base.name={{ .Env.IMAGE_BASE_NAME_DISTROLESS }}
-      - --label=org.opencontainers.image.created={{ .Date }}
-      - --label=org.opencontainers.image.description=A semantic versioning command line utility written in Go.
-      - --label=org.opencontainers.image.documentation=https://github.com/ffurrer2/semver/blob/main/README.md
-      - --label=org.opencontainers.image.licenses=MIT
-      - --label=org.opencontainers.image.revision={{ .FullCommit }}
-      - --label=org.opencontainers.image.source=https://github.com/ffurrer2/semver
-      - --label=org.opencontainers.image.title=SemVer
-      - --label=org.opencontainers.image.url=https://github.com/ffurrer2/semver
-      - --label=org.opencontainers.image.vendor=Felix Furrer
-      - --label=org.opencontainers.image.version={{ .Version }}
-    use: buildx
+- ids:
+  - semver
+  goos: linux
+  goarch: amd64
+  dockerfile: build/package/Dockerfile.alpine
+  image_templates:
+  - docker.io/ffurrer/semver:alpine
+  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}-alpine
+  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}-alpine
+  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}-alpine
+  - ghcr.io/ffurrer2/semver:alpine
+  - ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}-alpine
+  - ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}-alpine
+  - ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}-alpine
+  skip_push: 'false'
+  build_flag_templates:
+  - --pull
+  - --label=org.opencontainers.image.authors=Felix Furrer
+  - --label=org.opencontainers.image.base.digest={{ .Env.IMAGE_BASE_DIGEST_ALPINE }}
+  - --label=org.opencontainers.image.base.name={{ .Env.IMAGE_BASE_NAME_ALPINE }}
+  - --label=org.opencontainers.image.created={{ .Date }}
+  - --label=org.opencontainers.image.description=A semantic versioning command line utility written in Go.
+  - --label=org.opencontainers.image.documentation=https://github.com/ffurrer2/semver/blob/main/README.md
+  - --label=org.opencontainers.image.licenses=MIT
+  - --label=org.opencontainers.image.revision={{ .FullCommit }}
+  - --label=org.opencontainers.image.source=https://github.com/ffurrer2/semver
+  - --label=org.opencontainers.image.title=SemVer
+  - --label=org.opencontainers.image.url=https://github.com/ffurrer2/semver
+  - --label=org.opencontainers.image.vendor=Felix Furrer
+  - --label=org.opencontainers.image.version={{ .Version }}
+  use: buildx
+- ids:
+  - semver
+  goos: linux
+  goarch: amd64
+  dockerfile: build/package/Dockerfile
+  image_templates:
+  - docker.io/ffurrer/semver:latest
+  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}
+  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}
+  - docker.io/ffurrer/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}
+  - ghcr.io/ffurrer2/semver:latest
+  - ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}{{end}}
+  - ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}{{end}}
+  - ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{ .Major }}.{{ .Minor }}.{{ .Patch }}{{end}}
+  skip_push: 'false'
+  build_flag_templates:
+  - --pull
+  - --label=org.opencontainers.image.authors=Felix Furrer
+  - --label=org.opencontainers.image.base.digest={{ .Env.IMAGE_BASE_DIGEST_DISTROLESS }}
+  - --label=org.opencontainers.image.base.name={{ .Env.IMAGE_BASE_NAME_DISTROLESS }}
+  - --label=org.opencontainers.image.created={{ .Date }}
+  - --label=org.opencontainers.image.description=A semantic versioning command line utility written in Go.
+  - --label=org.opencontainers.image.documentation=https://github.com/ffurrer2/semver/blob/main/README.md
+  - --label=org.opencontainers.image.licenses=MIT
+  - --label=org.opencontainers.image.revision={{ .FullCommit }}
+  - --label=org.opencontainers.image.source=https://github.com/ffurrer2/semver
+  - --label=org.opencontainers.image.title=SemVer
+  - --label=org.opencontainers.image.url=https://github.com/ffurrer2/semver
+  - --label=org.opencontainers.image.vendor=Felix Furrer
+  - --label=org.opencontainers.image.version={{ .Version }}
+  use: buildx
 
 dist: artifacts/dist
 
@@ -197,14 +197,14 @@ env_files:
 
 before:
   hooks:
-    - go mod verify
-    - go generate ./...
-    - go mod tidy -v
-    - go test -race -v ./...
+  - go mod verify
+  - go generate ./...
+  - go mod tidy -v
+  - go test -race -v ./...
 
 gomod:
   proxy: true
   env:
-    - GOPROXY=https://proxy.golang.org,direct
-    - GOSUMDB=sum.golang.org
+  - GOPROXY=https://proxy.golang.org,direct
+  - GOSUMDB=sum.golang.org
   mod: mod
