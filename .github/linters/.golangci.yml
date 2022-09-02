@@ -11,7 +11,6 @@ linters:
   - bidichk
   - bodyclose
   - containedctx
-  - deadcode
   - decorder
   - depguard
   - dogsled
@@ -46,7 +45,6 @@ linters:
   - grouper
   - importas
   - ineffassign
-  - ireturn
   - lll
   - maintidx
   - makezero
@@ -58,7 +56,6 @@ linters:
   - noctx
   - nolintlint
   - nonamedreturns
-  - nosnakecase
   - nosprintfhostport
   - paralleltest
   - prealloc
@@ -77,7 +74,6 @@ linters:
   - unparam
   - unused
   - usestdlibvars
-  - varcheck
   - whitespace
   - wrapcheck
 
@@ -96,6 +92,7 @@ linters:
 
   # Disabled because of generics:
   # - contextcheck
+  # - ireturn
   # - rowserrcheck
   # - sqlclosecheck
   # - structcheck
