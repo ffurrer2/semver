@@ -38,7 +38,8 @@ fi
 
 version() {
   local version
-  if [[ -z "$(currentTag | strip_version_prefix)" ]] || [[ -n "$(git status --porcelain)" ]]; then
+  version="$(currentTag | strip_version_prefix || true)"
+  if [[ -z "${version}" ]] || [[ -n "$(git status --porcelain)" ]]; then
     version="$(lastAccessibleTag | strip_version_prefix)"
     version="$(nextMinorVersion "${version}")"
     local pre_release
@@ -98,7 +99,7 @@ clean_branch_name() {
 }
 
 currentTag() {
-  git describe --tags --exact-match 2>/dev/null
+  git describe --tags --exact-match --match "v*.*.*" 2>/dev/null
 }
 
 lastAccessibleTag() {
