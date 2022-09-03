@@ -47,6 +47,7 @@ tasks:
     desc: Test {{.PROJECT_NAME}}
     cmds:
     - task: go:test
+    - task: misc:container-structure-test
     silent: true
 
   lint:
@@ -72,10 +73,10 @@ tasks:
     - task: dockle:lint
       vars:
         IMAGE_NAME: 'ghcr.io/ffurrer2/semver:alpine'
-    - task: trivy:image
+    - task: trivy:image:scan
       vars:
         IMAGE_NAME: 'ghcr.io/ffurrer2/semver:latest'
-    - task: trivy:image
+    - task: trivy:image:scan
       vars:
         IMAGE_NAME: 'ghcr.io/ffurrer2/semver:alpine'
     silent: true
@@ -90,12 +91,14 @@ tasks:
     desc: Show versions
     cmds:
     - |
-      set -e
+      set -euo pipefail
       printf 'container-structure-test: %s\n' "$(container-structure-test version | cut -c 2-)"
+      printf 'docker:                   %s\n' "$(docker version --format json | jq --raw-output '.Client.Version')"
       printf 'dockle:                   %s\n' "$(dockle --version | cut -d ' ' -f 3)"
       printf 'git:                      %s\n' "$(git --version | cut -d ' ' -f 3)"
+      printf 'go-mod-upgrade:           %s\n' "$(go-mod-upgrade --version | tail -n 1 | cut -d ' ' -f 3 | cut -c 2-)"
       printf 'go:                       %s\n' "$(go version | cut -d ' ' -f 3 | cut -c 3-)"
-      printf 'gofumpt:                  %s\n' "$(gofumpt --version)"
+      printf 'gofumpt:                  %s\n' "$(gofumpt --version | cut -c 2-)"
       printf 'golangci-lint:            %s\n' "$(golangci-lint version --format short)"
       printf 'goreleaser:               %s\n' "$(goreleaser --version  | head -n 1 | cut -d ' ' -f 3)"
       printf 'hadolint:                 %s\n' "$(hadolint --version | cut -d ' ' -f 4)"

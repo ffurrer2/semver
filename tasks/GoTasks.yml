@@ -12,7 +12,7 @@ vars:
 
 tasks:
   clean:
-    desc: Delete build artifacts
+    desc: Delete Go build artifacts
     cmds:
     - rm -rf artifacts/
     silent: true

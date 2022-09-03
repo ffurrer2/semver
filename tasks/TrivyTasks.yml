@@ -3,11 +3,17 @@
 version: '3'
 
 tasks:
-  image:
-    desc: Run trivy (vulnerability scanner)
+  image:scan:
+    desc: Run Trivy image scanner
     preconditions:
     - sh: '{{if empty .IMAGE_NAME}}false{{end}}'
       msg: 'error: variable "IMAGE_NAME" is required (e.g. task trivy:image IMAGE_NAME=docker.io/library/alpine:latest)'
     cmds:
     - trivy image --format table {{.IMAGE_NAME}}
+    silent: true
+
+  filesystem:scan:
+    desc: Run Trivy filesystem scanner
+    cmds:
+    - trivy filesystem --security-checks vuln,config,secret --dependency-tree --format table .
     silent: true

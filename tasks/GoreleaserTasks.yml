@@ -2,12 +2,6 @@
 # https://taskfile.dev
 version: '3'
 
-vars:
-  IMAGE_BASE_NAME_DISTROLESS: {sh: 'sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile'}
-  IMAGE_BASE_DIGEST_DISTROLESS: {sh: 'docker pull {{.IMAGE_BASE_NAME_DISTROLESS}} | sed -n "s/^Digest: \(.*\)$/\1/p"'}
-  IMAGE_BASE_NAME_ALPINE: {sh: 'sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile.alpine'}
-  IMAGE_BASE_DIGEST_ALPINE: {sh: 'docker pull {{.IMAGE_BASE_NAME_ALPINE}} | sed -n "s/^Digest: \(.*\)$/\1/p"'}
-
 tasks:
   check:
     desc: Check GoReleaser configuration
@@ -25,6 +19,11 @@ tasks:
 
   snapshot:
     desc: Create snapshot release with GoReleaser
+    vars:
+      IMAGE_BASE_NAME_DISTROLESS: {sh: 'sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile'}
+      IMAGE_BASE_DIGEST_DISTROLESS: {sh: 'docker pull {{.IMAGE_BASE_NAME_DISTROLESS}} | sed -n "s/^Digest: \(.*\)$/\1/p"'}
+      IMAGE_BASE_NAME_ALPINE: {sh: 'sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile.alpine'}
+      IMAGE_BASE_DIGEST_ALPINE: {sh: 'docker pull {{.IMAGE_BASE_NAME_ALPINE}} | sed -n "s/^Digest: \(.*\)$/\1/p"'}
     env:
       SNAPSHOT_VERSION: '{{.BUILD_VERSION}}'
       IMAGE_BASE_NAME_DISTROLESS: '{{.IMAGE_BASE_NAME_DISTROLESS}}'
@@ -38,6 +37,11 @@ tasks:
 
   release-dry-run:
     desc: Create release with GoReleaser without publishing artifacts
+    vars:
+      IMAGE_BASE_NAME_DISTROLESS: {sh: 'sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile'}
+      IMAGE_BASE_DIGEST_DISTROLESS: {sh: 'docker pull {{.IMAGE_BASE_NAME_DISTROLESS}} | sed -n "s/^Digest: \(.*\)$/\1/p"'}
+      IMAGE_BASE_NAME_ALPINE: {sh: 'sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile.alpine'}
+      IMAGE_BASE_DIGEST_ALPINE: {sh: 'docker pull {{.IMAGE_BASE_NAME_ALPINE}} | sed -n "s/^Digest: \(.*\)$/\1/p"'}
     env:
       IMAGE_BASE_NAME_DISTROLESS: '{{.IMAGE_BASE_NAME_DISTROLESS}}'
       IMAGE_BASE_DIGEST_DISTROLESS: '{{.IMAGE_BASE_DIGEST_DISTROLESS}}'
