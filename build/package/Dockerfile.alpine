@@ -3,12 +3,13 @@
 FROM docker.io/library/alpine:3.16.2
 
 RUN set -ex; \
-    addgroup -g 65532 -S semver; \
-    adduser -h /dev/null -g semver -S -D -G semver -H -u 65532 semver
+    addgroup -g 65532 nonroot; \
+    adduser -h /home/nonroot -g nonroot -s /sbin/nologin -G nonroot -D -u 65532 nonroot
 
 COPY semver /usr/local/bin/semver
 
-USER semver:semver
+USER nonroot
+WORKDIR /work
 
 ENTRYPOINT ["/usr/local/bin/semver"]
 CMD ["help"]

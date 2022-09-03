@@ -1,0 +1,6 @@
+# Enable Content trust for Docker
+CIS-DI-0005
+# Add HEALTHCHECK instruction to the container image
+CIS-DI-0006
+# Avoid 'latest' tag
+DKL-DI-0006

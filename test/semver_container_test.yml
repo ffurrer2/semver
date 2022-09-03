@@ -25,11 +25,24 @@ fileExistenceTests:
   uid: 0
   gid: 0
   isExecutableBy: 'any'
+- name: 'nonroot home directory'
+  path: '/home/nonroot'
+  shouldExist: true
+  permissions: 'drwx------'
+  uid: 65532
+  gid: 65532
+  isExecutableBy: 'owner'
 
 metadataTest:
   labels:
   - key: 'org.opencontainers.image.authors'
     value: 'Felix Furrer'
+  - key: 'org.opencontainers.image.base.digest'
+    value: '^sha256:[a-f0-9]{64}$'
+    isRegex: true
+  - key: 'org.opencontainers.image.base.name'
+    value: '^gcr.io/distroless/static:nonroot$'
+    isRegex: true
   - key: 'org.opencontainers.image.created'
     value: '^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(([+-]\d\d:\d\d)|Z)?$'
     isRegex: true
@@ -53,11 +66,9 @@ metadataTest:
   - key: 'org.opencontainers.image.version'
     value: '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
     isRegex: true
-  - key: 'org.opencontainers.image.base.name'
-    value: '^gcr.io/distroless/static:nonroot$'
-    isRegex: true
-  - key: 'org.opencontainers.image.base.digest'
-    value: '^sha256:[a-f0-9]{64}$'
-    isRegex: true
   entrypoint: ['/usr/local/bin/semver']
   cmd: ['help']
+  exposedPorts: []
+  volumes: []
+  workdir: '/work'
+  user: 'nonroot'
