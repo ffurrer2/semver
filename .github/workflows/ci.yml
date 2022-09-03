@@ -38,6 +38,29 @@ jobs:
       run: |
         sudo bash -c 'curl -fsSL https://taskfile.dev/install.sh | bash -s -- -b /usr/local/bin v${{ env.TASK_VERSION }}'
 
+    - name: Setup GoReleaser
+      uses: goreleaser/goreleaser-action@v3
+      with:
+        install-only: true
+
+    - name: Setup container-structure-test
+      run: |
+        set -euo pipefail
+        curl -fsSLo /usr/local/bin/container-structure-test https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64
+        chmod +x /usr/local/bin/container-structure-test
+
+    - name: Check release config
+      run: |
+        task goreleaser:check
+
+    - name: Build with GoReleaser
+      run: |
+        task goreleaser:build
+
+    - name: Create snapshot release
+      run: |
+        task goreleaser:snapshot
+
     - name: Build
       run: |
         task build
@@ -46,8 +69,8 @@ jobs:
       run: |
         task test
 
-  docker-build:
-    name: Simulate GoReleaser release
+  release-dry-run:
+    name: GoReleaser release (dry run)
     runs-on: ubuntu-22.04
     permissions:
       actions: read
@@ -78,7 +101,6 @@ jobs:
         echo "IMAGE_BASE_NAME_ALPINE=${IMAGE_BASE_NAME_ALPINE}" >>"${GITHUB_ENV}"
         echo "IMAGE_BASE_DIGEST_ALPINE=$(docker pull "${IMAGE_BASE_NAME_ALPINE}" | sed -n "s/^Digest: \(.*\)$/\1/p")" >>"${GITHUB_ENV}"
         cat "${GITHUB_ENV}"
-
 
     - name: Check release config
       uses: goreleaser/goreleaser-action@v3
