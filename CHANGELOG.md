@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+## [2.0.1] - 2022-09-03
+
+### Fixed
+
+- Fixed output of version command
+
 ## [2.0.0] - 2022-09-03
 
 ### Added
