@@ -14,9 +14,13 @@ on:
     - main
 
 env:
-  GO_VERSION: '1.20'
-  TASK_VERSION: 3.24.0
   GORELEASER_VERSION: 1.18.2
+  GO_VERSION: '1.20'
+  TASK_VERSION: 3.x
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   local-build:
@@ -34,10 +38,11 @@ jobs:
       with:
         go-version: ${{ env.GO_VERSION }}
 
-    - name: Setup task
-      run: |
-        set -euo pipefail
-        sudo bash -c 'curl -fsSL https://taskfile.dev/install.sh | bash -s -- -b /usr/local/bin v${{ env.TASK_VERSION }}'
+    - name: Setup Task
+      uses: arduino/setup-task@v1
+      with:
+        version: ${{ env.TASK_VERSION }}
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Setup GoReleaser
       uses: goreleaser/goreleaser-action@v4
@@ -49,6 +54,7 @@ jobs:
         set -euo pipefail
         curl -fsSLo /usr/local/bin/container-structure-test https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64
         chmod +x /usr/local/bin/container-structure-test
+        container-structure-test version
 
     - name: Check release config
       run: |
@@ -113,7 +119,7 @@ jobs:
       uses: goreleaser/goreleaser-action@v4
       with:
         version: v${{ env.GORELEASER_VERSION }}
-        args: release --config build/package/.goreleaser.yaml --snapshot --skip-publish --clean --debug
+        args: release --config build/package/.goreleaser.yaml --snapshot --skip-publish --clean
 
     - name: Container structure test (scratch)
       uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest

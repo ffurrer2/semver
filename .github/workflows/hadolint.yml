@@ -16,8 +16,6 @@ on:
     - '**/Dockerfile*'
     - '.github/workflows/hadolint.yml'
 
-permissions: {}
-
 jobs:
   hadolint:
     name: hadolint

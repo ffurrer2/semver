@@ -18,8 +18,6 @@ on:
     - '.github/linters/.markdown-lint.yml'
     - '.github/workflows/markdownlint.yml'
 
-permissions: {}
-
 jobs:
   markdownlint:
     name: markdownlint

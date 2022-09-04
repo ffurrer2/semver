@@ -16,10 +16,15 @@ on:
 env:
   GO_VERSION: '1.20'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   licensed:
-    runs-on: ubuntu-22.04
     name: Check licenses
+    permissions: {}
+    runs-on: ubuntu-22.04
     steps:
     - name: Checkout
       uses: actions/checkout@v3
