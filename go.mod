@@ -5,7 +5,7 @@ go 1.19
 
 require (
 	github.com/onsi/ginkgo/v2 v2.2.0
-	github.com/onsi/gomega v1.20.2
+	github.com/onsi/gomega v1.21.1
 	github.com/spf13/cobra v1.5.0
 	golang.org/x/exp v0.0.0-20220921164117-439092de6870
 )
