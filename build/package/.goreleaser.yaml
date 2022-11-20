@@ -155,7 +155,6 @@ dockers:
   - --label=org.opencontainers.image.url=https://github.com/ffurrer2/semver
   - --label=org.opencontainers.image.vendor=Felix Furrer
   - --label=org.opencontainers.image.version={{.Version}}
-  use: buildx
 - ids:
   - semver
   goos: linux
@@ -186,7 +185,6 @@ dockers:
   - --label=org.opencontainers.image.url=https://github.com/ffurrer2/semver
   - --label=org.opencontainers.image.vendor=Felix Furrer
   - --label=org.opencontainers.image.version={{.Version}}
-  use: buildx
 
 dist: artifacts/dist
 
