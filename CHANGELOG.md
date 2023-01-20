@@ -20,6 +20,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+## [2.3.0] - 2023-12-29
+
+### Added
+
+- Extend format command with the [slim-sprig](https://go-task.github.io/slim-sprig/) library
+
+### Changed
+
+- Bumped `alpine` base image from 3.18.4 to 3.19.0
+- Updated dependencies
+
 ## [2.2.0] - 2023-09-25
 
 ### Added

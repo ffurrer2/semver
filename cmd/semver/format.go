@@ -6,6 +6,7 @@ import (
 	"os"
 	"text/template"
 
+	sprig "github.com/go-task/slim-sprig"
 	"github.com/spf13/cobra"
 
 	"github.com/ffurrer2/semver/v2/internal/pkg/cli"
@@ -40,7 +41,7 @@ type SemVer struct {
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
 		text := args[0]
-		tpl, err := template.New("semver").Parse(text)
+		tpl, err := template.New("semver").Funcs(sprig.FuncMap()).Parse(text)
 		if err != nil {
 			cmd.PrintErrf("error: %v\n", err)
 			os.Exit(1)
