@@ -8,7 +8,7 @@ on:
 
 env:
   GO_VERSION: 1.19
-  GORELEASER_VERSION: 1.11.2
+  GORELEASER_VERSION: 1.15.1
   REGISTRY: ghcr.io
 
 jobs:
