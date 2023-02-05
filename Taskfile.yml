@@ -98,7 +98,7 @@ tasks:
       printf 'git:                      %s\n' "$(git --version | cut -d ' ' -f 3)"
       printf 'go-mod-upgrade:           %s\n' "$(go-mod-upgrade --version | tail -n 1 | cut -d ' ' -f 3 | cut -c 2-)"
       printf 'go:                       %s\n' "$(go version | cut -d ' ' -f 3 | cut -c 3-)"
-      printf 'gofumpt:                  %s\n' "$(gofumpt --version | cut -c 2-)"
+      printf 'gofumpt:                  %s\n' "$(gofumpt --version | cut -c 1-)"
       printf 'golangci-lint:            %s\n' "$(golangci-lint version --format short)"
       printf 'goreleaser:               %s\n' "$(goreleaser --version  | head -n 1 | cut -d ' ' -f 3)"
       printf 'hadolint:                 %s\n' "$(hadolint --version | cut -d ' ' -f 4)"
