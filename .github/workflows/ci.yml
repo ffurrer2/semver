@@ -113,7 +113,7 @@ jobs:
       uses: goreleaser/goreleaser-action@v3
       with:
         version: v${{ env.GORELEASER_VERSION }}
-        args: release --config build/package/.goreleaser.yaml --snapshot --skip-publish --rm-dist --debug
+        args: release --config build/package/.goreleaser.yaml --snapshot --skip-publish --clean --debug
 
     - name: Container structure test (scratch)
       uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest

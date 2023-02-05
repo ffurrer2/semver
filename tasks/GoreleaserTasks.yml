@@ -14,7 +14,7 @@ tasks:
     env:
       SNAPSHOT_VERSION: '{{.BUILD_VERSION}}'
     cmds:
-    - goreleaser build --config build/package/.goreleaser.yaml --rm-dist --snapshot
+    - goreleaser build --config build/package/.goreleaser.yaml --clean --snapshot
     silent: true
 
   snapshot:
@@ -32,7 +32,7 @@ tasks:
       IMAGE_BASE_DIGEST_ALPINE: '{{.IMAGE_BASE_DIGEST_ALPINE}}'
     cmds:
     - echo '{{.BUILD_VERSION}}'
-    - goreleaser release --config build/package/.goreleaser.yaml --rm-dist --snapshot
+    - goreleaser release --config build/package/.goreleaser.yaml --clean --snapshot
     silent: true
 
   release-dry-run:
@@ -48,5 +48,5 @@ tasks:
       IMAGE_BASE_NAME_ALPINE: '{{.IMAGE_BASE_NAME_ALPINE}}'
       IMAGE_BASE_DIGEST_ALPINE: '{{.IMAGE_BASE_DIGEST_ALPINE}}'
     cmds:
-    - goreleaser release --config build/package/.goreleaser.yaml --rm-dist --skip-publish
+    - goreleaser release --config build/package/.goreleaser.yaml --clean --skip-publish
     silent: true

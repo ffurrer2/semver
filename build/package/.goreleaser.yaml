@@ -76,14 +76,12 @@ builds:
   - amd64
   - arm64
   goarm:
-  - '6'
   - '7'
+  goamd64:
+  - v1
   ignore:
   - goos: darwin
     goarch: '386'
-  - goos: linux
-    goarch: arm
-    goarm: '7'
   - goos: windows
     goarch: arm64
   dir: .
@@ -107,11 +105,12 @@ archives:
 - id: semver
   builds:
   - semver
-  name_template: '{{.ProjectName}}_{{.Os}}_{{.Arch}}{{with .Arm}}v{{.}}{{end}}{{with .Mips}}_{{.}}{{end}}{{if not (eq .Amd64 "v1")}}{{.Amd64}}{{end}}'
+  name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
   format: tar.gz
   format_overrides:
   - goos: windows
     format: zip
+  rlcp: true
   files:
   - src: CHANGELOG.md
   - src: LICENSE
@@ -129,6 +128,7 @@ dockers:
   - semver
   goos: linux
   goarch: amd64
+  goamd64: v1
   dockerfile: build/package/Dockerfile.alpine
   image_templates:
   - docker.io/ffurrer/semver:alpine
@@ -155,10 +155,12 @@ dockers:
   - --label=org.opencontainers.image.url=https://github.com/ffurrer2/semver
   - --label=org.opencontainers.image.vendor=Felix Furrer
   - --label=org.opencontainers.image.version={{.Version}}
+  use: buildx
 - ids:
   - semver
   goos: linux
   goarch: amd64
+  goamd64: v1
   dockerfile: build/package/Dockerfile
   image_templates:
   - docker.io/ffurrer/semver:latest
@@ -185,7 +187,7 @@ dockers:
   - --label=org.opencontainers.image.url=https://github.com/ffurrer2/semver
   - --label=org.opencontainers.image.vendor=Felix Furrer
   - --label=org.opencontainers.image.version={{.Version}}
-
+  use: buildx
 dist: artifacts/dist
 
 env_files:
