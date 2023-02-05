@@ -40,7 +40,7 @@ jobs:
         sudo bash -c 'curl -fsSL https://taskfile.dev/install.sh | bash -s -- -b /usr/local/bin v${{ env.TASK_VERSION }}'
 
     - name: Setup GoReleaser
-      uses: goreleaser/goreleaser-action@v3
+      uses: goreleaser/goreleaser-action@v4
       with:
         install-only: true
 
@@ -104,13 +104,13 @@ jobs:
         cat "${GITHUB_ENV}"
 
     - name: Check release config
-      uses: goreleaser/goreleaser-action@v3
+      uses: goreleaser/goreleaser-action@v4
       with:
         version: v${{ env.GORELEASER_VERSION }}
         args: check --config build/package/.goreleaser.yaml
 
     - name: Create snapshot release
-      uses: goreleaser/goreleaser-action@v3
+      uses: goreleaser/goreleaser-action@v4
       with:
         version: v${{ env.GORELEASER_VERSION }}
         args: release --config build/package/.goreleaser.yaml --snapshot --skip-publish --clean --debug
