@@ -4,7 +4,7 @@ module github.com/ffurrer2/semver/v2
 go 1.19
 
 require (
-	github.com/onsi/ginkgo/v2 v2.8.3
+	github.com/onsi/ginkgo/v2 v2.9.0
 	github.com/onsi/gomega v1.27.1
 	github.com/spf13/cobra v1.6.1
 	golang.org/x/exp v0.0.0-20230203172020-98cc5a0785f9
