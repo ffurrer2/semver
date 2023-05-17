@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 module github.com/ffurrer2/semver/v2
 
-go 1.19
+go 1.20
 
 require (
 	github.com/onsi/ginkgo/v2 v2.9.4
