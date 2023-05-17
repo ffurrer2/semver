@@ -52,18 +52,18 @@ brews:
   license: MIT
   ids:
   - semver
-scoop:
-  name: semver
-  bucket:
-    owner: ffurrer2
-    name: scoop-bucket
-  commit_author:
-    name: goreleaserbot
-    email: ffurrer2@users.noreply.github.com
-  commit_msg_template: Scoop update for {{.ProjectName}} version {{.Tag}}
-  homepage: https://github.com/ffurrer2/semver
-  description: A semantic versioning command line utility written in Go.
-  license: MIT
+scoops:
+  - name: semver
+    bucket:
+      owner: ffurrer2
+      name: scoop-bucket
+    commit_author:
+      name: goreleaserbot
+      email: ffurrer2@users.noreply.github.com
+    commit_msg_template: Scoop update for {{.ProjectName}} version {{.Tag}}
+    homepage: https://github.com/ffurrer2/semver
+    description: A semantic versioning command line utility written in Go.
+    license: MIT
 
 builds:
 - id: semver

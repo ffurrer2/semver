@@ -14,7 +14,7 @@ tasks:
     env:
       SNAPSHOT_VERSION: '{{.BUILD_VERSION}}'
     cmds:
-    - goreleaser build --config build/package/.goreleaser.yaml --clean --snapshot
+    - goreleaser build --config build/package/.goreleaser.yaml --clean --single-target --snapshot
     silent: true
 
   snapshot:
