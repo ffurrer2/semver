@@ -35,7 +35,7 @@ tasks:
     - task: prepare
     - mkdir -p artifacts/bin
     - |-
-      {{.GO_BUILD_ENV}} go build -o artifacts/bin -v -ldflags='{{.LDFLAGS}}' ./cmd/semver
+      {{.GO_BUILD_ENV}} go build -o artifacts/bin -v -ldflags='{{.LDFLAGS}}' -mod=mod ./cmd/semver
     silent: true
 
   test:
@@ -71,7 +71,7 @@ tasks:
     desc: Check dependency updates
     cmds:
     - |-
-      go list -u -f {{`'{{if (and (not (or .Main .Indirect)) .Update)}}{{.Path}}: {{.Version}} -> {{.Update.Version}}{{end}}'`}} -m all 2>/dev/null
+      go list -mod=mod -u -f {{`'{{if (and (not (or .Main .Indirect)) .Update)}}{{.Path}}: {{.Version}} -> {{.Update.Version}}{{end}}'`}} -m all 2>/dev/null
     silent: true
 
   gofmt:

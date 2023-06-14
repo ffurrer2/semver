@@ -2,6 +2,17 @@
 linters-settings:
   lll:
     line-length: 160
+  depguard:
+    rules:
+      main:
+        allow:
+        - $gostd
+        - github.com/ffurrer2
+        - github.com/onsi
+        - github.com/spf13/cobra
+        deny:
+        - pkg: github.com/pkg/errors
+          desc: Should be replaced by standard lib errors package
 
 linters:
   disable-all: true

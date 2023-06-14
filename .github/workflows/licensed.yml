@@ -33,7 +33,7 @@ jobs:
       uses: jonabc/setup-licensed@v1
       with:
         github_token: '${{ secrets.GITHUB_TOKEN }}'
-        version: '3.x'
+        version: '4.x'
 
     - name: Setup Go
       uses: actions/setup-go@v4
