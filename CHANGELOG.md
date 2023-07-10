@@ -1,4 +1,4 @@
-<!-- SPDX-License-Identifier: MIT -->
+<!-- SPDX-License-Identifier: MIT -->  
 
 # Changelog
 
@@ -20,41 +20,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
-## [2.1.0] - 2022-11-20
+## [2.1.0] - 2023-05-18
 
 ### Changed
 
-- Dependencies updated
-- Bumped Alpine base image from 3.16.2 to 3.16.3
+- Updated dependencies
+- Bumped Alpine base image from 3.16.2 to 3.18.0
 
 ## [2.0.2] - 2022-09-25
 
 ### Changed
 
-- Dependencies updated
+- Updated dependencies
 
 ## [2.0.1] - 2022-09-03
 
 ### Fixed
 
-- Fixed output of version command
+- Fixed output of the version command
 
 ## [2.0.0] - 2022-09-03
 
 ### Added
 
-- Added flag (`-r/--reverse) to sort in reverse order
+- Added flag (`-r/--reverse`) to sort in reverse order
 - Added additional flags to the filter command
 
 ### Changed
 
-- Changed the default behaviour of the filter command. Pre-release versions and versions containing build metadata are no longer printed by default.
+- Changed the default behavior of the filter command. Pre-release versions and versions containing build metadata are no longer printed by default.
 
 ## [1.8.0] - 2022-08-25
 
 ### Changed
 
-- Dependencies updated
+- Updated dependencies
 - Bumped Alpine base image from 3.15.3 to 3.16.2
 
 ## [1.7.0] - 2022-04-24 [YANKED]
@@ -63,32 +63,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Dependencies updated
+- Updated dependencies
 - Bumped Alpine base image from 3.15.1 to 3.15.3
 
 ## [1.5.0] - 2022-03-21
 
 ### Changed
 
-- Dependencies updated
+- Updated dependencies
 - Bumped Alpine base image from 3.15.0 to 3.15.1
 
 ## [1.4.0] - 2022-01-30
 
 ### Added
 
-- Docker images are now available in the `GitHub Container registry`
+- Docker images are now available in the `GitHub Container Registry`
 
 ### Changed
 
-- Dependencies updated
+- Updated dependencies
 
 ## [1.3.0] - 2022-01-29
 
 ### Changed
 
 - Replaced base image (`distroless` instead of `scratch`)
-- Added nonroot user to Alpine based image
+- Added non-root user to Alpine-based image
 
 ## [1.2.0] - 2022-01-01
 
@@ -98,22 +98,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Dependencies updated
+- Updated dependencies
 - Bumped Alpine base image from 3.13.5 to 3.15.0
 
 ## [1.1.0] - 2021-04-17
 
 ### Changed
 
-- Dependencies updated
+- Updated dependencies
 - Bumped Alpine base image from 3.12.3 to 3.13.5
-- CI workflow improved
+- Improved CI workflow
 
 ## [1.0.1] - 2020-07-02
 
 ### Fixed
 
-- Fixed UNIX pipeline support of sort command
+- Fixed UNIX pipeline support of the sort command
 
 ## [1.0.0] - 2020-06-24
 
