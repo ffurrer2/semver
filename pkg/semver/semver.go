@@ -16,7 +16,7 @@ const (
 	MaxMajor           = ^uint(0)
 	MaxMinor           = ^uint(0)
 	MaxPatch           = ^uint(0)
-	NamedGroupsPattern = `^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)` +
+	NamedGroupsPattern = `^(?P<prefix>v?)(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)` +
 		`(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?` +
 		`(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 )
@@ -39,6 +39,7 @@ func (s InvalidSemVerError) Error() string {
 }
 
 type SemVer struct {
+	Prefix        string   `json:"prefix"`
 	Major         uint     `json:"major"`
 	Minor         uint     `json:"minor"`
 	Patch         uint     `json:"patch"`
@@ -70,6 +71,8 @@ func Parse(s string) (*SemVer, error) {
 	for groupIdx, group := range matches[0] {
 		name := groupNames[groupIdx]
 		switch name {
+		case "prefix":
+			semver.Prefix = group
 		case "major":
 			semver.Major = number.MustParseUint(group)
 		case "minor":
