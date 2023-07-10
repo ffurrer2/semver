@@ -3,6 +3,7 @@
 package semver
 
 type Builder struct {
+	prefix        string
 	major         uint
 	minor         uint
 	patch         uint
@@ -12,6 +13,7 @@ type Builder struct {
 
 func NewBuilder() *Builder {
 	return &Builder{
+		prefix:        "",
 		major:         0,
 		minor:         0,
 		patch:         0,
@@ -20,8 +22,20 @@ func NewBuilder() *Builder {
 	}
 }
 
+func (b *Builder) Prefix(prefix string) *Builder {
+	return &Builder{
+		prefix:        prefix,
+		major:         b.major,
+		minor:         b.minor,
+		patch:         b.patch,
+		preRelease:    b.preRelease,
+		buildMetadata: b.buildMetadata,
+	}
+}
+
 func (b *Builder) Major(major uint) *Builder {
 	return &Builder{
+		prefix:        b.prefix,
 		major:         major,
 		minor:         b.minor,
 		patch:         b.patch,
@@ -32,6 +46,7 @@ func (b *Builder) Major(major uint) *Builder {
 
 func (b *Builder) Minor(minor uint) *Builder {
 	return &Builder{
+		prefix:        b.prefix,
 		major:         b.major,
 		minor:         minor,
 		patch:         b.patch,
@@ -42,6 +57,7 @@ func (b *Builder) Minor(minor uint) *Builder {
 
 func (b *Builder) Patch(patch uint) *Builder {
 	return &Builder{
+		prefix:        b.prefix,
 		major:         b.major,
 		minor:         b.minor,
 		patch:         patch,
@@ -52,6 +68,7 @@ func (b *Builder) Patch(patch uint) *Builder {
 
 func (b *Builder) PreRelease(preRelease []string) *Builder {
 	return &Builder{
+		prefix:        b.prefix,
 		major:         b.major,
 		minor:         b.minor,
 		patch:         b.patch,
@@ -62,6 +79,7 @@ func (b *Builder) PreRelease(preRelease []string) *Builder {
 
 func (b *Builder) PreReleaseField(preRelease string) *Builder {
 	return &Builder{
+		prefix:        b.prefix,
 		major:         b.major,
 		minor:         b.minor,
 		patch:         b.patch,
@@ -72,6 +90,7 @@ func (b *Builder) PreReleaseField(preRelease string) *Builder {
 
 func (b *Builder) BuildMetadata(buildMetadata []string) *Builder {
 	return &Builder{
+		prefix:        b.prefix,
 		major:         b.major,
 		minor:         b.minor,
 		patch:         b.patch,
@@ -82,6 +101,7 @@ func (b *Builder) BuildMetadata(buildMetadata []string) *Builder {
 
 func (b *Builder) BuildMetadataField(buildMetadata string) *Builder {
 	return &Builder{
+		prefix:        b.prefix,
 		major:         b.major,
 		minor:         b.minor,
 		patch:         b.patch,
@@ -92,6 +112,7 @@ func (b *Builder) BuildMetadataField(buildMetadata string) *Builder {
 
 func (b *Builder) Build() (*SemVer, bool) {
 	semver := &SemVer{
+		Prefix:        b.prefix,
 		Major:         b.major,
 		Minor:         b.minor,
 		Patch:         b.patch,
