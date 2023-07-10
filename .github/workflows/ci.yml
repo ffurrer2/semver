@@ -14,7 +14,7 @@ on:
     - main
 
 env:
-  GORELEASER_VERSION: 1.18.2
+  GORELEASER_VERSION: 1.19.2
   GO_VERSION: '1.20'
   TASK_VERSION: 3.x
 

@@ -34,7 +34,7 @@ release:
 
 brews:
 - name: semver
-  tap:
+  repository:
     owner: ffurrer2
     name: homebrew-tap
     branch: main
@@ -54,7 +54,7 @@ brews:
   - semver
 scoops:
 - name: semver
-  bucket:
+  repository:
     owner: ffurrer2
     name: scoop-bucket
   commit_author:
@@ -110,7 +110,6 @@ archives:
   format_overrides:
   - goos: windows
     format: zip
-  rlcp: true
   files:
   - src: CHANGELOG.md
   - src: LICENSE

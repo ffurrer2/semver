@@ -20,12 +20,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
-## [2.1.0] - 2023-05-18
+## [2.1.0] - 2023-07-10
 
 ### Changed
 
 - Updated dependencies
-- Bumped Alpine base image from 3.16.2 to 3.18.0
+- Bumped Alpine base image from 3.16.2 to 3.18.2
 
 ## [2.0.2] - 2022-09-25
 
