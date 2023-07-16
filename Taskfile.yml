@@ -92,7 +92,7 @@ tasks:
     cmds:
     - |
       set -euo pipefail
-      printf 'container-structure-test: %s\n' "$(container-structure-test version | cut -c 2-)"
+      printf 'container-structure-test: %s\n' "$(container-structure-test version)"
       printf 'docker:                   %s\n' "$(docker version --format json | jq --raw-output '.Client.Version')"
       printf 'dockle:                   %s\n' "$(dockle --version | cut -d ' ' -f 3)"
       printf 'git:                      %s\n' "$(git --version | cut -d ' ' -f 3)"
@@ -100,7 +100,7 @@ tasks:
       printf 'go:                       %s\n' "$(go version | cut -d ' ' -f 3 | cut -c 3-)"
       printf 'gofumpt:                  %s\n' "$(gofumpt --version | cut -c 1-)"
       printf 'golangci-lint:            %s\n' "$(golangci-lint version --format short)"
-      printf 'goreleaser:               %s\n' "$(goreleaser --version  | head -n 1 | cut -d ' ' -f 3)"
+      printf 'goreleaser:               %s\n' "$(goreleaser --version | grep 'GitVersion:' | awk '{print $2}')"
       printf 'hadolint:                 %s\n' "$(hadolint --version | cut -d ' ' -f 4)"
       printf 'licensed:                 %s\n' "$(licensed version)"
       printf 'task:                     %s\n' "$(task --version | cut -d ' ' -f 3 | cut -c 2-)"
