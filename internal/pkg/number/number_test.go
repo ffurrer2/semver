@@ -7,6 +7,7 @@ import (
 	"math/bits"
 
 	"github.com/ffurrer2/semver/v2/internal/pkg/number"
+	mathext "github.com/go-playground/pkg/v5/math"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
@@ -109,10 +110,10 @@ var _ = Describe("number: ", func() {
 		)
 	})
 
-	Describe("CompareUint[T constraints.Ordered](a, b T) int", func() {
+	Describe("CompareInt[T constraints.Ordered](a, b T) int", func() {
 		DescribeTable("when a == b",
 			func(a uint, b uint) {
-				result := number.CompareUint(a, b)
+				result := number.CompareInt(a, b)
 				Expect(result).To(Equal(0))
 			},
 			Entry("should return 0", uint(0), uint(0)),
@@ -121,7 +122,7 @@ var _ = Describe("number: ", func() {
 		)
 		DescribeTable("when a < b ",
 			func(a uint, b uint) {
-				result := number.CompareUint(a, b)
+				result := number.CompareInt(a, b)
 				Expect(result).To(Equal(-1))
 			},
 			Entry("should return -1", uint(0), uint(1)),
@@ -130,7 +131,7 @@ var _ = Describe("number: ", func() {
 		)
 		DescribeTable("when a > b ",
 			func(a uint, b uint) {
-				result := number.CompareUint(a, b)
+				result := number.CompareInt(a, b)
 				Expect(result).To(Equal(1))
 			},
 			Entry("should return 1", uint(1), uint(0)),
@@ -142,7 +143,7 @@ var _ = Describe("number: ", func() {
 	Describe("MinInt[T constraints.Ordered](x, y T) T", func() {
 		DescribeTable("when a == b",
 			func(a uint, b uint) {
-				result := number.MinInt(a, b)
+				result := mathext.Min(a, b)
 				Expect(result).To(Equal(a))
 				Expect(result).To(Equal(b))
 			},
@@ -152,7 +153,7 @@ var _ = Describe("number: ", func() {
 		)
 		DescribeTable("when a < b ",
 			func(a uint, b uint) {
-				result := number.MinInt(a, b)
+				result := mathext.Min(a, b)
 				Expect(result).To(Equal(a))
 			},
 			Entry("should return -1", uint(0), uint(1)),
@@ -161,7 +162,7 @@ var _ = Describe("number: ", func() {
 		)
 		DescribeTable("when a > b ",
 			func(a uint, b uint) {
-				result := number.MinInt(a, b)
+				result := mathext.Min(a, b)
 				Expect(result).To(Equal(b))
 			},
 			Entry("should return 1", uint(1), uint(0)),

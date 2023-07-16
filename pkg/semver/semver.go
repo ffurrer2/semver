@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/ffurrer2/semver/v2/internal/pkg/number"
+	mathext "github.com/go-playground/pkg/v5/math"
 )
 
 const (
@@ -198,11 +199,11 @@ func (s *SemVer) HasBuildMetadata() bool {
 
 func (s *SemVer) CompareTo(o SemVer) int {
 	// Major, minor, and patch versions are always compared numerically.
-	if res := number.CompareUint(s.Major, o.Major); res != 0 {
+	if res := number.CompareInt(s.Major, o.Major); res != 0 {
 		return res
-	} else if res := number.CompareUint(s.Minor, o.Minor); res != 0 {
+	} else if res := number.CompareInt(s.Minor, o.Minor); res != 0 {
 		return res
-	} else if res := number.CompareUint(s.Patch, o.Patch); res != 0 {
+	} else if res := number.CompareInt(s.Patch, o.Patch); res != 0 {
 		return res
 	}
 	// => Major, minor, and patch are equal and pre-release identifiers are not equal
@@ -221,7 +222,7 @@ func (s *SemVer) CompareTo(o SemVer) int {
 	// comparing each dot separated identifier from left to right until a difference is found as follows: identifiers
 	// consisting of only digits are compared numerically and identifiers with letters or hyphens are compared
 	// lexically in ASCII sort order.
-	for i := 0; i < number.MinInt(len(s.PreRelease), len(o.PreRelease)); i++ {
+	for i := 0; i < mathext.Min(len(s.PreRelease), len(o.PreRelease)); i++ {
 		if res := comparePreReleaseIdentifier(s.PreRelease[i], o.PreRelease[i]); res != 0 {
 			return res
 		}
@@ -274,7 +275,7 @@ func comparePreReleaseIdentifier(a, b string) int {
 		return 0
 	}
 	if number.IsNumeric(a) && number.IsNumeric(b) {
-		return number.CompareUint(number.MustParseUint(a), number.MustParseUint(b))
+		return number.CompareInt(number.MustParseUint(a), number.MustParseUint(b))
 	}
 	return strings.Compare(a, b)
 }

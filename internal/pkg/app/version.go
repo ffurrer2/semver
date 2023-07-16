@@ -6,11 +6,12 @@ import (
 	"runtime/debug"
 )
 
+const unknown = "unknown"
+
 var (
 	version string
 	date    string
 	commit  string
-	unknown = "unknown"
 )
 
 func BuildVersion() string {

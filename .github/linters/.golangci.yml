@@ -8,7 +8,9 @@ linters-settings:
         allow:
         - $gostd
         - github.com/ffurrer2
+        - github.com/go-playground/pkg/v5
         - github.com/onsi
+        - github.com/samber/lo
         - github.com/spf13/cobra
         deny:
         - pkg: github.com/pkg/errors

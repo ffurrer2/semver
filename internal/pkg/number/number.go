@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"strconv"
 
-	"golang.org/x/exp/constraints"
+	constraintsext "github.com/go-playground/pkg/v5/constraints"
 )
 
 const (
@@ -23,38 +23,31 @@ func init() {
 }
 
 func ParseUint(s string) (uint, error) {
-	u64, err := strconv.ParseUint(s, base, bits.UintSize)
+	u, err := strconv.ParseUint(s, base, bits.UintSize)
 	if err != nil {
 		return 0, fmt.Errorf("failed to parse uint: %w", err)
 	}
-	return uint(u64), nil
+	return uint(u), nil
 }
 
 func MustParseUint(s string) uint {
-	u64, err := ParseUint(s)
+	u, err := ParseUint(s)
 	if err != nil {
 		panic(err)
 	}
-	return u64
+	return u
 }
 
 func IsNumeric(s string) bool {
 	return numericRegexp.MatchString(s)
 }
 
-func CompareUint[T constraints.Ordered](a, b T) int {
+func CompareInt[T constraintsext.Integer](a, b T) int {
 	if a == b {
 		return 0
 	}
 	if a < b {
 		return -1
 	}
-	return 1
-}
-
-func MinInt[T constraints.Ordered](x, y T) T {
-	if x < y {
-		return x
-	}
-	return y
+	return +1
 }
