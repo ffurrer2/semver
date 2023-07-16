@@ -3,6 +3,7 @@
 package app
 
 import (
+	"encoding/json"
 	"runtime/debug"
 
 	"github.com/samber/lo"
@@ -40,6 +41,18 @@ func TreeState() string {
 		return "dirty"
 	}
 	return "clean"
+}
+
+func BuildInfoJSON() string {
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		return "{}"
+	}
+	marshal, err := json.Marshal(info)
+	if err != nil {
+		panic(err)
+	}
+	return string(marshal)
 }
 
 func readBuildSetting(key string) (string, bool) {

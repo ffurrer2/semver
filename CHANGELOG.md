@@ -10,9 +10,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- Added `--json` flag to version command to print the complete build info as json
+
 ### Changed
 
-- Removed "built at" info from the version command
+- Removed "built at" info from version command
+- Set `org.opencontainers.image.created` label to `1970-01-01T00:00:00Z`
 
 ### Deprecated
 
