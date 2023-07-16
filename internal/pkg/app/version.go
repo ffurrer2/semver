@@ -4,68 +4,52 @@ package app
 
 import (
 	"runtime/debug"
+
+	"github.com/samber/lo"
 )
 
 const unknown = "unknown"
 
-var (
-	version string
-	date    string
-	commit  string
-)
+var version string
 
-func BuildVersion() string {
+func Version() string {
 	if version != "" {
 		return version
 	}
 	info, ok := debug.ReadBuildInfo()
-	if ok {
-		return info.Main.Version
+	if !ok {
+		return unknown
 	}
-	return unknown
-}
-
-func BuildDate() string {
-	if date != "" {
-		return date
-	}
-	info, ok := debug.ReadBuildInfo()
-	if ok {
-		for _, v := range info.Settings {
-			if v.Key == "vcs.time" {
-				return v.Value
-			}
-		}
-	}
-	return unknown
+	return info.Main.Version
 }
 
 func CommitHash() string {
-	if commit != "" {
-		return commit
+	vcsRevision, ok := readBuildSetting("vcs.revision")
+	if !ok {
+		return unknown
 	}
-	info, ok := debug.ReadBuildInfo()
-	if ok {
-		for _, v := range info.Settings {
-			if v.Key == "vcs.revision" {
-				return v.Value
-			}
-		}
-	}
-	return unknown
+	return vcsRevision
 }
 
 func TreeState() string {
-	info, ok := debug.ReadBuildInfo()
-	if ok {
-		for _, v := range info.Settings {
-			if v.Key == "vcs.modified" {
-				if v.Value == "true" {
-					return "dirty"
-				}
-				return "clean"
-			}
-		}
+	vcsModified, ok := readBuildSetting("vcs.modified")
+	if !ok {
+		return unknown
 	}
-	return unknown
+	if vcsModified == "true" {
+		return "dirty"
+	}
+	return "clean"
+}
+
+func readBuildSetting(key string) (string, bool) {
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		return "", false
+	}
+	bs, ok := lo.Find(info.Settings, func(v debug.BuildSetting) bool { return v.Key == key })
+	if !ok {
+		return "", false
+	}
+	return bs.Value, true
 }

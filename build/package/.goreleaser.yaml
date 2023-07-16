@@ -92,8 +92,6 @@ builds:
   command: build
   ldflags:
   - -X github.com/ffurrer2/semver/v2/internal/pkg/app.version={{.Version}}
-  - -X github.com/ffurrer2/semver/v2/internal/pkg/app.date={{.Date}}
-  - -X github.com/ffurrer2/semver/v2/internal/pkg/app.commit={{.Commit}}
   - -s
   - -w
   flags:

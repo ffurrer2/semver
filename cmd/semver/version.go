@@ -10,7 +10,6 @@ import (
 const versionFormatShort = `%s`
 
 const versionFormat = `semver version: %s
-built at:       %s
 git commit:     %s
 git tree state: %s
 `
@@ -27,9 +26,9 @@ var (
 		DisableFlagsInUseLine: true,
 		Run: func(cmd *cobra.Command, args []string) {
 			if short {
-				cmd.Printf(versionFormatShort, app.BuildVersion())
+				cmd.Printf(versionFormatShort, app.Version())
 			} else {
-				cmd.Printf(versionFormat, app.BuildVersion(), app.BuildDate(), app.CommitHash(), app.TreeState())
+				cmd.Printf(versionFormat, app.Version(), app.CommitHash(), app.TreeState())
 			}
 		},
 	}

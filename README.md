@@ -109,7 +109,6 @@ $ echo $?
 ```console
 $ semver version
 semver version: 1.8.0
-built at:       2022-08-25T12:40:39Z
 git commit:     10c573e1ec0a6aa302c6ace2d995793139ebc1e6
 git tree state: clean
 ```
