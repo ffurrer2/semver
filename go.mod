@@ -6,7 +6,7 @@ go 1.20
 require (
 	github.com/go-playground/pkg/v5 v5.21.2
 	github.com/onsi/ginkgo/v2 v2.11.0
-	github.com/onsi/gomega v1.27.9
+	github.com/onsi/gomega v1.27.10
 	github.com/samber/lo v1.38.1
 	github.com/spf13/cobra v1.7.0
 )
