@@ -136,7 +136,7 @@ jobs:
         image-ref: 'ghcr.io/ffurrer2/semver:latest'
         exit-code: '1'
         vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
+        severity: 'HIGH,CRITICAL'
         format: 'sarif'
         output: 'trivy-results-scratch.sarif'
         github-pat: '${{ secrets.GITHUB_TOKEN }}'
@@ -154,7 +154,7 @@ jobs:
         image-ref: 'ghcr.io/ffurrer2/semver:alpine'
         exit-code: '1'
         vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
+        severity: 'HIGH,CRITICAL'
         format: 'sarif'
         output: 'trivy-results-alpine.sarif'
         github-pat: '${{ secrets.GITHUB_TOKEN }}'
@@ -165,3 +165,38 @@ jobs:
         sarif_file: 'trivy-results-alpine.sarif'
         category: trivy-results-alpine
       if: always()
+
+    - name: Run Anchore image scanner (scratch)
+      uses: anchore/scan-action@v3
+      id: anchore-scratch
+      with:
+        image: 'ghcr.io/ffurrer2/semver:latest'
+        fail-build: true
+        severity-cutoff: high
+
+    - name: Upload Anchore scan results to GitHub Security tab (scratch)
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: ${{ steps.anchore-scratch.outputs.sarif }}
+        category: anchore-results-scratch
+      if: always()
+
+    - name: Run Anchore image scanner (alpine)
+      uses: anchore/scan-action@v3
+      id: anchore-alpine
+      with:
+        image: 'ghcr.io/ffurrer2/semver:alpine'
+        fail-build: true
+        severity-cutoff: high
+
+    - name: Upload Anchore scan results to GitHub Security tab (alpine)
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: ${{ steps.anchore-alpine.outputs.sarif }}
+        category: anchore-results-alpine
+      if: always()
+
+    - name: Inspect action SARIF report
+      run: |
+        cat '${{ steps.anchore-scratch.outputs.sarif }}'
+        cat '${{ steps.anchore-alpine.outputs.sarif }}'
