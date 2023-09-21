@@ -141,6 +141,10 @@ jobs:
         output: 'trivy-results-scratch.sarif'
         github-pat: '${{ secrets.GITHUB_TOKEN }}'
 
+    - name: Inspect Trivy SARIF report (scratch)
+      run: |
+        cat trivy-results-scratch.sarif
+
     - name: Upload Trivy scan results to GitHub Security tab (scratch)
       uses: github/codeql-action/upload-sarif@v2
       with:
@@ -159,6 +163,10 @@ jobs:
         output: 'trivy-results-alpine.sarif'
         github-pat: '${{ secrets.GITHUB_TOKEN }}'
 
+    - name: Inspect Trivy SARIF report (alpine)
+      run: |
+        cat trivy-results-alpine.sarif
+
     - name: Upload Trivy scan results to GitHub Security tab (alpine)
       uses: github/codeql-action/upload-sarif@v2
       with:
@@ -173,6 +181,10 @@ jobs:
         image: 'ghcr.io/ffurrer2/semver:latest'
         fail-build: true
         severity-cutoff: high
+
+    - name: Inspect Anchore SARIF report (scratch)
+      run: |
+        cat ${{ steps.anchore-scratch.outputs.sarif }}
 
     - name: Upload Anchore scan results to GitHub Security tab (scratch)
       uses: github/codeql-action/upload-sarif@v2
@@ -189,14 +201,13 @@ jobs:
         fail-build: true
         severity-cutoff: high
 
+    - name: Inspect Anchore SARIF report (alpine)
+      run: |
+        cat ${{ steps.anchore-alpine.outputs.sarif }}
+
     - name: Upload Anchore scan results to GitHub Security tab (alpine)
       uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: ${{ steps.anchore-alpine.outputs.sarif }}
         category: anchore-results-alpine
       if: always()
-
-    - name: Inspect action SARIF report
-      run: |
-        cat '${{ steps.anchore-scratch.outputs.sarif }}'
-        cat '${{ steps.anchore-alpine.outputs.sarif }}'
