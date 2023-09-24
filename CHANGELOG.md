@@ -10,12 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Added `--json` flag to version command to print the complete build info as json
-
 ### Changed
-
-- Removed "built at" info from version command
-- Set `org.opencontainers.image.created` label to `1970-01-01T00:00:00Z`
 
 ### Deprecated
 
@@ -24,6 +19,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 ### Security
+
+## [2.2.0] - 2023-09-25
+
+### Added
+
+- Added `--json` flag to version command to print the complete build info as json
+
+### Changed
+
+- Removed "built at" info from version command
+- Set `org.opencontainers.image.created` label to `1970-01-01T00:00:00Z`
+- Updated dependencies
+- Bumped Alpine base image from 3.16.3 to 3.18.4
 
 ## [2.1.0] - 2023-07-10
 
@@ -126,7 +134,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Initial release of `semver`
 
-[unreleased]: https://github.com/ffurrer2/semver/compare/v2.1.0...HEAD
+[unreleased]: https://github.com/ffurrer2/semver/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/ffurrer2/semver/compare/v2.1.2...v2.2.0
 [2.1.0]: https://github.com/ffurrer2/semver/compare/v2.0.2...v2.1.0
 [2.0.2]: https://github.com/ffurrer2/semver/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/ffurrer2/semver/compare/v2.0.0...v2.0.1
