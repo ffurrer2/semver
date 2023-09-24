@@ -20,7 +20,7 @@ func NewBuilder() *Builder {
 	}
 }
 
-func (b Builder) Major(major uint) *Builder {
+func (b *Builder) Major(major uint) *Builder {
 	return &Builder{
 		major:         major,
 		minor:         b.minor,
@@ -30,7 +30,7 @@ func (b Builder) Major(major uint) *Builder {
 	}
 }
 
-func (b Builder) Minor(minor uint) *Builder {
+func (b *Builder) Minor(minor uint) *Builder {
 	return &Builder{
 		major:         b.major,
 		minor:         minor,
@@ -40,7 +40,7 @@ func (b Builder) Minor(minor uint) *Builder {
 	}
 }
 
-func (b Builder) Patch(patch uint) *Builder {
+func (b *Builder) Patch(patch uint) *Builder {
 	return &Builder{
 		major:         b.major,
 		minor:         b.minor,
@@ -50,7 +50,7 @@ func (b Builder) Patch(patch uint) *Builder {
 	}
 }
 
-func (b Builder) PreRelease(preRelease []string) *Builder {
+func (b *Builder) PreRelease(preRelease []string) *Builder {
 	return &Builder{
 		major:         b.major,
 		minor:         b.minor,
@@ -60,7 +60,7 @@ func (b Builder) PreRelease(preRelease []string) *Builder {
 	}
 }
 
-func (b Builder) PreReleaseField(preRelease string) *Builder {
+func (b *Builder) PreReleaseField(preRelease string) *Builder {
 	return &Builder{
 		major:         b.major,
 		minor:         b.minor,
@@ -70,7 +70,7 @@ func (b Builder) PreReleaseField(preRelease string) *Builder {
 	}
 }
 
-func (b Builder) BuildMetadata(buildMetadata []string) *Builder {
+func (b *Builder) BuildMetadata(buildMetadata []string) *Builder {
 	return &Builder{
 		major:         b.major,
 		minor:         b.minor,
@@ -80,7 +80,7 @@ func (b Builder) BuildMetadata(buildMetadata []string) *Builder {
 	}
 }
 
-func (b Builder) BuildMetadataField(buildMetadata string) *Builder {
+func (b *Builder) BuildMetadataField(buildMetadata string) *Builder {
 	return &Builder{
 		major:         b.major,
 		minor:         b.minor,
@@ -90,7 +90,7 @@ func (b Builder) BuildMetadataField(buildMetadata string) *Builder {
 	}
 }
 
-func (b Builder) Build() (*SemVer, bool) {
+func (b *Builder) Build() (*SemVer, bool) {
 	semver := &SemVer{
 		Major:         b.major,
 		Minor:         b.minor,
