@@ -78,13 +78,24 @@ tasks:
     - go fmt ./...
     silent: true
 
+  # https://github.com/mvdan/gofumpt
+  # go install mvdan.cc/gofumpt@latest
   gofumpt:
     desc: Format code with gofumpt
     cmds:
-    - gofumpt -l -w .
+    - gofumpt -l -w -extra .
+    silent: true
+
+  # https://cs.opensource.google/go/x/tools
+  # go install golang.org/x/tools/cmd/goimports@latest
+  goimports:
+    desc: Optimize imports with goimports
+    cmds:
+    - goimports -w -local github.com/ffurrer2/semver .
     silent: true
 
   # https://github.com/oligot/go-mod-upgrade
+  # go install github.com/oligot/go-mod-upgrade@latest
   go-mod-upgrade:
     desc: Run go-mod-upgrade
     cmds:

@@ -6,10 +6,11 @@ import (
 	"fmt"
 	"math/bits"
 
-	"github.com/ffurrer2/semver/v2/internal/pkg/number"
 	mathext "github.com/go-playground/pkg/v5/math"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+
+	"github.com/ffurrer2/semver/v2/internal/pkg/number"
 )
 
 var _ = Describe("number: ", func() {
@@ -112,7 +113,7 @@ var _ = Describe("number: ", func() {
 
 	Describe("CompareInt[T constraints.Ordered](a, b T) int", func() {
 		DescribeTable("when a == b",
-			func(a uint, b uint) {
+			func(a, b uint) {
 				result := number.CompareInt(a, b)
 				Expect(result).To(Equal(0))
 			},
@@ -121,7 +122,7 @@ var _ = Describe("number: ", func() {
 			Entry("should return 0", maxUint, maxUint),
 		)
 		DescribeTable("when a < b ",
-			func(a uint, b uint) {
+			func(a, b uint) {
 				result := number.CompareInt(a, b)
 				Expect(result).To(Equal(-1))
 			},
@@ -130,7 +131,7 @@ var _ = Describe("number: ", func() {
 			Entry("should return -1", maxUint-1, maxUint),
 		)
 		DescribeTable("when a > b ",
-			func(a uint, b uint) {
+			func(a, b uint) {
 				result := number.CompareInt(a, b)
 				Expect(result).To(Equal(1))
 			},
@@ -142,7 +143,7 @@ var _ = Describe("number: ", func() {
 
 	Describe("MinInt[T constraints.Ordered](x, y T) T", func() {
 		DescribeTable("when a == b",
-			func(a uint, b uint) {
+			func(a, b uint) {
 				result := mathext.Min(a, b)
 				Expect(result).To(Equal(a))
 				Expect(result).To(Equal(b))
@@ -152,7 +153,7 @@ var _ = Describe("number: ", func() {
 			Entry("should return 0", maxUint, maxUint),
 		)
 		DescribeTable("when a < b ",
-			func(a uint, b uint) {
+			func(a, b uint) {
 				result := mathext.Min(a, b)
 				Expect(result).To(Equal(a))
 			},
@@ -161,7 +162,7 @@ var _ = Describe("number: ", func() {
 			Entry("should return -1", maxUint-1, maxUint),
 		)
 		DescribeTable("when a > b ",
-			func(a uint, b uint) {
+			func(a, b uint) {
 				result := mathext.Min(a, b)
 				Expect(result).To(Equal(b))
 			},

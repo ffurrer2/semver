@@ -7,10 +7,11 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/ffurrer2/semver/v2/internal/pkg/number"
-	"github.com/ffurrer2/semver/v2/pkg/semver"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+
+	"github.com/ffurrer2/semver/v2/internal/pkg/number"
+	"github.com/ffurrer2/semver/v2/pkg/semver"
 )
 
 var _ = Describe("semver:", func() {
@@ -36,7 +37,7 @@ var _ = Describe("semver:", func() {
 	Describe("func Parse(s string) (*SemVer, error)", func() {
 		Describe("when input is a valid semantic version", func() {
 			DescribeTable("it should not error and return the correct SemVer struct",
-				func(input string, major int, minor int, patch int, preRelease string, buildMetadata string) {
+				func(input string, major, minor, patch int, preRelease, buildMetadata string) {
 					actual, err := semver.Parse(input)
 					expected := semver.SemVer{
 						Major:         uint(major),
@@ -105,7 +106,7 @@ var _ = Describe("semver:", func() {
 	Describe("func MustParse(s string) *SemVer", func() {
 		Describe("when input is a valid semantic version", func() {
 			DescribeTable("it should not panic and return the correct SemVer struct",
-				func(input string, major int, minor int, patch int, preRelease string, buildMetadata string) {
+				func(input string, major, minor, patch int, preRelease, buildMetadata string) {
 					actual := semver.MustParse(input)
 					expected := semver.SemVer{
 						Major:         uint(major),
@@ -558,7 +559,7 @@ var _ = Describe("semver:", func() {
 	Describe("func (s SemVer) CompareTo(o SemVer) int", func() {
 		Describe("when s != o", func() {
 			DescribeTable("it should return -1",
-				func(a string, b string) {
+				func(a, b string) {
 					semverA, err := semver.Parse(a)
 					Expect(err).ShouldNot(HaveOccurred())
 					semverB, err := semver.Parse(b)
@@ -582,7 +583,7 @@ var _ = Describe("semver:", func() {
 
 		Describe("when s > o", func() {
 			DescribeTable("it should return 1",
-				func(a string, b string) {
+				func(a, b string) {
 					semverA, err := semver.Parse(a)
 					Expect(err).ShouldNot(HaveOccurred())
 					semverB, err := semver.Parse(b)
@@ -606,7 +607,7 @@ var _ = Describe("semver:", func() {
 
 		Describe("when s == o", func() {
 			DescribeTable("it should return 0",
-				func(a string, b string) {
+				func(a, b string) {
 					semverA, err := semver.Parse(a)
 					Expect(err).ShouldNot(HaveOccurred())
 					semverB, err := semver.Parse(b)
@@ -631,7 +632,7 @@ var _ = Describe("semver:", func() {
 	Describe("func (s SemVer) Equal(o SemVer) bool", func() {
 		Describe("when s is equal to o", func() {
 			DescribeTable("it should return true",
-				func(a string, b string) {
+				func(a, b string) {
 					semverA, err := semver.Parse(a)
 					Expect(err).ShouldNot(HaveOccurred())
 					semverB, err := semver.Parse(b)
@@ -653,7 +654,7 @@ var _ = Describe("semver:", func() {
 
 		Describe("when s is not equal to o", func() {
 			DescribeTable("it should return false",
-				func(a string, b string) {
+				func(a, b string) {
 					semverA, err := semver.Parse(a)
 					Expect(err).ShouldNot(HaveOccurred())
 					semverB, err := semver.Parse(b)
@@ -679,7 +680,7 @@ var _ = Describe("semver:", func() {
 	Describe("func (s SemVer) String() string", func() {
 		Describe("when s is a valid SemVer struct", func() {
 			DescribeTable("it should return the correct semver string",
-				func(major int, minor int, patch int, preRelease string, buildMetadata string, expected string) {
+				func(major, minor, patch int, preRelease, buildMetadata, expected string) {
 					s := semver.SemVer{
 						Major:         uint(major),
 						Minor:         uint(minor),

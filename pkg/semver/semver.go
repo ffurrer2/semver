@@ -8,8 +8,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/ffurrer2/semver/v2/internal/pkg/number"
 	mathext "github.com/go-playground/pkg/v5/math"
+
+	"github.com/ffurrer2/semver/v2/internal/pkg/number"
 )
 
 const (

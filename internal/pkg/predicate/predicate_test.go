@@ -3,9 +3,10 @@
 package predicate_test
 
 import (
-	"github.com/ffurrer2/semver/v2/internal/pkg/predicate"
 	. "github.com/onsi/ginkgo/v2"
 	"github.com/onsi/gomega"
+
+	"github.com/ffurrer2/semver/v2/internal/pkg/predicate"
 )
 
 var _ = Describe("predicate: ", func() {

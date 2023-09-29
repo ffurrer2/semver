@@ -84,6 +84,7 @@ tasks:
     desc: Format code
     cmds:
     - task: go:gofumpt
+    - task: go:goimports
     silent: true
 
   version:
