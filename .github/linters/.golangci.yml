@@ -24,9 +24,11 @@ linters:
   - bidichk
   - bodyclose
   - containedctx
+  - contextcheck
   - decorder
   - depguard
   - dogsled
+  - dupword
   - durationcheck
   - errcheck
   - errchkjson
@@ -38,12 +40,14 @@ linters:
   - forbidigo
   - forcetypeassert
   - funlen
-  - gci
+  - ginkgolinter
+  - gocheckcompilerdirectives
   - gocognit
   - goconst
   - gocritic
   - gocyclo
   - godox
+  - goerr113
   - gofmt
   - gofumpt
   - goheader
@@ -54,14 +58,20 @@ linters:
   - goprintffuncname
   - gosec
   - gosimple
+  - gosmopolitan
   - govet
   - grouper
   - importas
   - ineffassign
+  - interfacebloat
+  - ireturn
   - lll
+  - loggercheck
   - maintidx
   - makezero
+  - mirror
   - misspell
+  - musttag
   - nakedret
   - nestif
   - nilerr
@@ -74,11 +84,16 @@ linters:
   - prealloc
   - predeclared
   - promlinter
+  - reassign
   - revive
+  - rowserrcheck
+  - sqlclosecheck
   - staticcheck
   - stylecheck
+  - tagalign
   - tagliatelle
   - tenv
+  - testableexamples
   - testpackage
   - thelper
   - tparallel
@@ -87,29 +102,22 @@ linters:
   - unparam
   - unused
   - usestdlibvars
+  - wastedassign
   - whitespace
   - wrapcheck
+  - zerologlint
 
   # Don't enable:
   # - cyclop
   # - dupl
-  # - exhaustivestruct
   # - exhaustruct
+  # - gci
   # - gochecknoglobals
   # - gochecknoinits
   # - godot
-  # - goerr113
   # - nlreturn
   # - varnamelen
   # - wsl
-
-  # Disabled because of generics:
-  # - contextcheck
-  # - ireturn
-  # - rowserrcheck
-  # - sqlclosecheck
-  # - structcheck
-  # - wastedassign
 
 run:
   timeout: 5m
