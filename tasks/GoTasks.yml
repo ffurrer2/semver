@@ -15,7 +15,7 @@ tasks:
     - rm -rf artifacts/
     silent: true
 
-  prepare:
+  download:
     desc: Download required dependencies
     cmds:
     - go mod download -x
@@ -30,7 +30,7 @@ tasks:
   build:
     desc: Build {{.PROJECT_NAME}}
     cmds:
-    - task: prepare
+    - task: download
     - mkdir -p artifacts/bin
     - |-
       {{.GO_BUILD_ENV}} go build -o artifacts/bin -v -ldflags='{{.LDFLAGS}}' -mod=mod ./cmd/semver
@@ -39,7 +39,7 @@ tasks:
   test:
     desc: Run tests
     cmds:
-    - task: prepare
+    - task: download
     - mkdir -p artifacts/coverage-results
     - go test -race -v -covermode atomic -coverprofile artifacts/coverage-results/coverage.out ./...
     - go tool cover -html artifacts/coverage-results/coverage.out -o artifacts/coverage-results/coverage.html
@@ -48,7 +48,7 @@ tasks:
   install:
     desc: Install {{.PROJECT_NAME}} into $GOPATH/bin
     cmds:
-    - task: prepare
+    - task: download
     - |-
       {{.GO_BUILD_ENV}} go install -ldflags='{{.LDFLAGS}}' -v ./cmd/semver
     silent: true
@@ -69,7 +69,16 @@ tasks:
     desc: Check dependency updates
     cmds:
     - |-
-      go list -mod=mod -u -f {{`'{{if (and (not (or .Main .Indirect)) .Update)}}{{.Path}}: {{.Version}} -> {{.Update.Version}}{{end}}'`}} -m all 2>/dev/null
+      go list -mod=mod -u -f {{`'{{if (and (not (or .Main .Indirect)) .Update)}}{{.Path}}: {{.Version}} -> {{.Update.Version}}{{end}}'`}} -m all
+    silent: true
+
+  # https://github.com/oligot/go-mod-upgrade
+  # go install github.com/oligot/go-mod-upgrade@latest
+  go-mod-upgrade:
+    desc: Run go-mod-upgrade
+    cmds:
+    - go-mod-upgrade
+    - task: tidy
     silent: true
 
   gofmt:
@@ -90,14 +99,8 @@ tasks:
   # go install golang.org/x/tools/cmd/goimports@latest
   goimports:
     desc: Optimize imports with goimports
+    vars:
+      MODULE_PATH: { sh: go list -m  }
     cmds:
-    - goimports -w -local github.com/ffurrer2/semver .
-    silent: true
-
-  # https://github.com/oligot/go-mod-upgrade
-  # go install github.com/oligot/go-mod-upgrade@latest
-  go-mod-upgrade:
-    desc: Run go-mod-upgrade
-    cmds:
-    - go-mod-upgrade
+    - goimports -w -local {{.MODULE_PATH}} .
     silent: true
