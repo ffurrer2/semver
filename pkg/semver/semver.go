@@ -3,6 +3,7 @@
 package semver
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 	"regexp"
@@ -14,19 +15,29 @@ import (
 )
 
 const (
-	MaxMajor = ^uint(0)
-	MaxMinor = ^uint(0)
-	MaxPatch = ^uint(0)
+	MaxMajor           = ^uint(0)
+	MaxMinor           = ^uint(0)
+	MaxPatch           = ^uint(0)
+	NamedGroupsPattern = `^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)` +
+		`(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?` +
+		`(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 )
 
-const NamedGroupsPattern = `^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)` +
-	`(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?` +
-	`(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
-
-var /* const */ semverRegexp *regexp.Regexp
+var (
+	ErrNextMajorUintOverflow = errors.New("next major version overflows uint")
+	ErrNextMinorUintOverflow = errors.New("next minor version overflows uint")
+	ErrNextPatchUintOverflow = errors.New("next patch version overflows uint")
+	semverRegexp             *regexp.Regexp
+)
 
 func init() {
 	semverRegexp = regexp.MustCompile(NamedGroupsPattern)
+}
+
+type ErrInvalidSemVer string
+
+func (s ErrInvalidSemVer) Error() string {
+	return "invalid semantic version: " + string(s)
 }
 
 type SemVer struct {
@@ -54,7 +65,7 @@ func (s BySemVer) Swap(i, j int) {
 func Parse(s string) (*SemVer, error) {
 	matches := semverRegexp.FindAllStringSubmatch(s, -1)
 	if matches == nil {
-		return nil, fmt.Errorf("invalid semantic version: %s", s)
+		return nil, ErrInvalidSemVer(s)
 	}
 	groupNames := semverRegexp.SubexpNames()
 	semver := &SemVer{}
@@ -119,7 +130,7 @@ func (s *SemVer) NextMajor() *SemVer {
 		}
 	}
 	if s.Major == MaxMajor {
-		panic(fmt.Errorf("next major version overflows uint"))
+		panic(ErrNextMajorUintOverflow)
 	}
 	return &SemVer{
 		Major:         s.Major + 1,
@@ -141,7 +152,7 @@ func (s *SemVer) NextMinor() *SemVer {
 		}
 	}
 	if s.Minor == MaxMinor {
-		panic(fmt.Errorf("next minor version overflows uint"))
+		panic(ErrNextMinorUintOverflow)
 	}
 	return &SemVer{
 		Major:         s.Major,
@@ -163,7 +174,7 @@ func (s *SemVer) NextPatch() *SemVer {
 		}
 	}
 	if s.Patch == MaxPatch {
-		panic(fmt.Errorf("next patch version overflows uint"))
+		panic(ErrNextPatchUintOverflow)
 	}
 	return &SemVer{
 		Major:         s.Major,

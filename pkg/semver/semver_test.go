@@ -563,7 +563,7 @@ var _ = Describe("semver:", func() {
 					semverA, err := semver.Parse(a)
 					Expect(err).ShouldNot(HaveOccurred())
 					semverB, err := semver.Parse(b)
-					Expect(err).To(BeNil())
+					Expect(err).ToNot(HaveOccurred())
 					actual := semverA.CompareTo(*semverB)
 					Expect(actual).To(Equal(-1))
 				},
@@ -587,7 +587,7 @@ var _ = Describe("semver:", func() {
 					semverA, err := semver.Parse(a)
 					Expect(err).ShouldNot(HaveOccurred())
 					semverB, err := semver.Parse(b)
-					Expect(err).To(BeNil())
+					Expect(err).ToNot(HaveOccurred())
 					actual := semverA.CompareTo(*semverB)
 					Expect(actual).To(Equal(1))
 				},

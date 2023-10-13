@@ -100,7 +100,7 @@ tasks:
   goimports:
     desc: Optimize imports with goimports
     vars:
-      MODULE_PATH: { sh: go list -m  }
+      MODULE_PATH: {sh: go list -m}
     cmds:
     - goimports -w -local {{.MODULE_PATH}} .
     silent: true
