@@ -34,9 +34,9 @@ func init() {
 	semverRegexp = regexp.MustCompile(NamedGroupsPattern)
 }
 
-type ErrInvalidSemVer string
+type InvalidSemVerError string
 
-func (s ErrInvalidSemVer) Error() string {
+func (s InvalidSemVerError) Error() string {
 	return "invalid semantic version: " + string(s)
 }
 
@@ -65,7 +65,7 @@ func (s BySemVer) Swap(i, j int) {
 func Parse(s string) (*SemVer, error) {
 	matches := semverRegexp.FindAllStringSubmatch(s, -1)
 	if matches == nil {
-		return nil, ErrInvalidSemVer(s)
+		return nil, InvalidSemVerError(s)
 	}
 	groupNames := semverRegexp.SubexpNames()
 	semver := &SemVer{}
