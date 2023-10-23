@@ -6,7 +6,7 @@ go 1.21
 require (
 	github.com/go-playground/pkg/v5 v5.21.3
 	github.com/onsi/ginkgo/v2 v2.13.0
-	github.com/onsi/gomega v1.28.0
+	github.com/onsi/gomega v1.28.1
 	github.com/samber/lo v1.38.1
 	github.com/spf13/cobra v1.7.0
 )
