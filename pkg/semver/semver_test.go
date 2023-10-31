@@ -15,6 +15,15 @@ import (
 )
 
 var _ = Describe("semver:", func() {
+	Describe("type InvalidSemVerError string", func() {
+		Context("when error message is set", func() {
+			It("should return the correct error message", func() {
+				err := semver.InvalidSemVerError("0")
+				Expect(err.Error()).To(Equal("invalid semantic version: 0"))
+			})
+		})
+	})
+
 	Describe("type SemVer struct", func() {
 		It("should implement the sort.Interface interface", func() {
 			actual := []semver.SemVer{
