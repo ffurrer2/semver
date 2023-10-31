@@ -15,6 +15,8 @@ linters-settings:
         deny:
         - pkg: github.com/pkg/errors
           desc: Should be replaced by standard lib errors package
+        - pkg: golang.org/x/net/context
+          desc: Should be replaced by standard lib context package
 
 linters:
   disable-all: true
@@ -85,7 +87,6 @@ linters:
   - predeclared
   - promlinter
   - reassign
-  - revive
   - rowserrcheck
   - sqlclosecheck
   - staticcheck
@@ -116,6 +117,7 @@ linters:
   # - gochecknoinits
   # - godot
   # - nlreturn
+  # - revive
   # - varnamelen
   # - wsl
 
