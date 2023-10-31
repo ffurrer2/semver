@@ -146,6 +146,7 @@ dockers:
   - --label=org.opencontainers.image.description=A semantic versioning command line utility written in Go.
   - --label=org.opencontainers.image.documentation=https://github.com/ffurrer2/semver/blob/main/README.md
   - --label=org.opencontainers.image.licenses=MIT
+  - --label=org.opencontainers.image.ref.name=ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{.Major}}.{{.Minor}}.{{.Patch}}{{end}}-alpine
   - --label=org.opencontainers.image.revision={{.FullCommit}}
   - --label=org.opencontainers.image.source=https://github.com/ffurrer2/semver
   - --label=org.opencontainers.image.title=SemVer
@@ -178,6 +179,7 @@ dockers:
   - --label=org.opencontainers.image.description=A semantic versioning command line utility written in Go.
   - --label=org.opencontainers.image.documentation=https://github.com/ffurrer2/semver/blob/main/README.md
   - --label=org.opencontainers.image.licenses=MIT
+  - --label=org.opencontainers.image.ref.name=ghcr.io/ffurrer2/semver:{{if .IsSnapshot}}{{replace .Env.SNAPSHOT_VERSION "+" "-"}}{{else}}{{.Major}}.{{.Minor}}.{{.Patch}}{{end}}
   - --label=org.opencontainers.image.revision={{.FullCommit}}
   - --label=org.opencontainers.image.source=https://github.com/ffurrer2/semver
   - --label=org.opencontainers.image.title=SemVer
