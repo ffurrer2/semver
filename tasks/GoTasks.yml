@@ -6,7 +6,7 @@ vars:
   GO_BUILD_ENV: CGO_ENABLED=0
   LDFLAGS: >-
     -X github.com/ffurrer2/semver/v2/internal/pkg/app.version={{.BUILD_VERSION}}
-    -s -w
+    -s -w -extldflags "-static"
 
 tasks:
   clean:
@@ -33,7 +33,7 @@ tasks:
     - task: download
     - mkdir -p artifacts/bin
     - |-
-      {{.GO_BUILD_ENV}} go build -o artifacts/bin -v -ldflags='{{.LDFLAGS}}' -mod=mod ./cmd/semver
+      {{.GO_BUILD_ENV}} go build -o artifacts/bin -v -ldflags='{{.LDFLAGS}}' -mod=mod -trimpath ./cmd/semver
     silent: true
 
   test:
@@ -41,7 +41,7 @@ tasks:
     cmds:
     - task: download
     - mkdir -p artifacts/coverage-results
-    - go test -race -v -covermode atomic -coverprofile artifacts/coverage-results/coverage.out ./...
+    - go test -race -covermode atomic -v -coverprofile artifacts/coverage-results/coverage.out ./...
     - go tool cover -html artifacts/coverage-results/coverage.out -o artifacts/coverage-results/coverage.html
     silent: true
 

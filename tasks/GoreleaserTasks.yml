@@ -31,7 +31,7 @@ tasks:
       IMAGE_BASE_NAME_ALPINE: '{{.IMAGE_BASE_NAME_ALPINE}}'
       IMAGE_BASE_DIGEST_ALPINE: '{{.IMAGE_BASE_DIGEST_ALPINE}}'
     cmds:
-    - echo '{{.BUILD_VERSION}}'
+    - docker context use default
     - goreleaser release --config build/package/.goreleaser.yaml --clean --snapshot
     silent: true
 
@@ -48,5 +48,6 @@ tasks:
       IMAGE_BASE_NAME_ALPINE: '{{.IMAGE_BASE_NAME_ALPINE}}'
       IMAGE_BASE_DIGEST_ALPINE: '{{.IMAGE_BASE_DIGEST_ALPINE}}'
     cmds:
+    - docker context use default
     - goreleaser release --config build/package/.goreleaser.yaml --clean --skip-publish
     silent: true
