@@ -39,7 +39,7 @@ brews:
     name: homebrew-tap
     branch: main
   commit_author:
-    name: goreleaserbot
+    name: goreleaser
     email: ffurrer2@users.noreply.github.com
   commit_msg_template: Brew formula update for {{.ProjectName}} version {{.Tag}}
   folder: Formula
@@ -58,7 +58,7 @@ scoops:
     owner: ffurrer2
     name: scoop-bucket
   commit_author:
-    name: goreleaserbot
+    name: goreleaser
     email: ffurrer2@users.noreply.github.com
   commit_msg_template: Scoop update for {{.ProjectName}} version {{.Tag}}
   homepage: https://github.com/ffurrer2/semver

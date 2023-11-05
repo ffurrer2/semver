@@ -16,9 +16,14 @@ tasks:
     silent: true
 
   cache:
-    desc: Upate licensed cache
+    desc: Update licensed cache
     cmds:
     - licensed cache --force
+    - |
+      sed -i.bak 's/license: other/license: mit/g' .licenses/go/github.com/go-playground/pkg/v5/constraints.dep.yml
+      sed -i.bak 's/license: other/license: mit/g' .licenses/go/github.com/go-playground/pkg/v5/math.dep.yml
+      sed -i.bak 's/license: other/license: bsd-3-clause/g' .licenses/go/golang.org/x/exp/constraints.dep.yml
+    - find ./.licenses/go -type f -name '*.bak' -delete
     silent: true
 
   notices:
