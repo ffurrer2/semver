@@ -146,7 +146,7 @@ jobs:
         cat trivy-results-scratch.sarif
 
     - name: Upload Trivy scan results to GitHub Security tab (scratch)
-      uses: github/codeql-action/upload-sarif@v2
+      uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: 'trivy-results-scratch.sarif'
         category: trivy-results-scratch
@@ -168,7 +168,7 @@ jobs:
         cat trivy-results-alpine.sarif
 
     - name: Upload Trivy scan results to GitHub Security tab (alpine)
-      uses: github/codeql-action/upload-sarif@v2
+      uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: 'trivy-results-alpine.sarif'
         category: trivy-results-alpine
@@ -187,7 +187,7 @@ jobs:
         cat ${{ steps.anchore-scratch.outputs.sarif }}
 
     - name: Upload Anchore scan results to GitHub Security tab (scratch)
-      uses: github/codeql-action/upload-sarif@v2
+      uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: ${{ steps.anchore-scratch.outputs.sarif }}
         category: anchore-results-scratch
@@ -206,7 +206,7 @@ jobs:
         cat ${{ steps.anchore-alpine.outputs.sarif }}
 
     - name: Upload Anchore scan results to GitHub Security tab (alpine)
-      uses: github/codeql-action/upload-sarif@v2
+      uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: ${{ steps.anchore-alpine.outputs.sarif }}
         category: anchore-results-alpine
