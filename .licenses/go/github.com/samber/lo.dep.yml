@@ -1,6 +1,6 @@
 ---
 name: github.com/samber/lo
-version: v1.38.1
+version: v1.39.0
 type: go
 summary:
 homepage: https://pkg.go.dev/github.com/samber/lo
