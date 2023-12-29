@@ -24,40 +24,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Added `--json` flag to version command to print the complete build info as json
+- `--json` option to version command to print the complete build info as json
 
 ### Changed
 
 - Removed "built at" info from version command
 - Set `org.opencontainers.image.created` label to `1970-01-01T00:00:00Z`
-- Updated dependencies
-- Bumped Alpine base image from 3.16.3 to 3.18.4
+- Dependencies updated
+- Updated `alpine` base image to 3.18.4
 
 ## [2.1.0] - 2023-07-10
 
 ### Changed
 
-- Updated dependencies
-- Bumped Alpine base image from 3.16.2 to 3.18.2
+- Dependencies updated
+- Updated `alpine` base image to 3.18.2
 
 ## [2.0.2] - 2022-09-25
 
 ### Changed
 
-- Updated dependencies
+- Dependencies updated
 
 ## [2.0.1] - 2022-09-03
 
 ### Fixed
 
-- Fixed output of the version command
+- Fixed version command output
 
 ## [2.0.0] - 2022-09-03
 
 ### Added
 
-- Added flag (`-r/--reverse`) to sort in reverse order
-- Added additional flags to the filter command
+- `-r/--reverse` option to sort command
+- Additional filter command flags
 
 ### Changed
 
@@ -67,8 +67,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Updated dependencies
-- Bumped Alpine base image from 3.15.3 to 3.16.2
+- Dependencies updated
+- Updated `alpine` base image to 3.16.2
 
 ## [1.7.0] - 2022-04-24 [YANKED]
 
@@ -76,15 +76,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Updated dependencies
-- Bumped Alpine base image from 3.15.1 to 3.15.3
+- Dependencies updated
+- Updated `alpine` base image to 3.15.3
 
 ## [1.5.0] - 2022-03-21
 
 ### Changed
 
-- Updated dependencies
-- Bumped Alpine base image from 3.15.0 to 3.15.1
+- Dependencies updated
+- Updated `alpine` base image to 3.15.1
 
 ## [1.4.0] - 2022-01-30
 
@@ -94,39 +94,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Updated dependencies
+- Dependencies updated
 
 ## [1.3.0] - 2022-01-29
 
 ### Changed
 
-- Replaced base image (`distroless` instead of `scratch`)
-- Added non-root user to Alpine-based image
+- Base image changed to `distroless`
+- Non-root user added to alpine-based image
 
 ## [1.2.0] - 2022-01-01
 
 ### Added
 
-- Added support for Darwin and Linux ARM64.
+- Support for Darwin and Linux ARM64
 
 ### Changed
 
-- Updated dependencies
-- Bumped Alpine base image from 3.13.5 to 3.15.0
+- Dependencies updated
+- Updated `alpine` base image to 3.15.0
 
 ## [1.1.0] - 2021-04-17
 
 ### Changed
 
-- Updated dependencies
-- Bumped Alpine base image from 3.12.3 to 3.13.5
+- Dependencies updated
+- Updated `alpine` base image to 3.13.5
 - Improved CI workflow
 
 ## [1.0.1] - 2020-07-02
 
 ### Fixed
 
-- Fixed UNIX pipeline support of the sort command
+- Fixed UNIX pipeline support for the sort command
 
 ## [1.0.0] - 2020-06-24
 
