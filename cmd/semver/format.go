@@ -6,7 +6,7 @@ import (
 	"os"
 	"text/template"
 
-	sprig "github.com/go-task/slim-sprig"
+	sprig "github.com/go-task/slim-sprig/v3"
 	"github.com/spf13/cobra"
 
 	"github.com/ffurrer2/semver/v2/internal/pkg/cli"

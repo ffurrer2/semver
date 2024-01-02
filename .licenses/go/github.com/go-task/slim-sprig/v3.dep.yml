@@ -1,9 +1,9 @@
 ---
-name: github.com/go-task/slim-sprig
-version: v0.0.0-20230315185526-52ccab3ef572
+name: github.com/go-task/slim-sprig/v3
+version: v3.0.0
 type: go
 summary: Package sprig provides template functions for Go.
-homepage: https://pkg.go.dev/github.com/go-task/slim-sprig
+homepage: https://pkg.go.dev/github.com/go-task/slim-sprig/v3
 license: mit
 licenses:
 - sources: LICENSE.txt
