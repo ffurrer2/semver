@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+## [2.4.0] - 2024-01-02
+
+### Changed
+
+- Updated slim-sprig to 3.0.0
+
 ## [2.3.0] - 2023-12-29
 
 ### Added
@@ -28,7 +34,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Bumped `alpine` base image from 3.18.4 to 3.19.0
+- Updated `alpine` base image to 3.19.0
 - Updated dependencies
 
 ## [2.2.0] - 2023-09-25
@@ -145,7 +151,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Initial release of `semver`
 
-[Unreleased]: https://github.com/ffurrer2/semver/compare/v2.3.0...HEAD
+[Unreleased]: https://github.com/ffurrer2/semver/compare/v2.4.0...HEAD
+[2.4.0]: https://github.com/ffurrer2/semver/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/ffurrer2/semver/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/ffurrer2/semver/compare/v2.1.2...v2.2.0
 [2.1.0]: https://github.com/ffurrer2/semver/compare/v2.0.2...v2.1.0
