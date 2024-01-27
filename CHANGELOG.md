@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- Updated `alpine` base image to 3.19.1
+
 ### Deprecated
 
 ### Removed
