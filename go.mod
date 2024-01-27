@@ -4,7 +4,7 @@ module github.com/ffurrer2/semver/v2
 go 1.21
 
 require (
-	github.com/go-playground/pkg/v5 v5.24.0
+	github.com/go-playground/pkg/v5 v5.25.0
 	github.com/go-task/slim-sprig/v3 v3.0.0
 	github.com/onsi/ginkgo/v2 v2.15.0
 	github.com/onsi/gomega v1.31.1
