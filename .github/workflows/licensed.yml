@@ -31,7 +31,7 @@ jobs:
       with:
         ruby-version: ruby
 
-    - name: Setup licensed
+    - name: Setup Licensed
       uses: jonabc/setup-licensed@v1
       with:
         github_token: '${{ secrets.GITHUB_TOKEN }}'
