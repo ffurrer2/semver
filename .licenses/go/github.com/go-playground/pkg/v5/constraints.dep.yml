@@ -1,12 +1,12 @@
 ---
 name: github.com/go-playground/pkg/v5/constraints
-version: v5.26.0
+version: v5.28.1
 type: go
 summary:
 homepage: https://pkg.go.dev/github.com/go-playground/pkg/v5/constraints
 license: mit
 licenses:
-- sources: v5@v5.26.0/LICENSE-APACHE
+- sources: v5@v5.28.1/LICENSE-APACHE
   text: "                              Apache License\n                        Version
     2.0, January 2004\n                     http://www.apache.org/licenses/\n\nTERMS
     AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n1. Definitions.\n\n
@@ -142,7 +142,7 @@ licenses:
     the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS
     OF ANY KIND, either express or implied.\nSee the License for the specific language
     governing permissions and\nlimitations under the License.\n"
-- sources: v5@v5.26.0/LICENSE-MIT
+- sources: v5@v5.28.1/LICENSE-MIT
   text: |
     Permission is hereby granted, free of charge, to any
     person obtaining a copy of this software and associated
@@ -167,7 +167,7 @@ licenses:
     OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
     IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     DEALINGS IN THE SOFTWARE.
-- sources: v5@v5.26.0/README.md
+- sources: v5@v5.28.1/README.md
   text: |-
     <sup>
     Licensed under either of <a href="LICENSE-APACHE">Apache License, Version
