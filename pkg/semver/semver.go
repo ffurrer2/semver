@@ -9,8 +9,6 @@ import (
 	"regexp"
 	"strings"
 
-	mathext "github.com/go-playground/pkg/v5/math"
-
 	"github.com/ffurrer2/semver/v2/internal/pkg/number"
 )
 
@@ -234,7 +232,7 @@ func (s *SemVer) CompareTo(o SemVer) int {
 	// comparing each dot separated identifier from left to right until a difference is found as follows: identifiers
 	// consisting of only digits are compared numerically and identifiers with letters or hyphens are compared
 	// lexically in ASCII sort order.
-	for i := 0; i < mathext.Min(len(s.PreRelease), len(o.PreRelease)); i++ {
+	for i := 0; i < min(len(s.PreRelease), len(o.PreRelease)); i++ {
 		if res := comparePreReleaseIdentifier(s.PreRelease[i], o.PreRelease[i]); res != 0 {
 			return res
 		}

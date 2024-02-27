@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"math/bits"
 
-	mathext "github.com/go-playground/pkg/v5/math"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
@@ -144,7 +143,7 @@ var _ = Describe("number: ", func() {
 	Describe("MinInt[T constraints.Ordered](x, y T) T", func() {
 		DescribeTable("when a == b",
 			func(a, b uint) {
-				result := mathext.Min(a, b)
+				result := min(a, b)
 				Expect(result).To(Equal(a))
 				Expect(result).To(Equal(b))
 			},
@@ -154,7 +153,7 @@ var _ = Describe("number: ", func() {
 		)
 		DescribeTable("when a < b ",
 			func(a, b uint) {
-				result := mathext.Min(a, b)
+				result := min(a, b)
 				Expect(result).To(Equal(a))
 			},
 			Entry("should return -1", uint(0), uint(1)),
@@ -163,7 +162,7 @@ var _ = Describe("number: ", func() {
 		)
 		DescribeTable("when a > b ",
 			func(a, b uint) {
-				result := mathext.Min(a, b)
+				result := min(a, b)
 				Expect(result).To(Equal(b))
 			},
 			Entry("should return 1", uint(1), uint(0)),

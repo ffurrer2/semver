@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"strconv"
 
-	constraintsext "github.com/go-playground/pkg/v5/constraints"
+	"golang.org/x/exp/constraints"
 )
 
 const (
@@ -42,7 +42,7 @@ func IsNumeric(s string) bool {
 	return numericRegexp.MatchString(s)
 }
 
-func CompareInt[T constraintsext.Integer](a, b T) int {
+func CompareInt[T constraints.Integer](a, b T) int {
 	if a == b {
 		return 0
 	}
