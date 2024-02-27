@@ -40,7 +40,7 @@ metadataTest:
     value: '^sha256:[a-f0-9]{64}$'
     isRegex: true
   - key: 'org.opencontainers.image.base.name'
-    value: '^gcr.io/distroless/static:nonroot$'
+    value: '^gcr.io/distroless/static-debian12:nonroot$'
     isRegex: true
   - key: 'org.opencontainers.image.created'
     value: '^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(([+-]\d\d:\d\d)|Z)?$'

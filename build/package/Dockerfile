@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-FROM gcr.io/distroless/static:nonroot
+FROM gcr.io/distroless/static-debian12:nonroot
 
 COPY semver /usr/local/bin/semver
 
