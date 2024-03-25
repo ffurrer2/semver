@@ -5,7 +5,7 @@ go 1.22
 
 require (
 	github.com/go-task/slim-sprig/v3 v3.0.0
-	github.com/onsi/ginkgo/v2 v2.16.0
+	github.com/onsi/ginkgo/v2 v2.17.1
 	github.com/onsi/gomega v1.32.0
 	github.com/samber/lo v1.39.0
 	github.com/spf13/cobra v1.8.0
