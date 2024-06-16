@@ -81,10 +81,11 @@ tasks:
     - task: tidy
     silent: true
 
-  gofmt:
-    desc: Format code with gofmt
+  upgrade-indirect-dependencies:
+    desc: Upgrade all indirect dependencies
     cmds:
-    - go fmt ./...
+    - go get -d -v -u all
+    - task: tidy
     silent: true
 
   # https://github.com/mvdan/gofumpt
