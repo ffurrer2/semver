@@ -1,4 +1,7 @@
 # SPDX-License-Identifier: MIT
+
+version: 2
+
 project_name: semver
 
 release:
