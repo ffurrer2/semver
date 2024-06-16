@@ -8,7 +8,7 @@ tasks:
     cmds:
     - container-structure-test test --image ghcr.io/ffurrer2/semver:latest --config test/semver_container_test.yml
 
-  docker:scan:
-    desc: Run Docker scan
+  grype:
+    desc: Run Grype scan
     cmds:
-    - docker scan --accept-license --dependency-tree ghcr.io/ffurrer2/semver:latest
+    - grype ghcr.io/ffurrer2/semver:latest
