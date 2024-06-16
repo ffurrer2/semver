@@ -115,12 +115,12 @@ jobs:
         version: v${{ env.GORELEASER_VERSION }}
         args: release --config build/package/.goreleaser.yaml --snapshot --skip=publish --clean
 
-    - name: Container structure test (scratch)
+    - name: Container structure test (distroless)
       uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest
       with:
         args: 'test --image ghcr.io/ffurrer2/semver:latest --config test/semver_container_test.yml'
 
-    - name: Run Trivy vulnerability scanner (scratch)
+    - name: Run Trivy vulnerability scanner (distroless)
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'ghcr.io/ffurrer2/semver:latest'
@@ -128,35 +128,35 @@ jobs:
         vuln-type: 'os,library'
         severity: 'HIGH,CRITICAL'
         format: 'sarif'
-        output: 'trivy-results-scratch.sarif'
+        output: 'trivy-results-distroless.sarif'
         github-pat: '${{ secrets.GITHUB_TOKEN }}'
 
-    - name: Inspect Trivy SARIF report (scratch)
+    - name: Inspect Trivy SARIF report (distroless)
       run: |
-        cat trivy-results-scratch.sarif
+        cat trivy-results-distroless.sarif
 
-    - name: Upload Trivy scan results to GitHub Security tab (scratch)
+    - name: Upload Trivy scan results to GitHub Security tab (distroless)
       uses: github/codeql-action/upload-sarif@v3
       with:
-        sarif_file: 'trivy-results-scratch.sarif'
-        category: trivy-results-scratch
+        sarif_file: 'trivy-results-distroless.sarif'
+        category: trivy-results-distroless
       if: always()
 
-    - name: Run Anchore image scanner (scratch)
+    - name: Run Anchore image scanner (distroless)
       uses: anchore/scan-action@v3
-      id: anchore-scratch
+      id: anchore-distroless
       with:
         image: 'ghcr.io/ffurrer2/semver:latest'
         fail-build: true
         severity-cutoff: high
 
-    - name: Inspect Anchore SARIF report (scratch)
+    - name: Inspect Anchore SARIF report (distroless)
       run: |
-        cat ${{ steps.anchore-scratch.outputs.sarif }}
+        cat ${{ steps.anchore-distroless.outputs.sarif }}
 
-    - name: Upload Anchore scan results to GitHub Security tab (scratch)
+    - name: Upload Anchore scan results to GitHub Security tab (distroless)
       uses: github/codeql-action/upload-sarif@v3
       with:
-        sarif_file: ${{ steps.anchore-scratch.outputs.sarif }}
-        category: anchore-results-scratch
+        sarif_file: ${{ steps.anchore-distroless.outputs.sarif }}
+        category: anchore-results-distroless
       if: always()
