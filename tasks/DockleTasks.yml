@@ -7,7 +7,7 @@ tasks:
     desc: Run Dockle (container image linter)
     preconditions:
     - sh: '{{if empty .IMAGE_NAME}}false{{end}}'
-      msg: 'error: variable "IMAGE_NAME" is required (e.g. task dockle:lint IMAGE_NAME=docker.io/library/alpine:latest)'
+      msg: 'error: variable "IMAGE_NAME" is required (e.g. task dockle:lint IMAGE_NAME=docker.io/library/ubuntu:latest)'
     cmds:
     - dockle --exit-code 1 {{.IMAGE_NAME}}
     silent: true

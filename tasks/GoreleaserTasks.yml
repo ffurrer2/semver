@@ -22,14 +22,10 @@ tasks:
     vars:
       IMAGE_BASE_NAME_DISTROLESS: {sh: 'sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile'}
       IMAGE_BASE_DIGEST_DISTROLESS: {sh: 'docker pull {{.IMAGE_BASE_NAME_DISTROLESS}} | sed -n "s/^Digest: \(.*\)$/\1/p"'}
-      IMAGE_BASE_NAME_ALPINE: {sh: 'sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile.alpine'}
-      IMAGE_BASE_DIGEST_ALPINE: {sh: 'docker pull {{.IMAGE_BASE_NAME_ALPINE}} | sed -n "s/^Digest: \(.*\)$/\1/p"'}
     env:
       SNAPSHOT_VERSION: '{{.BUILD_VERSION}}'
       IMAGE_BASE_NAME_DISTROLESS: '{{.IMAGE_BASE_NAME_DISTROLESS}}'
       IMAGE_BASE_DIGEST_DISTROLESS: '{{.IMAGE_BASE_DIGEST_DISTROLESS}}'
-      IMAGE_BASE_NAME_ALPINE: '{{.IMAGE_BASE_NAME_ALPINE}}'
-      IMAGE_BASE_DIGEST_ALPINE: '{{.IMAGE_BASE_DIGEST_ALPINE}}'
     cmds:
     - docker context use default
     - goreleaser release --config build/package/.goreleaser.yaml --clean --snapshot
@@ -40,13 +36,9 @@ tasks:
     vars:
       IMAGE_BASE_NAME_DISTROLESS: {sh: 'sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile'}
       IMAGE_BASE_DIGEST_DISTROLESS: {sh: 'docker pull {{.IMAGE_BASE_NAME_DISTROLESS}} | sed -n "s/^Digest: \(.*\)$/\1/p"'}
-      IMAGE_BASE_NAME_ALPINE: {sh: 'sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile.alpine'}
-      IMAGE_BASE_DIGEST_ALPINE: {sh: 'docker pull {{.IMAGE_BASE_NAME_ALPINE}} | sed -n "s/^Digest: \(.*\)$/\1/p"'}
     env:
       IMAGE_BASE_NAME_DISTROLESS: '{{.IMAGE_BASE_NAME_DISTROLESS}}'
       IMAGE_BASE_DIGEST_DISTROLESS: '{{.IMAGE_BASE_DIGEST_DISTROLESS}}'
-      IMAGE_BASE_NAME_ALPINE: '{{.IMAGE_BASE_NAME_ALPINE}}'
-      IMAGE_BASE_DIGEST_ALPINE: '{{.IMAGE_BASE_DIGEST_ALPINE}}'
     cmds:
     - docker context use default
     - goreleaser release --config build/package/.goreleaser.yaml --clean --skip=publish

@@ -7,10 +7,8 @@ tasks:
     desc: Run container structure tests
     cmds:
     - container-structure-test test --image ghcr.io/ffurrer2/semver:latest --config test/semver_container_test.yml
-    - container-structure-test test --image ghcr.io/ffurrer2/semver:alpine --config test/semver_alpine_container_test.yml
 
   docker:scan:
     desc: Run Docker scan
     cmds:
     - docker scan --accept-license --dependency-tree ghcr.io/ffurrer2/semver:latest
-    - docker scan --accept-license --dependency-tree ghcr.io/ffurrer2/semver:alpine

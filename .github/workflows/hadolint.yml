@@ -21,4 +21,4 @@ jobs:
     name: hadolint
     uses: ffurrer2/shared-workflows/.github/workflows/hadolint.yml@main
     with:
-      args: 'hadolint --format tty build/package/Dockerfile build/package/Dockerfile.alpine'
+      args: 'hadolint --format tty build/package/Dockerfile'

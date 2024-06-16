@@ -103,11 +103,6 @@ jobs:
         echo "IMAGE_BASE_NAME_DISTROLESS=${IMAGE_BASE_NAME_DISTROLESS}" >>"${GITHUB_ENV}"
         echo "IMAGE_BASE_DIGEST_DISTROLESS=$(docker pull "${IMAGE_BASE_NAME_DISTROLESS}" | sed -n "s/^Digest: \(.*\)$/\1/p")" >>"${GITHUB_ENV}"
 
-        IMAGE_BASE_NAME_ALPINE="$(sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile.alpine | tail -n 1)"
-        echo "IMAGE_BASE_NAME_ALPINE=${IMAGE_BASE_NAME_ALPINE}" >>"${GITHUB_ENV}"
-        echo "IMAGE_BASE_DIGEST_ALPINE=$(docker pull "${IMAGE_BASE_NAME_ALPINE}" | sed -n "s/^Digest: \(.*\)$/\1/p")" >>"${GITHUB_ENV}"
-        cat "${GITHUB_ENV}"
-
     - name: Check release config
       uses: goreleaser/goreleaser-action@v6
       with:
@@ -124,11 +119,6 @@ jobs:
       uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest
       with:
         args: 'test --image ghcr.io/ffurrer2/semver:latest --config test/semver_container_test.yml'
-
-    - name: Container structure test (alpine)
-      uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest
-      with:
-        args: 'test --image ghcr.io/ffurrer2/semver:alpine --config test/semver_alpine_container_test.yml'
 
     - name: Run Trivy vulnerability scanner (scratch)
       uses: aquasecurity/trivy-action@master
@@ -152,28 +142,6 @@ jobs:
         category: trivy-results-scratch
       if: always()
 
-    - name: Run Trivy vulnerability scanner (alpine)
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/ffurrer2/semver:alpine'
-        exit-code: '1'
-        vuln-type: 'os,library'
-        severity: 'HIGH,CRITICAL'
-        format: 'sarif'
-        output: 'trivy-results-alpine.sarif'
-        github-pat: '${{ secrets.GITHUB_TOKEN }}'
-
-    - name: Inspect Trivy SARIF report (alpine)
-      run: |
-        cat trivy-results-alpine.sarif
-
-    - name: Upload Trivy scan results to GitHub Security tab (alpine)
-      uses: github/codeql-action/upload-sarif@v3
-      with:
-        sarif_file: 'trivy-results-alpine.sarif'
-        category: trivy-results-alpine
-      if: always()
-
     - name: Run Anchore image scanner (scratch)
       uses: anchore/scan-action@v3
       id: anchore-scratch
@@ -191,23 +159,4 @@ jobs:
       with:
         sarif_file: ${{ steps.anchore-scratch.outputs.sarif }}
         category: anchore-results-scratch
-      if: always()
-
-    - name: Run Anchore image scanner (alpine)
-      uses: anchore/scan-action@v3
-      id: anchore-alpine
-      with:
-        image: 'ghcr.io/ffurrer2/semver:alpine'
-        fail-build: true
-        severity-cutoff: high
-
-    - name: Inspect Anchore SARIF report (alpine)
-      run: |
-        cat ${{ steps.anchore-alpine.outputs.sarif }}
-
-    - name: Upload Anchore scan results to GitHub Security tab (alpine)
-      uses: github/codeql-action/upload-sarif@v3
-      with:
-        sarif_file: ${{ steps.anchore-alpine.outputs.sarif }}
-        category: anchore-results-alpine
       if: always()

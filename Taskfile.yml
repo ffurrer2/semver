@@ -56,9 +56,6 @@ tasks:
     - task: hadolint:lint
       vars:
         DOCKERFILE: 'build/package/Dockerfile'
-    - task: hadolint:lint
-      vars:
-        DOCKERFILE: 'build/package/Dockerfile.alpine'
     - task: markdownlint:lint
     - task: yamllint:lint
     silent: true
@@ -69,15 +66,9 @@ tasks:
     - task: dockle:lint
       vars:
         IMAGE_NAME: 'ghcr.io/ffurrer2/semver:latest'
-    - task: dockle:lint
-      vars:
-        IMAGE_NAME: 'ghcr.io/ffurrer2/semver:alpine'
     - task: trivy:image:scan
       vars:
         IMAGE_NAME: 'ghcr.io/ffurrer2/semver:latest'
-    - task: trivy:image:scan
-      vars:
-        IMAGE_NAME: 'ghcr.io/ffurrer2/semver:alpine'
     silent: true
 
   fmt:
