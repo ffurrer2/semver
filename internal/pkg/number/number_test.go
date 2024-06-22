@@ -5,6 +5,7 @@ package number_test
 import (
 	"fmt"
 	"math/bits"
+	"strconv"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -15,7 +16,7 @@ import (
 var _ = Describe("number: ", func() {
 	var (
 		maxUint         = uint(1<<bits.UintSize - 1)
-		maxUintAsString = fmt.Sprintf("%d", maxUint)
+		maxUintAsString = strconv.FormatUint(uint64(maxUint), 10)
 	)
 
 	Describe("func ParseUint(s string) (uint, error)", func() {

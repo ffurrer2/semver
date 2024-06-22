@@ -3,8 +3,8 @@
 package semver_test
 
 import (
-	"fmt"
 	"sort"
+	"strconv"
 	"strings"
 
 	. "github.com/onsi/ginkgo/v2"
@@ -741,7 +741,7 @@ var _ = Describe("semver:", func() {
 				Entry("0", "0", uint(0)),
 				Entry("1", "1", uint(1)),
 				Entry("42", "42", uint(42)),
-				Entry(fmt.Sprintf("%d", semver.MaxMajor), fmt.Sprintf("%d", semver.MaxMajor), semver.MaxMajor),
+				Entry(strconv.FormatUint(uint64(semver.MaxMajor), 10), strconv.FormatUint(uint64(semver.MaxMinor), 10), semver.MaxPatch),
 			)
 		})
 

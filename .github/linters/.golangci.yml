@@ -8,7 +8,7 @@ linters-settings:
         allow:
         - $gostd
         - github.com/ffurrer2
-        - github.com/go-playground/pkg/v5
+        - github.com/go-task/slim-sprig/v3
         - github.com/onsi
         - github.com/samber/lo
         - github.com/spf13/cobra
@@ -25,36 +25,38 @@ linters:
   - asciicheck
   - bidichk
   - bodyclose
+  - canonicalheader
   - containedctx
   - contextcheck
+  - copyloopvar
   - decorder
   - depguard
   - dogsled
   - dupword
   - durationcheck
+  - err113
   - errcheck
   - errchkjson
   - errname
   - errorlint
-  - execinquery
   - exhaustive
   - exportloopref
+  - fatcontext
   - forbidigo
   - forcetypeassert
   - funlen
   - ginkgolinter
   - gocheckcompilerdirectives
+  - gochecksumtype
   - gocognit
   - goconst
   - gocritic
   - gocyclo
   - godox
-  - goerr113
   - gofmt
   - gofumpt
   - goheader
   - goimports
-  - gomnd
   - gomoddirectives
   - gomodguard
   - goprintffuncname
@@ -64,8 +66,10 @@ linters:
   - govet
   - grouper
   - importas
+  - inamedparam
   - ineffassign
   - interfacebloat
+  - intrange
   - ireturn
   - lll
   - loggercheck
@@ -73,6 +77,7 @@ linters:
   - makezero
   - mirror
   - misspell
+  - mnd
   - musttag
   - nakedret
   - nestif
@@ -83,11 +88,15 @@ linters:
   - nonamedreturns
   - nosprintfhostport
   - paralleltest
+  - perfsprint
   - prealloc
   - predeclared
   - promlinter
+  - protogetter
   - reassign
   - rowserrcheck
+  - sloglint
+  - spancheck
   - sqlclosecheck
   - staticcheck
   - stylecheck
@@ -95,12 +104,13 @@ linters:
   - tagliatelle
   - tenv
   - testableexamples
+  - testifylint
   - testpackage
   - thelper
   - tparallel
-  - typecheck
   - unconvert
   - unparam
+  - unused
   - unused
   - usestdlibvars
   - wastedassign
