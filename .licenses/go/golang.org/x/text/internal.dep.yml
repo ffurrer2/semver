@@ -5,7 +5,7 @@ type: go
 summary: Package internal contains non-exported functionality that are used by packages
   in the text repository.
 homepage: https://pkg.go.dev/golang.org/x/text/internal
-license: other
+license: bsd-3-clause
 licenses:
 - sources: text@v0.16.0/LICENSE
   text: |

@@ -4,7 +4,7 @@ version: v0.16.0
 type: go
 summary: Package cases provides general and language-specific case mappers.
 homepage: https://pkg.go.dev/golang.org/x/text/cases
-license: other
+license: bsd-3-clause
 licenses:
 - sources: text@v0.16.0/LICENSE
   text: |

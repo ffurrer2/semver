@@ -4,7 +4,7 @@ version: v0.16.0
 type: go
 summary: Package language implements BCP 47 language tags and related functionality.
 homepage: https://pkg.go.dev/golang.org/x/text/language
-license: other
+license: bsd-3-clause
 licenses:
 - sources: text@v0.16.0/LICENSE
   text: |

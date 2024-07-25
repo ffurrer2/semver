@@ -4,7 +4,7 @@ version: v0.16.0
 type: go
 summary: Package compact defines a compact representation of language tags.
 homepage: https://pkg.go.dev/golang.org/x/text/internal/language/compact
-license: other
+license: bsd-3-clause
 licenses:
 - sources: text@v0.16.0/LICENSE
   text: |
