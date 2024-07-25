@@ -134,13 +134,14 @@ jobs:
     - name: Inspect Trivy SARIF report (distroless)
       run: |
         cat trivy-results-distroless.sarif
+      if: ${{ !cancelled() }}
 
     - name: Upload Trivy scan results to GitHub Security tab (distroless)
       uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: 'trivy-results-distroless.sarif'
         category: trivy-results-distroless
-      if: always()
+      if: ${{ !cancelled() }}
 
     - name: Run Anchore image scanner (distroless)
       uses: anchore/scan-action@v4
@@ -149,14 +150,15 @@ jobs:
         image: 'ghcr.io/ffurrer2/semver:latest'
         fail-build: true
         severity-cutoff: high
+      if: ${{ !cancelled() }}
 
     - name: Inspect Anchore SARIF report (distroless)
       run: |
         cat ${{ steps.anchore-distroless.outputs.sarif }}
+      if: ${{ !cancelled() }}
 
     - name: Upload Anchore scan results to GitHub Security tab (distroless)
       uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: ${{ steps.anchore-distroless.outputs.sarif }}
-        category: anchore-results-distroless
-      if: always()
+      if: ${{ !cancelled() }}
