@@ -20,8 +20,8 @@ tasks:
     cmds:
     - licensed cache --force
     - |
-      sed -i.bak 's/license: other/license: bsd-3-clause/g' .licenses/go/golang.org/x/exp/constraints.dep.yml
-    - find ./.licenses/go -type f -name '*.bak' -delete
+      find .licenses/go/golang.org/x -type f -name '*.yml' -exec sed -i.bak 's/license: other/license: bsd-3-clause/g' {} \;
+    - find ./.licenses -type f -name '*.bak' -delete
     silent: true
 
   notices:
