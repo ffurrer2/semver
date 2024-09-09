@@ -84,7 +84,7 @@ tasks:
   upgrade-indirect-dependencies:
     desc: Upgrade all indirect dependencies
     cmds:
-    - go get -d -v -u all
+    - go get -d=true -v -u all
     - task: tidy
     silent: true
 
