@@ -144,7 +144,7 @@ jobs:
       if: ${{ !cancelled() }}
 
     - name: Run Anchore image scanner (distroless)
-      uses: anchore/scan-action@v4
+      uses: anchore/scan-action@v5
       id: anchore-distroless
       with:
         image: 'ghcr.io/ffurrer2/semver:latest'
