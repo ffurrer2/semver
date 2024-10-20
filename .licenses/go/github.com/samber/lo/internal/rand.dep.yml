@@ -1,12 +1,12 @@
 ---
 name: github.com/samber/lo/internal/rand
-version: v1.46.0
+version: v1.47.0
 type: go
 summary:
 homepage: https://pkg.go.dev/github.com/samber/lo/internal/rand
 license: mit
 licenses:
-- sources: lo@v1.46.0/LICENSE
+- sources: lo@v1.47.0/LICENSE
   text: |
     MIT License
 
