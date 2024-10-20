@@ -23,7 +23,7 @@ permissions:
   pull-requests: read
 
 env:
-  GOLANGCI_LINT_VERSION: 1.58
+  GOLANGCI_LINT_VERSION: 1.61
 
 jobs:
   golangci-lint:
