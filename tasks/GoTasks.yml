@@ -6,7 +6,9 @@ vars:
   GO_BUILD_ENV: CGO_ENABLED=0
   LDFLAGS: >-
     -X github.com/ffurrer2/semver/v2/internal/pkg/app.version={{.BUILD_VERSION}}
-    -s -w -extldflags "-static"
+    -extldflags "-static"
+    -s
+    -w
 
 tasks:
   clean:
@@ -33,7 +35,7 @@ tasks:
     - task: download
     - mkdir -p artifacts/bin
     - |-
-      {{.GO_BUILD_ENV}} go build -o artifacts/bin -v -ldflags='{{.LDFLAGS}}' -mod=mod -trimpath ./cmd/semver
+      {{.GO_BUILD_ENV}} go build -o artifacts/bin -v -ldflags='{{.LDFLAGS}}' -mod=readonly -trimpath ./cmd/semver
     silent: true
 
   test:
@@ -84,7 +86,7 @@ tasks:
   upgrade-indirect-dependencies:
     desc: Upgrade all indirect dependencies
     cmds:
-    - go get -d=true -v -u all
+    - go get -v -u all
     - task: tidy
     silent: true
 

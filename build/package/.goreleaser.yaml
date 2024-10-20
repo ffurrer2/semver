@@ -87,10 +87,13 @@ builds:
   command: build
   ldflags:
   - -X github.com/ffurrer2/semver/v2/internal/pkg/app.version={{.Version}}
+  - -extldflags "-static"
   - -s
   - -w
   flags:
   - -v
+  - -mod=readonly
+  - -trimpath
   env:
   - CGO_ENABLED=0
 
