@@ -39,7 +39,7 @@ updates:
   groups:
     go-dependencies:
       patterns:
-      - "*"
+      - '*'
       update-types:
-      - "minor"
-      - "patch"
+      - 'minor'
+      - 'patch'
