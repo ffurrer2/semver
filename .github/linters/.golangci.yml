@@ -1,13 +1,11 @@
 # SPDX-License-Identifier: MIT
 linters-settings:
-  lll:
-    line-length: 160
   depguard:
     rules:
       main:
         allow:
         - $gostd
-        - github.com/ffurrer2
+        - github.com/ffurrer2/semver/v2
         - github.com/go-task/slim-sprig/v3
         - github.com/onsi
         - github.com/samber/lo
@@ -17,6 +15,8 @@ linters-settings:
           desc: Should be replaced by standard lib errors package
         - pkg: golang.org/x/net/context
           desc: Should be replaced by standard lib context package
+  lll:
+    line-length: 160
 
 linters:
   disable-all: true
@@ -40,7 +40,6 @@ linters:
   - errname
   - errorlint
   - exhaustive
-  - exportloopref
   - fatcontext
   - forbidigo
   - forcetypeassert
@@ -65,6 +64,7 @@ linters:
   - gosmopolitan
   - govet
   - grouper
+  - iface
   - importas
   - inamedparam
   - ineffassign
@@ -94,6 +94,7 @@ linters:
   - promlinter
   - protogetter
   - reassign
+  - recvcheck
   - rowserrcheck
   - sloglint
   - spancheck
@@ -110,7 +111,6 @@ linters:
   - tparallel
   - unconvert
   - unparam
-  - unused
   - unused
   - usestdlibvars
   - wastedassign
