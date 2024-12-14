@@ -15,5 +15,5 @@ tasks:
   filesystem:scan:
     desc: Run Trivy filesystem scanner
     cmds:
-    - trivy filesystem --security-checks vuln,config,secret --dependency-tree --format table .
+    - trivy filesystem --scanners vuln,misconfig,secret,license --skip-dirs .idea --dependency-tree --format table .
     silent: true

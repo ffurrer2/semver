@@ -3,16 +3,16 @@
 version: '3'
 
 includes:
-  dockle: ./tasks/DockleTasks.yml
-  git: ./tasks/GitTasks.yml
-  go: ./tasks/GoTasks.yml
-  golangci: ./tasks/GolangciLintTasks.yml
-  goreleaser: ./tasks/GoreleaserTasks.yml
-  licensed: ./tasks/LicensedTasks.yml
-  markdownlint: ./tasks/MarkdownlintTasks.yml
-  misc: ./tasks/MiscTasks.yml
-  trivy: ./tasks/TrivyTasks.yml
-  yamllint: ./tasks/YamllintTasks.yml
+  dockle: tasks/DockleTasks.yml
+  git: tasks/GitTasks.yml
+  go: tasks/GoTasks.yml
+  golangcilint: tasks/GolangciLintTasks.yml
+  goreleaser: tasks/GoreleaserTasks.yml
+  licensed: tasks/LicensedTasks.yml
+  markdownlint: tasks/MarkdownlintTasks.yml
+  misc: tasks/MiscTasks.yml
+  trivy: tasks/TrivyTasks.yml
+  yamllint: tasks/YamllintTasks.yml
 
 vars:
   PROJECT_NAME: semver
@@ -36,13 +36,13 @@ tasks:
     silent: true
 
   build:
-    desc: Build {{.PROJECT_NAME}}
+    desc: Build project
     cmds:
     - task: go:build
     silent: true
 
   test:
-    desc: Test {{.PROJECT_NAME}}
+    desc: Test project
     cmds:
     - task: go:test
     - task: misc:container-structure-test
@@ -51,9 +51,7 @@ tasks:
   lint:
     desc: Run all linters
     cmds:
-    - task: golangci:lint
-      vars:
-        DOCKERFILE: 'build/package/Dockerfile'
+    - task: golangcilint:lint
     - task: markdownlint:lint
     - task: yamllint:lint
     silent: true
@@ -67,6 +65,7 @@ tasks:
     - task: trivy:image:scan
       vars:
         IMAGE_NAME: 'ghcr.io/ffurrer2/semver:latest'
+    - task: trivy:filesystem:scan
     silent: true
 
   fmt:
