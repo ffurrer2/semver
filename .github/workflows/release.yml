@@ -7,7 +7,7 @@ on:
     - 'v*.*.*'
 
 env:
-  GORELEASER_VERSION: 2.3.2
+  GORELEASER_VERSION: 2.4.8
   REGISTRY: ghcr.io
 
 jobs:

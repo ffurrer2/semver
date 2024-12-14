@@ -14,7 +14,7 @@ on:
     - main
 
 env:
-  GORELEASER_VERSION: 2.3.2
+  GORELEASER_VERSION: 2.4.8
   TASK_VERSION: 3.x
 
 concurrency:
