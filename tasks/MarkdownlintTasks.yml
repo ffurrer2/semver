@@ -6,5 +6,5 @@ tasks:
   lint:
     desc: Lint Markdown files
     cmds:
-    - docker run -it --rm --user "$(id -u):$(id -g)" --volume "$(pwd):/work" --workdir /work tmknom/markdownlint:latest --config .github/linters/.markdown-lint.yml .
+    - docker run -it --rm --volume "$(pwd):/work" --workdir /work docker.io/tmknom/markdownlint:latest --config .github/linters/.markdown-lint.yml .
     silent: true

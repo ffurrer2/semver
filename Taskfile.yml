@@ -8,7 +8,6 @@ includes:
   go: ./tasks/GoTasks.yml
   golangci: ./tasks/GolangciLintTasks.yml
   goreleaser: ./tasks/GoreleaserTasks.yml
-  hadolint: ./tasks/HadolintTasks.yml
   licensed: ./tasks/LicensedTasks.yml
   markdownlint: ./tasks/MarkdownlintTasks.yml
   misc: ./tasks/MiscTasks.yml
@@ -53,7 +52,6 @@ tasks:
     desc: Run all linters
     cmds:
     - task: golangci:lint
-    - task: hadolint:lint
       vars:
         DOCKERFILE: 'build/package/Dockerfile'
     - task: markdownlint:lint
@@ -92,9 +90,7 @@ tasks:
       printf 'gofumpt:                  %s\n' "$(gofumpt --version | cut -c 1-)"
       printf 'golangci-lint:            %s\n' "$(golangci-lint version --format short)"
       printf 'goreleaser:               %s\n' "$(goreleaser --version | grep 'GitVersion:' | awk '{print $2}')"
-      printf 'hadolint:                 %s\n' "$(hadolint --version | cut -d ' ' -f 4)"
       printf 'licensed:                 %s\n' "$(licensed version)"
       printf 'task:                     %s\n' "$(task --version | cut -d ' ' -f 3 | cut -c 2-)"
       printf 'trivy:                    %s\n' "$(trivy version --format json | jq --raw-output '.Version')"
-      printf 'yamllint:                 %s\n' "$(yamllint --version | cut -d ' ' -f 2)"
     silent: true
