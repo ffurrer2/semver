@@ -83,7 +83,7 @@ builds:
   main: ./cmd/semver
   binary: semver
   builder: go
-  gobinary: go
+  tool: go
   command: build
   ldflags:
   - -X github.com/ffurrer2/semver/v2/internal/pkg/app.version={{.Version}}
