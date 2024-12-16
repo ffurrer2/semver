@@ -71,8 +71,17 @@ tasks:
   fmt:
     desc: Format code
     cmds:
+    - task: go:mod:fmt
     - task: go:gofumpt
     - task: go:goimports
+    silent: true
+
+  upgrade:
+    desc: Upgrade dependencies
+    cmds:
+    - task: go:go-mod-upgrade
+    - task: go:upgrade-major-dependencies
+    - task: go:upgrade-indirect-dependencies
     silent: true
 
   version:
@@ -88,6 +97,7 @@ tasks:
       printf 'go:                       %s\n' "$(go version | cut -d ' ' -f 3 | cut -c 3-)"
       printf 'gofumpt:                  %s\n' "$(gofumpt --version | cut -c 1-)"
       printf 'golangci-lint:            %s\n' "$(golangci-lint version --format short)"
+      printf 'gomajor:                  %s\n' "$(gomajor version | cut -d ' ' -f 2 | cut -c 2-)"
       printf 'goreleaser:               %s\n' "$(goreleaser --version | grep 'GitVersion:' | awk '{print $2}')"
       printf 'licensed:                 %s\n' "$(licensed version)"
       printf 'task:                     %s\n' "$(task --version | cut -d ' ' -f 3 | cut -c 2-)"
