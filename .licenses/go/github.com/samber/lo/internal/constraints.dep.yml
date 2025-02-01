@@ -1,17 +1,17 @@
 ---
 name: github.com/samber/lo/internal/constraints
-version: v1.47.0
+version: v1.49.1
 type: go
 summary: Package constraints defines a set of useful constraints to be used with type
   parameters.
 homepage: https://pkg.go.dev/github.com/samber/lo/internal/constraints
 license: mit
 licenses:
-- sources: lo@v1.47.0/LICENSE
+- sources: lo@v1.49.1/LICENSE
   text: |
     MIT License
 
-    Copyright (c) 2022 Samuel Berthe
+    Copyright (c) 2022-2025 Samuel Berthe
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
