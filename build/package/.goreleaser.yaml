@@ -102,10 +102,10 @@ archives:
   builds:
   - semver
   name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
-  format: tar.gz
+  formats: ['tar.gz']
   format_overrides:
   - goos: windows
-    format: zip
+    formats: ['zip']
   files:
   - src: CHANGELOG.md
   - src: LICENSE
