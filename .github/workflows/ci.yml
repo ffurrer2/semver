@@ -106,13 +106,13 @@ jobs:
     - name: Check release config
       uses: goreleaser/goreleaser-action@v6
       with:
-        version: v${{ env.GORELEASER_VERSION }}
+        version: ${{ env.GORELEASER_VERSION }}
         args: check --config build/package/.goreleaser.yaml
 
     - name: Create snapshot release
       uses: goreleaser/goreleaser-action@v6
       with:
-        version: v${{ env.GORELEASER_VERSION }}
+        version: ${{ env.GORELEASER_VERSION }}
         args: release --config build/package/.goreleaser.yaml --snapshot --skip=publish --clean
 
     - name: Container structure test (distroless)

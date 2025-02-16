@@ -58,5 +58,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       with:
-        version: v${{ env.GORELEASER_VERSION }}
+        version: ${{ env.GORELEASER_VERSION }}
         args: release --config build/package/.goreleaser.yaml --release-notes=${{ runner.temp }}/RELEASE_NOTES.md
