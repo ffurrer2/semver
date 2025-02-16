@@ -7,7 +7,7 @@ on:
     - 'v*.*.*'
 
 env:
-  GORELEASER_VERSION: 2.7.0
+  GORELEASER_VERSION: '~> v2'
   REGISTRY: ghcr.io
 
 jobs:
@@ -20,6 +20,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Setup Go
       uses: actions/setup-go@v5

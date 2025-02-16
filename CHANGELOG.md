@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+## [2.9.1] - 2025-02-16
+
+### Changed
+
+- Improved GH workflow
+
 ## [2.9.0] - 2025-02-16
 
 ### Changed
