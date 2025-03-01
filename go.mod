@@ -9,12 +9,12 @@ require (
 	github.com/onsi/gomega v1.36.2
 	github.com/samber/lo v1.49.1
 	github.com/spf13/cobra v1.9.1
-	golang.org/x/exp v0.0.0-20250210185358-939b2ce775ac
+	golang.org/x/exp v0.0.0-20250228200357-dead58393ab7
 )
 
 require (
 	github.com/go-logr/logr v1.4.2 // indirect
-	github.com/google/go-cmp v0.6.0 // indirect
+	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/google/pprof v0.0.0-20250208200701-d0013a598941 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.6 // indirect
