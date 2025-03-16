@@ -99,7 +99,7 @@ builds:
 
 archives:
 - id: semver
-  builds:
+  ids:
   - semver
   name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
   formats: ['tar.gz']
