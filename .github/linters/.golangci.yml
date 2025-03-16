@@ -10,6 +10,7 @@ linters-settings:
         - github.com/onsi
         - github.com/samber/lo
         - github.com/spf13/cobra
+        - golang.org/x/exp/constraints
         deny:
         - pkg: github.com/pkg/errors
           desc: Should be replaced by standard lib errors package
@@ -40,6 +41,7 @@ linters:
   - errname
   - errorlint
   - exhaustive
+  - exptostd
   - fatcontext
   - forbidigo
   - forcetypeassert
@@ -82,6 +84,7 @@ linters:
   - nakedret
   - nestif
   - nilerr
+  - nilnesserr
   - nilnil
   - noctx
   - nolintlint
@@ -103,7 +106,6 @@ linters:
   - stylecheck
   - tagalign
   - tagliatelle
-  - tenv
   - testableexamples
   - testifylint
   - testpackage
@@ -113,6 +115,7 @@ linters:
   - unparam
   - unused
   - usestdlibvars
+  - usetesting
   - wastedassign
   - whitespace
   - wrapcheck
