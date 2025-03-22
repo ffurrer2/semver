@@ -79,7 +79,6 @@ tasks:
   upgrade:
     desc: Upgrade dependencies
     cmds:
-    - task: go:go-mod-upgrade
     - task: go:upgrade-major-dependencies
     - task: go:upgrade-indirect-dependencies
     silent: true
@@ -93,7 +92,6 @@ tasks:
       printf 'docker:                   %s\n' "$(docker version --format json | jq --raw-output '.Client.Version')"
       printf 'dockle:                   %s\n' "$(dockle --version | cut -d ' ' -f 3)"
       printf 'git:                      %s\n' "$(git --version | cut -d ' ' -f 3)"
-      printf 'go-mod-upgrade:           %s\n' "$(go-mod-upgrade --version | tail -n 1 | cut -d ' ' -f 3 | cut -c 2-)"
       printf 'go:                       %s\n' "$(go version | cut -d ' ' -f 3 | cut -c 3-)"
       printf 'gofumpt:                  %s\n' "$(gofumpt --version | cut -c 1-)"
       printf 'golangci-lint:            %s\n' "$(golangci-lint version --format short)"
