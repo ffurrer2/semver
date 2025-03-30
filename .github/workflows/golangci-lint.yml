@@ -26,7 +26,7 @@ permissions:
   pull-requests: read
 
 env:
-  GOLANGCI_LINT_VERSION: 2.3
+  GOLANGCI_LINT_VERSION: '2.0'
 
 jobs:
   golangci-lint:

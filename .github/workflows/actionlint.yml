@@ -2,13 +2,12 @@
 name: Lint GitHub Actions workflows
 
 on:
-  push:
+  pull_request:
     branches:
     - main
-    - feature/**
     paths:
     - '.github/workflows/*.yml'
-  pull_request:
+  push:
     branches:
     - main
     paths:

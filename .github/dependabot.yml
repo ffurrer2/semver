@@ -2,51 +2,42 @@
 version: 2
 
 updates:
-- package-ecosystem: 'docker'
-  directory: 'build/package'
+- package-ecosystem: docker
+  directory: build/package
   schedule:
-    interval: 'monthly'
-  assignees:
-  - 'ffurrer2'
+    interval: monthly
   labels:
-  - 'dependabot'
-  open-pull-requests-limit: 999
-  rebase-strategy: 'auto'
+  - dependabot
+  rebase-strategy: auto
 
-- package-ecosystem: 'github-actions'
-  directory: '/'
+- package-ecosystem: github-actions
+  directory: /
   schedule:
-    interval: 'monthly'
-  assignees:
-  - 'ffurrer2'
+    interval: monthly
   labels:
-  - 'dependabot'
-  open-pull-requests-limit: 999
-  rebase-strategy: 'auto'
+  - dependabot
+  rebase-strategy: auto
   groups:
-    go-dependencies:
+    actions-minor:
       patterns:
       - '*'
       update-types:
-      - 'minor'
-      - 'patch'
+      - minor
+      - patch
 
-- package-ecosystem: 'gomod'
-  directory: '/'
+- package-ecosystem: gomod
+  directory: /
   schedule:
-    interval: 'monthly'
+    interval: monthly
   allow:
-  - dependency-type: 'direct'
-  assignees:
-  - 'ffurrer2'
+  - dependency-type: direct
   labels:
-  - 'dependabot'
-  open-pull-requests-limit: 999
-  rebase-strategy: 'auto'
+  - dependabot
+  rebase-strategy: auto
   groups:
-    go-dependencies:
+    go-minor:
       patterns:
       - '*'
       update-types:
-      - 'minor'
-      - 'patch'
+      - minor
+      - patch

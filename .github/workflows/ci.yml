@@ -2,16 +2,15 @@
 name: CI
 
 on:
-  push:
-    branches:
-    - main
-    - feature/**
-    paths-ignore:
-    - '**.md'
-    - '.gitignore'
   pull_request:
     branches:
     - main
+  push:
+    branches:
+    - main
+    paths-ignore:
+    - '**.md'
+    - '.gitignore'
 
 env:
   GORELEASER_VERSION: '~> v2'

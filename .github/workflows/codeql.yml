@@ -2,11 +2,10 @@
 name: CodeQL
 
 on:
-  push:
+  pull_request:
     branches:
     - main
-    - feature/**
-  pull_request:
+  push:
     branches:
     - main
   schedule:
@@ -19,7 +18,7 @@ permissions:
 
 jobs:
   codeql:
-    name: codeql
-    uses: ffurrer2/shared-workflows/.github/workflows/codeql.yml@main
+    name: CodeQL
+    uses: ffurrer2/shared-workflows/.github/workflows/codeql.yml@5665b00699c95e38513d9f6617913824b859f254
     with:
       languages: '["go"]'
