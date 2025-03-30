@@ -55,14 +55,6 @@ tasks:
     - go tool cover -html artifacts/coverage-results/coverage.out -o artifacts/coverage-results/coverage.html
     silent: true
 
-  install:
-    desc: Install {{.PROJECT_NAME}} into $GOPATH/bin
-    cmds:
-    - task: download
-    - |-
-      {{.GO_BUILD_ENV}} go install -ldflags='{{.LDFLAGS}}' -v ./cmd/semver
-    silent: true
-
   # https://github.com/icholy/gomajor
   # go install github.com/icholy/gomajor@latest
   upgrade-major-dependencies:

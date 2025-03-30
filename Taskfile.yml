@@ -94,7 +94,7 @@ tasks:
       printf 'git:                      %s\n' "$(git --version | cut -d ' ' -f 3)"
       printf 'go:                       %s\n' "$(go version | cut -d ' ' -f 3 | cut -c 3-)"
       printf 'gofumpt:                  %s\n' "$(gofumpt --version | cut -c 1-)"
-      printf 'golangci-lint:            %s\n' "$(golangci-lint version --format short)"
+      printf 'golangci-lint:            %s\n' "$(golangci-lint version --short)"
       printf 'gomajor:                  %s\n' "$(gomajor version | cut -d ' ' -f 2 | cut -c 2-)"
       printf 'goreleaser:               %s\n' "$(goreleaser --version | grep 'GitVersion:' | awk '{print $2}')"
       printf 'licensed:                 %s\n' "$(licensed version)"
