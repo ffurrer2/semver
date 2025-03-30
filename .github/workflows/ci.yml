@@ -116,7 +116,7 @@ jobs:
         args: release --config build/package/.goreleaser.yaml --snapshot --skip=publish --clean
 
     - name: Container structure test (distroless)
-      uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest
+      uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest@sha256:377f9a9bc00376b9fa6dc6a3a020dbe40e84ebe9481b71969aa3ff9d1c9ea17e
       with:
         args: 'test --image ghcr.io/ffurrer2/semver:latest --config test/semver_container_test.yml'
 
