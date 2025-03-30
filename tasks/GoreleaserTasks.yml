@@ -20,12 +20,13 @@ tasks:
   snapshot:
     desc: Create snapshot release with GoReleaser
     vars:
-      IMAGE_BASE_NAME_DISTROLESS: {sh: 'sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile'}
-      IMAGE_BASE_DIGEST_DISTROLESS: {sh: 'docker pull {{.IMAGE_BASE_NAME_DISTROLESS}} | sed -n "s/^Digest: \(.*\)$/\1/p"'}
+      IMAGE_BASE_NAME: {sh: 'sed -nE "/^FROM/ { s/^FROM ([^:]+):([^@]+)@([^ ]+).*$/\1/; p; q; }" build/package/Dockerfile'}
+      IMAGE_BASE_TAG: {sh: 'sed -nE "/^FROM/ { s/^FROM ([^:]+):([^@]+)@([^ ]+).*$/\2/; p; q; }" build/package/Dockerfile'}
+      IMAGE_BASE_DIGEST: {sh: 'sed -nE "/^FROM/ { s/^FROM ([^:]+):([^@]+)@([^ ]+).*$/\3/; p; q; }" build/package/Dockerfile'}
     env:
       SNAPSHOT_VERSION: '{{.BUILD_VERSION}}'
-      IMAGE_BASE_NAME_DISTROLESS: '{{.IMAGE_BASE_NAME_DISTROLESS}}'
-      IMAGE_BASE_DIGEST_DISTROLESS: '{{.IMAGE_BASE_DIGEST_DISTROLESS}}'
+      IMAGE_BASE_NAME: '{{.IMAGE_BASE_NAME}}:{{.IMAGE_BASE_TAG}}'
+      IMAGE_BASE_DIGEST: '{{.IMAGE_BASE_DIGEST}}'
     cmds:
     - docker context use default
     - goreleaser release --config build/package/.goreleaser.yaml --clean --snapshot
@@ -34,11 +35,11 @@ tasks:
   release-dry-run:
     desc: Create release with GoReleaser without publishing artifacts
     vars:
-      IMAGE_BASE_NAME_DISTROLESS: {sh: 'sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile'}
-      IMAGE_BASE_DIGEST_DISTROLESS: {sh: 'docker pull {{.IMAGE_BASE_NAME_DISTROLESS}} | sed -n "s/^Digest: \(.*\)$/\1/p"'}
+      IMAGE_BASE_NAME: {sh: 'sed -nE "/^FROM/ { s/^FROM ([^:]+):([^@]+)@([^ ]+).*$/\1/; p; q; }" build/package/Dockerfile'}
+      IMAGE_BASE_DIGEST: {sh: 'sed -nE "/^FROM/ { s/^FROM ([^:]+):([^@]+)@([^ ]+).*$/\3/; p; q; }" build/package/Dockerfile'}
     env:
-      IMAGE_BASE_NAME_DISTROLESS: '{{.IMAGE_BASE_NAME_DISTROLESS}}'
-      IMAGE_BASE_DIGEST_DISTROLESS: '{{.IMAGE_BASE_DIGEST_DISTROLESS}}'
+      IMAGE_BASE_NAME: '{{.IMAGE_BASE_NAME}}:{{.IMAGE_BASE_TAG}}'
+      IMAGE_BASE_DIGEST: '{{.IMAGE_BASE_DIGEST}}'
     cmds:
     - docker context use default
     - goreleaser release --config build/package/.goreleaser.yaml --clean --skip=publish

@@ -97,10 +97,11 @@ jobs:
       run: |
         set -euo pipefail
         echo "SNAPSHOT_VERSION=$(./scripts/version)" >>"${GITHUB_ENV}"
-
-        IMAGE_BASE_NAME_DISTROLESS="$(sed -n "s/^FROM \(.*\)/\1/p" build/package/Dockerfile | tail -n 1)"
-        echo "IMAGE_BASE_NAME_DISTROLESS=${IMAGE_BASE_NAME_DISTROLESS}" >>"${GITHUB_ENV}"
-        echo "IMAGE_BASE_DIGEST_DISTROLESS=$(docker pull "${IMAGE_BASE_NAME_DISTROLESS}" | sed -n "s/^Digest: \(.*\)$/\1/p")" >>"${GITHUB_ENV}"
+        IMAGE_BASE_NAME="$(sed -nE "/^FROM/ { s/^FROM ([^:]+):([^@]+)@([^ ]+).*$/\1/; p; q; }" build/package/Dockerfile)"
+        IMAGE_BASE_TAG="$(sed -nE "/^FROM/ { s/^FROM ([^:]+):([^@]+)@([^ ]+).*$/\2/; p; q; }" build/package/Dockerfile)"
+        IMAGE_BASE_DIGEST="$(sed -nE "/^FROM/ { s/^FROM ([^:]+):([^@]+)@([^ ]+).*$/\3/; p; q; }" build/package/Dockerfile)"
+        echo "IMAGE_BASE_NAME=${IMAGE_BASE_NAME}:${IMAGE_BASE_TAG}" >>"${GITHUB_ENV}"
+        echo "IMAGE_BASE_DIGEST=${IMAGE_BASE_DIGEST}" >>"${GITHUB_ENV}"
 
     - name: Check release config
       uses: goreleaser/goreleaser-action@90a3faa9d0182683851fbfa97ca1a2cb983bfca3 # v6.2.1

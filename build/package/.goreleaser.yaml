@@ -138,8 +138,8 @@ dockers:
   build_flag_templates:
   - --pull
   - --label=org.opencontainers.image.authors=Felix Furrer
-  - --label=org.opencontainers.image.base.digest={{.Env.IMAGE_BASE_DIGEST_DISTROLESS}}
-  - --label=org.opencontainers.image.base.name={{.Env.IMAGE_BASE_NAME_DISTROLESS}}
+  - --label=org.opencontainers.image.base.digest={{.Env.IMAGE_BASE_DIGEST}}
+  - --label=org.opencontainers.image.base.name={{.Env.IMAGE_BASE_NAME}}
   - --label=org.opencontainers.image.created=1970-01-01T00:00:00Z
   - --label=org.opencontainers.image.description=A semantic versioning command line utility written in Go.
   - --label=org.opencontainers.image.documentation=https://github.com/ffurrer2/semver/blob/main/README.md
