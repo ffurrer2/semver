@@ -1,138 +1,76 @@
 # SPDX-License-Identifier: MIT
-linters-settings:
-  depguard:
-    rules:
-      main:
-        allow:
-        - $gostd
-        - github.com/ffurrer2/semver/v2
-        - github.com/go-task/slim-sprig/v3
-        - github.com/onsi
-        - github.com/samber/lo
-        - github.com/spf13/cobra
-        - golang.org/x/exp/constraints
-        deny:
-        - pkg: github.com/pkg/errors
-          desc: Should be replaced by standard lib errors package
-        - pkg: golang.org/x/net/context
-          desc: Should be replaced by standard lib context package
-  lll:
-    line-length: 160
+# yaml-language-server: $schema=https://golangci-lint.run/jsonschema/golangci.jsonschema.json
+
+# Defines the configuration version.
+# The only possible value is '2'.
+version: '2'
 
 linters:
-  disable-all: true
+  # Default set of linters.
+  # The value can be: `standard`, `all`, `none`, or `fast`.
+  # Default: standard
+  default: all
+
+  # Disable specific linter
+  disable:
+  - cyclop
+  - dupl
+  - exhaustruct
+  - gochecknoglobals
+  - gochecknoinits
+  - godot
+  - nlreturn
+  - revive
+  - varnamelen
+  - wsl
+
+  settings:
+    depguard:
+      rules:
+        main:
+          allow:
+          - $gostd
+          - github.com/ffurrer2/semver/v2
+          - github.com/go-task/slim-sprig/v3
+          - github.com/onsi
+          - github.com/samber/lo
+          - github.com/spf13/cobra
+          - golang.org/x/exp/constraints
+          deny:
+          - pkg: 'math/rand$'
+            desc: Should be replaced by math/rand/v2
+          - pkg: 'github.com/pkg/errors'
+            desc: Should be replaced by standard lib errors package
+          - pkg: 'golang.org/x/net/context'
+            desc: Should be replaced by standard lib context package
+    lll:
+      line-length: 160
+
+formatters:
+  # Enable specific formatter.
+  # Default: [] (uses standard Go formatting)
   enable:
-  - asasalint
-  - asciicheck
-  - bidichk
-  - bodyclose
-  - canonicalheader
-  - containedctx
-  - contextcheck
-  - copyloopvar
-  - decorder
-  - depguard
-  - dogsled
-  - dupword
-  - durationcheck
-  - err113
-  - errcheck
-  - errchkjson
-  - errname
-  - errorlint
-  - exhaustive
-  - exptostd
-  - fatcontext
-  - forbidigo
-  - forcetypeassert
-  - funlen
-  - ginkgolinter
-  - gocheckcompilerdirectives
-  - gochecksumtype
-  - gocognit
-  - goconst
-  - gocritic
-  - gocyclo
-  - godox
-  - gofmt
   - gofumpt
-  - goheader
   - goimports
-  - gomoddirectives
-  - gomodguard
-  - goprintffuncname
-  - gosec
-  - gosimple
-  - gosmopolitan
-  - govet
-  - grouper
-  - iface
-  - importas
-  - inamedparam
-  - ineffassign
-  - interfacebloat
-  - intrange
-  - ireturn
-  - lll
-  - loggercheck
-  - maintidx
-  - makezero
-  - mirror
-  - misspell
-  - mnd
-  - musttag
-  - nakedret
-  - nestif
-  - nilerr
-  - nilnesserr
-  - nilnil
-  - noctx
-  - nolintlint
-  - nonamedreturns
-  - nosprintfhostport
-  - paralleltest
-  - perfsprint
-  - prealloc
-  - predeclared
-  - promlinter
-  - protogetter
-  - reassign
-  - recvcheck
-  - rowserrcheck
-  - sloglint
-  - spancheck
-  - sqlclosecheck
-  - staticcheck
-  - stylecheck
-  - tagalign
-  - tagliatelle
-  - testableexamples
-  - testifylint
-  - testpackage
-  - thelper
-  - tparallel
-  - unconvert
-  - unparam
-  - unused
-  - usestdlibvars
-  - usetesting
-  - wastedassign
-  - whitespace
-  - wrapcheck
-  - zerologlint
 
-  # Don't enable:
-  # - cyclop
-  # - dupl
-  # - exhaustruct
-  # - gci
-  # - gochecknoglobals
-  # - gochecknoinits
-  # - godot
-  # - nlreturn
-  # - revive
-  # - varnamelen
-  # - wsl
+  # Formatters settings.
+  settings:
+    gofumpt:
+      # Module path which contains the source code being formatted.
+      # Default: ""
+      # module-path: github.com/org/project
 
+      # Choose whether to use the extra rules.
+      # Default: false
+      extra-rules: true
+
+    goimports:
+      # A list of prefixes, which, if set, checks import paths
+      # with the given prefixes are grouped after 3rd-party packages.
+      # Default: []
+      local-prefixes:
+      - github.com/ffurrer2/semver
+
+# Options for analysis running.
 run:
   timeout: 5m

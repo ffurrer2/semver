@@ -2,14 +2,6 @@
 name: golangci-lint
 
 on:
-  push:
-    branches:
-    - main
-    - feature/**
-    paths:
-    - '**.go'
-    - '**/golangci-lint.yml'
-    - '**/golangci.yml'
   pull_request:
     branches:
     - main
@@ -17,13 +9,24 @@ on:
     - '**.go'
     - '**/golangci-lint.yml'
     - '**/golangci.yml'
+    - 'go.mod'
+    - 'go.sum'
+  push:
+    branches:
+    - main
+    paths:
+    - '**.go'
+    - '**/golangci-lint.yml'
+    - '**/golangci.yml'
+    - 'go.mod'
+    - 'go.sum'
 
 permissions:
   contents: read
   pull-requests: read
 
 env:
-  GOLANGCI_LINT_VERSION: 1.64
+  GOLANGCI_LINT_VERSION: 2.3
 
 jobs:
   golangci-lint:
@@ -39,7 +42,8 @@ jobs:
         go-version-file: './go.mod'
 
     - name: golangci-lint
-      uses: golangci/golangci-lint-action@4696ba8babb6127d732c3c6dde519db15edab9ea # v6.5.1
+      uses: golangci/golangci-lint-action@1481404843c368bc19ca9406f87d6e0fc97bdcfd # v7.0.0
       with:
         version: v${{ env.GOLANGCI_LINT_VERSION }}
+        verify: true
         args: '--issues-exit-code 0 --tests --config .github/linters/.golangci.yml'
