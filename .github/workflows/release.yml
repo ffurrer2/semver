@@ -36,6 +36,7 @@ jobs:
         IMAGE_BASE_DIGEST="$(sed -nE "/^FROM/ { s/^FROM ([^:]+):([^@]+)@([^ ]+).*$/\3/; p; q; }" build/package/Dockerfile)"
         echo "IMAGE_BASE_NAME=${IMAGE_BASE_NAME}:${IMAGE_BASE_TAG}" >>"${GITHUB_ENV}"
         echo "IMAGE_BASE_DIGEST=${IMAGE_BASE_DIGEST}" >>"${GITHUB_ENV}"
+        cat "${GITHUB_ENV}"
 
     - name: Create release notes file
       uses: ffurrer2/extract-release-notes@cae32133495112d23e3569ad04fef240ba4e7bc8 # v2.3.0

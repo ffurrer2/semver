@@ -35,7 +35,7 @@ updates:
   - dependabot
   rebase-strategy: auto
   groups:
-    go-minor:
+    gomod-minor:
       patterns:
       - '*'
       update-types:

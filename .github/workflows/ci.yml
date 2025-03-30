@@ -102,6 +102,7 @@ jobs:
         IMAGE_BASE_DIGEST="$(sed -nE "/^FROM/ { s/^FROM ([^:]+):([^@]+)@([^ ]+).*$/\3/; p; q; }" build/package/Dockerfile)"
         echo "IMAGE_BASE_NAME=${IMAGE_BASE_NAME}:${IMAGE_BASE_TAG}" >>"${GITHUB_ENV}"
         echo "IMAGE_BASE_DIGEST=${IMAGE_BASE_DIGEST}" >>"${GITHUB_ENV}"
+        cat "${GITHUB_ENV}"
 
     - name: Check release config
       uses: goreleaser/goreleaser-action@90a3faa9d0182683851fbfa97ca1a2cb983bfca3 # v6.2.1
