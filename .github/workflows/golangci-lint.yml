@@ -21,10 +21,6 @@ on:
     - 'go.mod'
     - 'go.sum'
 
-permissions:
-  contents: read
-  pull-requests: read
-
 env:
   GOLANGCI_LINT_VERSION: '2.0'
 
@@ -32,6 +28,9 @@ jobs:
   golangci-lint:
     name: golangci-lint
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
     - name: Checkout
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -46,4 +45,4 @@ jobs:
       with:
         version: v${{ env.GOLANGCI_LINT_VERSION }}
         verify: true
-        args: '--issues-exit-code 0 --tests --config .github/linters/.golangci.yml'
+        args: '--issues-exit-code 1 --tests --config .github/linters/.golangci.yml'
