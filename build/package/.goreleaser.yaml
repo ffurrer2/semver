@@ -163,3 +163,14 @@ before:
   - go generate ./...
   - go mod tidy -v
   - go test -race -v ./...
+
+signs:
+- cmd: cosign
+  args:
+  - "sign-blob"
+  - "--output-signature=${signature}"
+  - "--output-certificate=${certificate}"
+  - "${artifact}"
+  - "--yes"
+  artifacts: all
+  certificate: '{{ trimsuffix .Env.artifact ".tar.gz" }}.pem'
