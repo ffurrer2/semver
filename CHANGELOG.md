@@ -18,6 +18,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+## [2.11.0] - 2025-04-20
+
+### Changed
+
+- Artifacts and images are signed with `cosign`
+
 ## [2.10.0] - 2025-04-18
 
 ### Changed
@@ -195,7 +201,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Initial release of `semver`
 
-[Unreleased]: https://github.com/ffurrer2/semver/compare/v2.10.0...HEAD
+[Unreleased]: https://github.com/ffurrer2/semver/compare/v2.11.0...HEAD
+[2.11.0]: https://github.com/ffurrer2/semver/compare/v2.10.0...v2.11.0
 [2.10.0]: https://github.com/ffurrer2/semver/compare/v2.9.1...v2.10.0
 [2.9.1]: https://github.com/ffurrer2/semver/compare/v2.9.0...v2.9.1
 [2.9.0]: https://github.com/ffurrer2/semver/compare/v2.8.0...v2.9.0

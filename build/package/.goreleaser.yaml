@@ -163,3 +163,31 @@ before:
   - go generate ./...
   - go mod tidy -v
   - go test -race -v ./...
+
+signs:
+- cmd: cosign
+  signature: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.sig'
+  args:
+  - 'sign-blob'
+  - '--output-signature=${signature}'
+  - '--output-certificate=${certificate}'
+  - '--yes'
+  - '${artifact}'
+  artifacts: all
+  certificate: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.pem'
+  ids:
+  - semver
+
+docker_signs:
+- cmd: cosign
+  signature: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.sig'
+  args:
+  - 'sign'
+  - '--output-signature=${signature}'
+  - '--output-certificate=${certificate}'
+  - '--yes'
+  - '${artifact}'
+  artifacts: all
+  certificate: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.pem'
+  ids:
+  - semver
