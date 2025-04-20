@@ -175,8 +175,6 @@ signs:
   - '${artifact}'
   artifacts: all
   certificate: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.pem'
-  ids:
-  - semver
 
 docker_signs:
 - cmd: cosign
@@ -189,5 +187,3 @@ docker_signs:
   - '${artifact}'
   artifacts: all
   certificate: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.pem'
-  ids:
-  - semver
