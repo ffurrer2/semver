@@ -31,6 +31,17 @@ scoop install semver
 go install github.com/ffurrer2/semver/v2/cmd/semver@latest
 ```
 
+### Verify signatures
+
+```shell
+cosign verify-blob \
+  --certificate=semver_2.11.0_darwin_amd64-keyless.pem \
+  --signature=semver_2.11.0_darwin_amd64-keyless.sig \
+  --certificate-oidc-issuer=https://token.actions.githubusercontent.com \
+  --certificate-identity=https://github.com/ffurrer2/semver/.github/workflows/release.yml@refs/tags/v2.11.0 \
+  semver_2.11.0_darwin_amd64.tar.gz
+```
+
 ## Usage
 
 ### help
