@@ -7,7 +7,7 @@ require (
 	github.com/go-task/slim-sprig/v3 v3.0.0
 	github.com/onsi/ginkgo/v2 v2.23.4
 	github.com/onsi/gomega v1.37.0
-	github.com/samber/lo v1.49.1
+	github.com/samber/lo v1.50.0
 	github.com/spf13/cobra v1.9.1
 	golang.org/x/exp v0.0.0-20250408133849-7e4ce0ab07d0
 )
