@@ -98,6 +98,6 @@ tasks:
       printf 'gomajor:                  %s\n' "$(gomajor version | cut -d ' ' -f 2 | cut -c 2-)"
       printf 'goreleaser:               %s\n' "$(goreleaser --version | grep 'GitVersion:' | awk '{print $2}')"
       printf 'licensed:                 %s\n' "$(licensed version)"
-      printf 'task:                     %s\n' "$(task --version | cut -d ' ' -f 3)"
+      printf 'task:                     %s\n' "$(task --version)"
       printf 'trivy:                    %s\n' "$(trivy version --format json | jq --raw-output '.Version')"
     silent: true
