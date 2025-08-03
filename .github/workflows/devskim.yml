@@ -19,4 +19,4 @@ permissions:
 jobs:
   devskim:
     name: DevSkim
-    uses: ffurrer2/shared-workflows/.github/workflows/devskim.yml@81fb1d6670ac78d6be6b2ca148bbcf547d74e541
+    uses: ffurrer2/shared-workflows/.github/workflows/devskim.yml@5238f0fac007e3c7f007151eb6273ccb5de4bd6c
