@@ -98,5 +98,6 @@ func (b *Builder) Build() (*SemVer, bool) {
 		PreRelease:    b.preRelease,
 		BuildMetadata: b.buildMetadata,
 	}
+
 	return semver, semver.IsValid()
 }

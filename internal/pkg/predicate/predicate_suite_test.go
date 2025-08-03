@@ -12,6 +12,7 @@ import (
 func TestPredicate(t *testing.T) {
 	t.Parallel()
 	gomega.RegisterFailHandler(Fail)
+
 	suiteConfig, reporterConfig := GinkgoConfiguration()
 	reporterConfig.Verbose = true
 	RunSpecs(t, "Predicate Suite", suiteConfig, reporterConfig)

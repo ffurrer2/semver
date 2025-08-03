@@ -65,8 +65,10 @@ func Parse(s string) (*SemVer, error) {
 	if matches == nil {
 		return nil, InvalidSemVerError(s)
 	}
+
 	groupNames := semverRegexp.SubexpNames()
 	semver := &SemVer{}
+
 	for groupIdx, group := range matches[0] {
 		name := groupNames[groupIdx]
 		switch name {
@@ -82,6 +84,7 @@ func Parse(s string) (*SemVer, error) {
 			semver.BuildMetadata = splitDotSeparatedString(group)
 		}
 	}
+
 	return semver, nil
 }
 
@@ -90,6 +93,7 @@ func MustParse(s string) *SemVer {
 	if err != nil {
 		panic(err)
 	}
+
 	return semver
 }
 
@@ -127,9 +131,11 @@ func (s *SemVer) NextMajor() *SemVer {
 			BuildMetadata: []string{},
 		}
 	}
+
 	if s.Major == MaxMajor {
 		panic(ErrNextMajorUintOverflow)
 	}
+
 	return &SemVer{
 		Major:         s.Major + 1,
 		Minor:         0,
@@ -149,9 +155,11 @@ func (s *SemVer) NextMinor() *SemVer {
 			BuildMetadata: []string{},
 		}
 	}
+
 	if s.Minor == MaxMinor {
 		panic(ErrNextMinorUintOverflow)
 	}
+
 	return &SemVer{
 		Major:         s.Major,
 		Minor:         s.Minor + 1,
@@ -171,9 +179,11 @@ func (s *SemVer) NextPatch() *SemVer {
 			BuildMetadata: []string{},
 		}
 	}
+
 	if s.Patch == MaxPatch {
 		panic(ErrNextPatchUintOverflow)
 	}
+
 	return &SemVer{
 		Major:         s.Major,
 		Minor:         s.Minor,
@@ -255,9 +265,11 @@ func (s *SemVer) String() string {
 	if s.IsPreRelease() {
 		str = fmt.Sprintf("%s-%s", str, s.PreReleaseString())
 	}
+
 	if s.HasBuildMetadata() {
 		str = fmt.Sprintf("%s+%s", str, s.BuildMetadataString())
 	}
+
 	return str
 }
 
@@ -277,6 +289,7 @@ func splitDotSeparatedString(s string) []string {
 	if s == "" {
 		return []string{}
 	}
+
 	return strings.Split(s, ".")
 }
 
@@ -284,8 +297,10 @@ func comparePreReleaseIdentifier(a, b string) int {
 	if a == b {
 		return 0
 	}
+
 	if number.IsNumeric(a) && number.IsNumeric(b) {
 		return number.CompareInt(number.MustParseUint(a), number.MustParseUint(b))
 	}
+
 	return strings.Compare(a, b)
 }

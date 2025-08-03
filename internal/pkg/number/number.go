@@ -27,6 +27,7 @@ func ParseUint(s string) (uint, error) {
 	if err != nil {
 		return 0, fmt.Errorf("failed to parse uint: %w", err)
 	}
+
 	return uint(u), nil
 }
 
@@ -35,6 +36,7 @@ func MustParseUint(s string) uint {
 	if err != nil {
 		panic(err)
 	}
+
 	return u
 }
 
@@ -46,8 +48,10 @@ func CompareInt[T constraints.Integer](a, b T) int {
 	if a == b {
 		return 0
 	}
+
 	if a < b {
 		return -1
 	}
+
 	return +1
 }

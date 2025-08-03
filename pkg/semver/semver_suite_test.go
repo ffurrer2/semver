@@ -12,6 +12,7 @@ import (
 func TestSemver(t *testing.T) {
 	t.Parallel()
 	RegisterFailHandler(Fail)
+
 	suiteConfig, reporterConfig := GinkgoConfiguration()
 	reporterConfig.Verbose = true
 	RunSpecs(t, "Semver Suite", suiteConfig, reporterConfig)
