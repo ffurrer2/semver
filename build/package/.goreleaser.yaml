@@ -25,7 +25,7 @@ release:
     - `docker pull docker.io/ffurrer/semver:{{.Major}}`
     - `docker pull docker.io/ffurrer/semver:latest`
 
-brews:
+homebrew_casks:
 - name: semver
   repository:
     owner: ffurrer2
@@ -35,16 +35,13 @@ brews:
     name: goreleaser
     email: ffurrer2@users.noreply.github.com
   commit_msg_template: Brew formula update for {{.ProjectName}} version {{.Tag}}
-  directory: Formula
-  install: |
-    bin.install "semver"
-  test: |
-    system "#{bin}/semver", "version"
+  directory: Casks
   description: A semantic versioning command line utility written in Go.
   homepage: https://github.com/ffurrer2/semver
   license: MIT
   ids:
   - semver
+  binary: semver
 scoops:
 - name: semver
   repository:
@@ -100,10 +97,12 @@ archives:
   ids:
   - semver
   name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
-  formats: ['tar.gz']
+  formats:
+  - tar.gz
   format_overrides:
   - goos: windows
-    formats: ['zip']
+    formats:
+    - zip
   files:
   - src: CHANGELOG.md
   - src: LICENSE
@@ -121,7 +120,6 @@ dockers:
   - semver
   goos: linux
   goarch: amd64
-  goamd64: v1
   dockerfile: build/package/Dockerfile
   image_templates:
   - docker.io/ffurrer/semver:latest
@@ -150,6 +148,8 @@ dockers:
   - --label=org.opencontainers.image.vendor=Felix Furrer
   - --label=org.opencontainers.image.version={{.Version}}
   use: buildx
+changelog:
+  format: '{{ .SHA }} {{ .Message }}'
 dist: artifacts/dist
 
 env_files:
@@ -164,26 +164,26 @@ before:
   - go mod tidy -v
   - go test -race -v ./...
 
-signs:
-- cmd: cosign
-  signature: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.sig'
-  args:
-  - 'sign-blob'
-  - '--output-signature=${signature}'
-  - '--output-certificate=${certificate}'
-  - '--yes'
-  - '${artifact}'
-  artifacts: all
-  certificate: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.pem'
-
-docker_signs:
-- cmd: cosign
-  signature: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.sig'
-  args:
-  - 'sign'
-  - '--output-signature=${signature}'
-  - '--output-certificate=${certificate}'
-  - '--yes'
-  - '${artifact}'
-  artifacts: all
-  certificate: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.pem'
+#signs:
+#- cmd: cosign
+#  signature: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.sig'
+#  args:
+#  - 'sign-blob'
+#  - '--output-signature=${signature}'
+#  - '--output-certificate=${certificate}'
+#  - '--yes'
+#  - '${artifact}'
+#  artifacts: all
+#  certificate: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.pem'
+#
+#docker_signs:
+#- cmd: cosign
+#  signature: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.sig'
+#  args:
+#  - 'sign'
+#  - '--output-signature=${signature}'
+#  - '--output-certificate=${certificate}'
+#  - '--yes'
+#  - '${artifact}'
+#  artifacts: all
+#  certificate: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.pem'
