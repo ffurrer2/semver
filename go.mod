@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 module github.com/ffurrer2/semver/v2
 
-go 1.24.5
+go 1.24.6
 
 require (
 	github.com/go-task/slim-sprig/v3 v3.0.0
@@ -9,7 +9,7 @@ require (
 	github.com/onsi/gomega v1.38.0
 	github.com/samber/lo v1.51.0
 	github.com/spf13/cobra v1.9.1
-	golang.org/x/exp v0.0.0-20250718183923-645b1fa84792
+	golang.org/x/exp v0.0.0-20250811191247-51f88131bc50
 )
 
 require (
@@ -19,9 +19,9 @@ require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.7 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
-	golang.org/x/net v0.42.0 // indirect
-	golang.org/x/sys v0.34.0 // indirect
-	golang.org/x/text v0.27.0 // indirect
-	golang.org/x/tools v0.35.0 // indirect
+	golang.org/x/net v0.43.0 // indirect
+	golang.org/x/sys v0.35.0 // indirect
+	golang.org/x/text v0.28.0 // indirect
+	golang.org/x/tools v0.36.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
