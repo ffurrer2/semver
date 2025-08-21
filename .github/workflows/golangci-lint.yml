@@ -22,7 +22,7 @@ on:
     - 'go.sum'
 
 env:
-  GOLANGCI_LINT_VERSION: '2.1'
+  GOLANGCI_LINT_VERSION: '2.4'
 
 jobs:
   golangci-lint:
