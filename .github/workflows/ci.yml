@@ -131,7 +131,7 @@ jobs:
         args: 'test --image ghcr.io/ffurrer2/semver:latest --config test/semver_container_test.yml'
 
     - name: Run Trivy vulnerability scanner (distroless)
-      uses: aquasecurity/trivy-action@dc5a429b52fcf669ce959baa2c2dd26090d2a6c4 # 0.32.0
+      uses: aquasecurity/trivy-action@f9424c10c36e288d5fa79bd3dfd1aeb2d6eae808 # 0.33.0
       with:
         image-ref: 'ghcr.io/ffurrer2/semver:latest'
         exit-code: '1'
