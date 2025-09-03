@@ -12,4 +12,4 @@ permissions:
 jobs:
   dependency-review:
     name: dependency-review
-    uses: ffurrer2/shared-workflows/.github/workflows/dependency-review.yml@c0d032b9fe58e7531556930dee705a07174f6539
+    uses: ffurrer2/shared-workflows/.github/workflows/dependency-review.yml@f140801e1ca22aa909c529339fd82e1576e45ea3
