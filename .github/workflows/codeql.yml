@@ -19,6 +19,6 @@ permissions:
 jobs:
   codeql:
     name: CodeQL
-    uses: ffurrer2/shared-workflows/.github/workflows/codeql.yml@c0d032b9fe58e7531556930dee705a07174f6539
+    uses: ffurrer2/shared-workflows/.github/workflows/codeql.yml@91265707e638d8a5859af10c1095d4d57ee9850c
     with:
       languages: '["go"]'

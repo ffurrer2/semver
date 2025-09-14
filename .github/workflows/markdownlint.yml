@@ -20,4 +20,4 @@ on:
 jobs:
   markdownlint:
     name: markdownlint
-    uses: ffurrer2/shared-workflows/.github/workflows/markdownlint.yml@c0d032b9fe58e7531556930dee705a07174f6539
+    uses: ffurrer2/shared-workflows/.github/workflows/markdownlint.yml@91265707e638d8a5859af10c1095d4d57ee9850c
