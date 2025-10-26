@@ -9,7 +9,7 @@ require (
 	github.com/onsi/gomega v1.38.2
 	github.com/samber/lo v1.52.0
 	github.com/spf13/cobra v1.10.1
-	golang.org/x/exp v0.0.0-20251017212417-90e834f514db
+	golang.org/x/exp v0.0.0-20251023183803-a4bb9ffd2546
 )
 
 require (
