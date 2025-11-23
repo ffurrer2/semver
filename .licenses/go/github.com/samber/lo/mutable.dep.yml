@@ -1,12 +1,12 @@
 ---
 name: github.com/samber/lo/mutable
-version: v1.51.0
+version: v1.52.0
 type: go
 summary:
 homepage: https://pkg.go.dev/github.com/samber/lo/mutable
 license: mit
 licenses:
-- sources: lo@v1.51.0/LICENSE
+- sources: lo@v1.52.0/LICENSE
   text: |
     MIT License
 
