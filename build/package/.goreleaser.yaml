@@ -41,7 +41,7 @@ homebrew_casks:
   license: MIT
   ids:
   - semver
-  binary: semver
+  binaries: [semver]
 scoops:
 - name: semver
   repository:
