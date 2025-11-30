@@ -1,13 +1,13 @@
 ---
 name: golang.org/x/exp/constraints
-version: v0.0.0-20251113190631-e25ba8c21ef6
+version: v0.0.0-20251125195548-87e1e737ad39
 type: go
 summary: Package constraints defines a set of useful constraints to be used with type
   parameters.
 homepage: https://pkg.go.dev/golang.org/x/exp/constraints
 license: bsd-3-clause
 licenses:
-- sources: exp@v0.0.0-20251113190631-e25ba8c21ef6/LICENSE
+- sources: exp@v0.0.0-20251125195548-87e1e737ad39/LICENSE
   text: |
     Copyright 2009 The Go Authors.
 
@@ -36,7 +36,7 @@ licenses:
     THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
     OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-- sources: exp@v0.0.0-20251113190631-e25ba8c21ef6/PATENTS
+- sources: exp@v0.0.0-20251125195548-87e1e737ad39/PATENTS
   text: |
     Additional IP Rights Grant (Patents)
 
