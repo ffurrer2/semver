@@ -18,6 +18,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+## [2.12.0] - 2025-11-30
+
+### Changed
+
+- Updated dependencies
+
 ## [2.11.1] - 2025-04-20
 
 ### Fixed
@@ -207,7 +213,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Initial release of `semver`
 
-[Unreleased]: https://github.com/ffurrer2/semver/compare/v2.11.1...HEAD
+[Unreleased]: https://github.com/ffurrer2/semver/compare/v2.12.0...HEAD
+[2.12.0]: https://github.com/ffurrer2/semver/compare/v2.11.1...v2.12.0
 [2.11.1]: https://github.com/ffurrer2/semver/compare/v2.11.0...v2.11.1
 [2.11.0]: https://github.com/ffurrer2/semver/compare/v2.10.0...v2.11.0
 [2.10.0]: https://github.com/ffurrer2/semver/compare/v2.9.1...v2.10.0
