@@ -132,6 +132,9 @@ jobs:
 
     - name: Run Trivy vulnerability scanner (distroless)
       uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # 0.33.1
+      env:
+        TRIVY_SKIP_VERSION_CHECK: "true"
+        TRIVY_DISABLE_TELEMETRY: "true"
       with:
         image-ref: 'ghcr.io/ffurrer2/semver:latest'
         exit-code: '1'
