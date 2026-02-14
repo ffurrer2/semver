@@ -131,7 +131,7 @@ jobs:
         args: 'test --image ghcr.io/ffurrer2/semver:latest --config test/semver_container_test.yml'
 
     - name: Run Trivy vulnerability scanner (distroless)
-      uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # 0.33.1
+      uses: aquasecurity/trivy-action@c1824fd6edce30d7ab345a9989de00bbd46ef284 # 0.34.0
       env:
         TRIVY_SKIP_VERSION_CHECK: 'true'
         TRIVY_DISABLE_TELEMETRY: 'true'
@@ -150,14 +150,14 @@ jobs:
       if: ${{ !cancelled() }}
 
     - name: Upload Trivy scan results to GitHub Security tab (distroless)
-      uses: github/codeql-action/upload-sarif@19b2f06db2b6f5108140aeb04014ef02b648f789 # v4.31.11
+      uses: github/codeql-action/upload-sarif@9e907b5e64f6b83e7804b09294d44122997950d6 # v4.32.3
       with:
         sarif_file: 'trivy-results-distroless.sarif'
         category: trivy-results-distroless
       if: ${{ !cancelled() }}
 
     - name: Run Anchore image scanner (distroless)
-      uses: anchore/scan-action@0d444ed77d83ee2ba7f5ced0d90d640a1281d762 # v7.3.0
+      uses: anchore/scan-action@7037fa011853d5a11690026fb85feee79f4c946c # v7.3.2
       id: anchore-distroless
       with:
         image: 'ghcr.io/ffurrer2/semver:latest'
@@ -171,7 +171,7 @@ jobs:
       if: ${{ !cancelled() }}
 
     - name: Upload Anchore scan results to GitHub Security tab (distroless)
-      uses: github/codeql-action/upload-sarif@19b2f06db2b6f5108140aeb04014ef02b648f789 # v4.31.11
+      uses: github/codeql-action/upload-sarif@9e907b5e64f6b83e7804b09294d44122997950d6 # v4.32.3
       with:
         sarif_file: ${{ steps.anchore-distroless.outputs.sarif }}
       if: ${{ !cancelled() }}
