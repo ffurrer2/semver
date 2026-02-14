@@ -1,6 +1,7 @@
 # https://github.com/gitleaks/gitleaks?tab=readme-ov-file#pre-commit
 repos:
+# https://github.com/gitleaks/gitleaks/releases
 - repo: https://github.com/gitleaks/gitleaks
-  rev: v8.24.2
+  rev: v8.30.0
   hooks:
   - id: gitleaks
