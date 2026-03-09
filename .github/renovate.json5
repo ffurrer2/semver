@@ -3,6 +3,9 @@
   "extends": [
     "local>ffurrer2/renovate-config//default.json5"
   ],
+  "pre-commit": {
+    "enabled": true
+  },
   "postUpdateOptions": [
     "gomodTidy"
   ],
