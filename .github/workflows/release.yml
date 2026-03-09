@@ -44,7 +44,7 @@ jobs:
         cat "${GITHUB_ENV}"
 
     - name: Create release notes file
-      uses: ffurrer2/extract-release-notes@202313ec7461b6b9e401996714484690ab1ae105 # v3.0.0
+      uses: ffurrer2/extract-release-notes@273da39a24fb7db106a35526c8162815faffd31d # v3.1.0
       with:
         release_notes_file: ${{ runner.temp }}/RELEASE_NOTES.md
 
