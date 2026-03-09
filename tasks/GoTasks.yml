@@ -58,7 +58,7 @@ tasks:
   # https://github.com/icholy/gomajor
   # go install github.com/icholy/gomajor@latest
   upgrade-major-dependencies:
-    desc: Upgrade all indirect dependencies
+    desc: Upgrade all major dependencies
     cmds:
     - gomajor get -major all
     - task: tidy
