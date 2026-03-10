@@ -19,6 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [2.13.0] - 2026-03-10
+
+### Changed
+
+- Updated dependencies
+- Updated base image to `gcr.io/distroless/static-debian13:nonroot`
+
 ## [2.12.0] - 2025-11-30
 
 ### Changed
@@ -214,7 +221,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release of `semver`
 
-[Unreleased]: https://github.com/ffurrer2/semver/compare/v2.12.0...HEAD
+[Unreleased]: https://github.com/ffurrer2/semver/compare/v2.13.0...HEAD
+[2.13.0]: https://github.com/ffurrer2/semver/compare/v2.12.0...v2.13.0
 [2.12.0]: https://github.com/ffurrer2/semver/compare/v2.11.1...v2.12.0
 [2.11.1]: https://github.com/ffurrer2/semver/compare/v2.11.0...v2.11.1
 [2.11.0]: https://github.com/ffurrer2/semver/compare/v2.10.0...v2.11.0
