@@ -13,8 +13,10 @@ on:
     - '.gitignore'
 
 env:
-  GORELEASER_VERSION: '~> v2'
-  TASK_VERSION: 3.x
+  # renovate: datasource=github-releases depName=goreleaser packageName=goreleaser/goreleaser versioning=semver
+  GORELEASER_VERSION: '2.14.2'
+  # renovate: datasource=github-releases depName=task packageName=go-task/task versioning=semver
+  TASK_VERSION: '3.49.0'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
