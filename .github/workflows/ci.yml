@@ -52,7 +52,7 @@ jobs:
         install-only: true
 
     - name: Setup cosign
-      uses: sigstore/cosign-installer@ba7bc0a3fef59531c69a25acd34668d6d3fe6f22 # v4.1.0
+      uses: sigstore/cosign-installer@cad07c2e89fa2edd6e2d7bab4c1aa38e53f76003 # v4.1.1
 
     - name: Setup container-structure-test
       run: |
@@ -102,7 +102,7 @@ jobs:
         go-version-file: './go.mod'
 
     - name: Setup cosign
-      uses: sigstore/cosign-installer@ba7bc0a3fef59531c69a25acd34668d6d3fe6f22 # v4.1.0
+      uses: sigstore/cosign-installer@cad07c2e89fa2edd6e2d7bab4c1aa38e53f76003 # v4.1.1
 
     - name: Set environment variables
       run: |
@@ -152,7 +152,7 @@ jobs:
       if: ${{ !cancelled() }}
 
     - name: Upload Trivy scan results to GitHub Security tab (distroless)
-      uses: github/codeql-action/upload-sarif@38697555549f1db7851b81482ff19f1fa5c4fedc # v4.34.1
+      uses: github/codeql-action/upload-sarif@c10b8064de6f491fea524254123dbe5e09572f13 # v4.35.1
       with:
         sarif_file: 'trivy-results-distroless.sarif'
         category: trivy-results-distroless
@@ -173,7 +173,7 @@ jobs:
       if: ${{ !cancelled() }}
 
     - name: Upload Anchore scan results to GitHub Security tab (distroless)
-      uses: github/codeql-action/upload-sarif@38697555549f1db7851b81482ff19f1fa5c4fedc # v4.34.1
+      uses: github/codeql-action/upload-sarif@c10b8064de6f491fea524254123dbe5e09572f13 # v4.35.1
       with:
         sarif_file: ${{ steps.anchore-distroless.outputs.sarif }}
       if: ${{ !cancelled() }}
