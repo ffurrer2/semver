@@ -6,12 +6,12 @@ import (
 	"testing"
 
 	. "github.com/onsi/ginkgo/v2"
-	"github.com/onsi/gomega"
+	. "github.com/onsi/gomega"
 )
 
 func TestPredicate(t *testing.T) {
 	t.Parallel()
-	gomega.RegisterFailHandler(Fail)
+	RegisterFailHandler(Fail)
 
 	suiteConfig, reporterConfig := GinkgoConfiguration()
 	reporterConfig.Verbose = true

@@ -14,7 +14,7 @@ import (
 var patchCmd = &cobra.Command{
 	Use:                   "patch [flag] [semver]...",
 	Short:                 "Increment semantic versions to the next patch version",
-	Long:                  `This command increments a given semantic version to the next patch version.'`,
+	Long:                  `This command increments a given semantic version to the next patch version.`,
 	Example:               `  semver next patch 1.0.0-alpha+001`,
 	Args:                  cobra.ArbitraryArgs,
 	DisableFlagsInUseLine: true,

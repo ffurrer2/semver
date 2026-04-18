@@ -25,8 +25,8 @@ var (
 		Args:                  cobra.ArbitraryArgs,
 		DisableFlagsInUseLine: true,
 		Run: func(cmd *cobra.Command, args []string) {
-			sort := func(args []string) {
-				semverSlice := make([]semver.SemVer, 0)
+			sortFunc := func(args []string) {
+				semverSlice := make([]semver.SemVer, 0, len(args))
 				for _, s := range args {
 					semVer, err := semver.Parse(s)
 					if err != nil {
@@ -44,7 +44,7 @@ var (
 					cmd.Printf("%s\n", s.String())
 				}
 			}
-			cli.Map(args, cmd.InOrStdin(), sort)
+			cli.Map(args, cmd.InOrStdin(), sortFunc)
 		},
 	}
 )

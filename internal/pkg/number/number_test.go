@@ -111,7 +111,7 @@ var _ = Describe("number: ", func() {
 		)
 	})
 
-	Describe("CompareInt[T constraints.Ordered](a, b T) int", func() {
+	Describe("CompareInt[T constraints.Integer](a, b T) int", func() {
 		DescribeTable("when a == b",
 			func(a, b uint) {
 				result := number.CompareInt(a, b)
@@ -141,7 +141,7 @@ var _ = Describe("number: ", func() {
 		)
 	})
 
-	Describe("MinInt[T constraints.Ordered](x, y T) T", func() {
+	Describe("min(x, y T) T", func() {
 		DescribeTable("when a == b",
 			func(a, b uint) {
 				result := min(a, b)

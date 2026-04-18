@@ -59,7 +59,7 @@ type SemVer struct {
 				PreRelease:    semver.PreReleaseString(),
 				BuildMetadata: semver.BuildMetadataString(),
 			}
-			err = tpl.Execute(os.Stdout, data)
+			err = tpl.Execute(cmd.OutOrStdout(), data)
 			if err != nil {
 				cmd.PrintErrf("error: %v\n", err)
 				os.Exit(1)

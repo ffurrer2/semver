@@ -4,7 +4,7 @@ package predicate_test
 
 import (
 	. "github.com/onsi/ginkgo/v2"
-	"github.com/onsi/gomega"
+	. "github.com/onsi/gomega"
 
 	"github.com/ffurrer2/semver/v2/internal/pkg/predicate"
 )
@@ -17,7 +17,7 @@ var _ = Describe("predicate: ", func() {
 					return true
 				}
 				actual := predicate.And(p0)(nil)
-				gomega.Expect(actual).To(gomega.BeTrue())
+				Expect(actual).To(BeTrue())
 			})
 		})
 		Context(`when len(p) is 1 and p0(t) is false`, func() {
@@ -26,7 +26,7 @@ var _ = Describe("predicate: ", func() {
 					return false
 				}
 				actual := predicate.And(p0)(nil)
-				gomega.Expect(actual).To(gomega.BeFalse())
+				Expect(actual).To(BeFalse())
 			})
 		})
 		Context(`when len(p) > 1, p0(t) is true and p1(t) is false`, func() {
@@ -38,7 +38,7 @@ var _ = Describe("predicate: ", func() {
 					return false
 				}
 				actual := predicate.And(p0, p1)(nil)
-				gomega.Expect(actual).To(gomega.BeFalse())
+				Expect(actual).To(BeFalse())
 			})
 		})
 		Context(`when len(p) > 1, p0(t) is false and p1(t) is true`, func() {
@@ -50,7 +50,7 @@ var _ = Describe("predicate: ", func() {
 					return true
 				}
 				actual := predicate.And(p0, p1)(nil)
-				gomega.Expect(actual).To(gomega.BeFalse())
+				Expect(actual).To(BeFalse())
 			})
 		})
 		Context(`when len(p) > 1, p0(t) is false and p1(t) is false`, func() {
@@ -62,7 +62,7 @@ var _ = Describe("predicate: ", func() {
 					return false
 				}
 				actual := predicate.And(p0, p1)(nil)
-				gomega.Expect(actual).To(gomega.BeFalse())
+				Expect(actual).To(BeFalse())
 			})
 		})
 		Context(`when len(p) > 1, p0(t) is true and p1(t) is true`, func() {
@@ -74,7 +74,7 @@ var _ = Describe("predicate: ", func() {
 					return true
 				}
 				actual := predicate.And(p0, p1)(nil)
-				gomega.Expect(actual).To(gomega.BeTrue())
+				Expect(actual).To(BeTrue())
 			})
 		})
 	})
@@ -86,7 +86,7 @@ var _ = Describe("predicate: ", func() {
 					return true
 				}
 				actual := predicate.Negate(p)(nil)
-				gomega.Expect(actual).To(gomega.BeFalse())
+				Expect(actual).To(BeFalse())
 			})
 		})
 		Context(`when p(t) is false`, func() {
@@ -95,7 +95,7 @@ var _ = Describe("predicate: ", func() {
 					return false
 				}
 				actual := predicate.Negate(p)(nil)
-				gomega.Expect(actual).To(gomega.BeTrue())
+				Expect(actual).To(BeTrue())
 			})
 		})
 	})
@@ -107,7 +107,7 @@ var _ = Describe("predicate: ", func() {
 					return true
 				}
 				actual := predicate.Or(p0)(nil)
-				gomega.Expect(actual).To(gomega.BeTrue())
+				Expect(actual).To(BeTrue())
 			})
 		})
 		Context(`when len(p) is 1 and p0(t) is false`, func() {
@@ -116,7 +116,7 @@ var _ = Describe("predicate: ", func() {
 					return false
 				}
 				actual := predicate.Or(p0)(nil)
-				gomega.Expect(actual).To(gomega.BeFalse())
+				Expect(actual).To(BeFalse())
 			})
 		})
 		Context(`when len(p) > 1, p0(t) is true and p1(t) is false`, func() {
@@ -128,7 +128,7 @@ var _ = Describe("predicate: ", func() {
 					return false
 				}
 				actual := predicate.Or(p0, p1)(nil)
-				gomega.Expect(actual).To(gomega.BeTrue())
+				Expect(actual).To(BeTrue())
 			})
 		})
 		Context(`when len(p) > 1, p0(t) is false and p1(t) is true`, func() {
@@ -140,7 +140,7 @@ var _ = Describe("predicate: ", func() {
 					return true
 				}
 				actual := predicate.Or(p0, p1)(nil)
-				gomega.Expect(actual).To(gomega.BeTrue())
+				Expect(actual).To(BeTrue())
 			})
 		})
 		Context(`when len(p) > 1, p0(t) is false and p1(t) is false`, func() {
@@ -152,7 +152,7 @@ var _ = Describe("predicate: ", func() {
 					return false
 				}
 				actual := predicate.Or(p0, p1)(nil)
-				gomega.Expect(actual).To(gomega.BeFalse())
+				Expect(actual).To(BeFalse())
 			})
 		})
 		Context(`when len(p) > 1, p0(t) is true and p1(t) is true`, func() {
@@ -164,7 +164,7 @@ var _ = Describe("predicate: ", func() {
 					return true
 				}
 				actual := predicate.Or(p0, p1)(nil)
-				gomega.Expect(actual).To(gomega.BeTrue())
+				Expect(actual).To(BeTrue())
 			})
 		})
 	})
