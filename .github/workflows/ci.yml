@@ -14,7 +14,7 @@ on:
 
 env:
   # renovate: datasource=github-releases depName=goreleaser packageName=goreleaser/goreleaser versioning=semver
-  GORELEASER_VERSION: '2.15.2'
+  GORELEASER_VERSION: '2.15.3'
   # renovate: datasource=github-releases depName=task packageName=go-task/task versioning=semver
   TASK_VERSION: '3.49.1'
 
