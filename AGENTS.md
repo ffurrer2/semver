@@ -6,7 +6,7 @@ A CLI tool for working with [Semantic Versions](https://semver.org/). Module pat
 
 ## Directory layout
 
-```
+```text
 cmd/semver/          CLI entrypoint (Cobra); one file per command, wired in init()
 pkg/semver/          Public domain library (Parse, IsValid, CompareTo, Next*, Builder)
 internal/pkg/cli/    Shared CLI plumbing: Apply (stream-per-item), Map (batch)
