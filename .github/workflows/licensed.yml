@@ -47,7 +47,7 @@ jobs:
     - name: Setup Licensed
       uses: licensee/setup-licensed@0d52e575b3258417672be0dff2f115d7db8771d8 # v1.3.2
       env:
-        GOFLAGS: "-mod=vendor"
+        GOFLAGS: -mod=vendor
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         version: ${{ env.LICENSED_VERSION }}
