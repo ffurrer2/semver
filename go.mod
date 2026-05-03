@@ -5,8 +5,8 @@ go 1.26.2
 
 require (
 	github.com/go-task/slim-sprig/v3 v3.0.0
-	github.com/onsi/ginkgo/v2 v2.28.1
-	github.com/onsi/gomega v1.39.1
+	github.com/onsi/ginkgo/v2 v2.28.3
+	github.com/onsi/gomega v1.40.0
 	github.com/samber/lo v1.53.0
 	github.com/spf13/cobra v1.10.2
 	golang.org/x/exp v0.0.0-20260410095643-746e56fc9e2f
