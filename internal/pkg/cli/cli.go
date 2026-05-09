@@ -5,7 +5,6 @@ package cli
 import (
 	"bufio"
 	"io"
-	"os"
 )
 
 func Apply(args []string, rd io.Reader, f func(s string)) {
@@ -21,8 +20,6 @@ func Apply(args []string, rd io.Reader, f func(s string)) {
 			f(scanner.Text())
 		}
 	}
-
-	os.Exit(0)
 }
 
 func Map(args []string, rd io.Reader, f func(s []string)) {
@@ -37,5 +34,4 @@ func Map(args []string, rd io.Reader, f func(s []string)) {
 	}
 
 	f(args)
-	os.Exit(0)
 }
