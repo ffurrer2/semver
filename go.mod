@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 module github.com/ffurrer2/semver/v2
 
-go 1.26.2
+go 1.26.3
 
 require (
 	github.com/go-task/slim-sprig/v3 v3.0.0
