@@ -35,6 +35,22 @@ tasks:
     - task: go:clean
     silent: true
 
+  fmt:
+    desc: Format code
+    cmds:
+    - task: go:mod:fmt
+    - task: go:gofumpt
+    - task: go:goimports
+    silent: true
+
+  lint:
+    desc: Run all linters
+    cmds:
+    - task: golangcilint:lint
+    - task: markdownlint:lint
+    - task: yamllint:lint
+    silent: true
+
   build:
     desc: Build project
     cmds:
@@ -48,14 +64,6 @@ tasks:
     - task: misc:container-structure-test
     silent: true
 
-  lint:
-    desc: Run all linters
-    cmds:
-    - task: golangcilint:lint
-    - task: markdownlint:lint
-    - task: yamllint:lint
-    silent: true
-
   scan:
     desc: Run image scans
     cmds:
@@ -66,14 +74,6 @@ tasks:
       vars:
         IMAGE_NAME: 'ghcr.io/ffurrer2/semver:latest'
     - task: trivy:filesystem:scan
-    silent: true
-
-  fmt:
-    desc: Format code
-    cmds:
-    - task: go:mod:fmt
-    - task: go:gofumpt
-    - task: go:goimports
     silent: true
 
   upgrade:

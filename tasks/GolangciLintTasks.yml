@@ -2,27 +2,36 @@
 # https://taskfile.dev
 version: '3'
 
+vars:
+  GOLANGCI_LINT_CONFIG: .github/linters/.golangci.yml
+
 tasks:
+  verify-config:
+    desc: Verify golangci-lint configuration
+    cmds:
+    - golangci-lint config verify --config {{.GOLANGCI_LINT_CONFIG}}
+    silent: true
+
   fmt:
     desc: Format Go code
     cmds:
-    - golangci-lint fmt --config .github/linters/.golangci.yml
+    - golangci-lint fmt --config {{.GOLANGCI_LINT_CONFIG}}
     silent: true
 
   lint:
     desc: Lint Go code
     cmds:
-    - golangci-lint run --issues-exit-code 0 --tests --verbose --config .github/linters/.golangci.yml
+    - golangci-lint run --issues-exit-code 0 --tests --config {{.GOLANGCI_LINT_CONFIG}}
     silent: true
 
   lint:fix:
     desc: Lint Go code and fix errors
     cmds:
-    - golangci-lint run --issues-exit-code 0 --tests --verbose --config .github/linters/.golangci.yml --fix
+    - golangci-lint run --issues-exit-code 0 --tests --config {{.GOLANGCI_LINT_CONFIG}} --fix
     silent: true
 
   linters:
     desc: List golangci-lint linters
     cmds:
-    - golangci-lint linters --config .github/linters/.golangci.yml
+    - golangci-lint linters --config {{.GOLANGCI_LINT_CONFIG}}
     silent: true
