@@ -35,7 +35,6 @@ linters:
           - github.com/onsi
           - github.com/samber/lo
           - github.com/spf13/cobra
-          - golang.org/x/exp/constraints
           deny:
           - pkg: 'math/rand$'
             desc: Should be replaced by math/rand/v2

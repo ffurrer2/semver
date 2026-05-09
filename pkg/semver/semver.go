@@ -3,6 +3,7 @@
 package semver
 
 import (
+	"cmp"
 	"errors"
 	"fmt"
 	"reflect"
@@ -219,11 +220,11 @@ func (s *SemVer) HasBuildMetadata() bool {
 
 func (s *SemVer) CompareTo(o SemVer) int {
 	// Major, minor, and patch versions are always compared numerically.
-	if res := number.CompareInt(s.Major, o.Major); res != 0 {
+	if res := cmp.Compare(s.Major, o.Major); res != 0 {
 		return res
-	} else if res := number.CompareInt(s.Minor, o.Minor); res != 0 {
+	} else if res := cmp.Compare(s.Minor, o.Minor); res != 0 {
 		return res
-	} else if res := number.CompareInt(s.Patch, o.Patch); res != 0 {
+	} else if res := cmp.Compare(s.Patch, o.Patch); res != 0 {
 		return res
 	}
 	// => Major, minor, and patch are equal and pre-release identifiers are not equal
@@ -299,7 +300,7 @@ func comparePreReleaseIdentifier(a, b string) int {
 	}
 
 	if number.IsNumeric(a) && number.IsNumeric(b) {
-		return number.CompareInt(number.MustParseUint(a), number.MustParseUint(b))
+		return cmp.Compare(number.MustParseUint(a), number.MustParseUint(b))
 	}
 
 	return strings.Compare(a, b)

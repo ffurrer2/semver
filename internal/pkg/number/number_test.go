@@ -111,36 +111,6 @@ var _ = Describe("number: ", func() {
 		)
 	})
 
-	Describe("CompareInt[T constraints.Integer](a, b T) int", func() {
-		DescribeTable("when a == b",
-			func(a, b uint) {
-				result := number.CompareInt(a, b)
-				Expect(result).To(Equal(0))
-			},
-			Entry("should return 0", uint(0), uint(0)),
-			Entry("should return 0", uint(1), uint(1)),
-			Entry("should return 0", maxUint, maxUint),
-		)
-		DescribeTable("when a < b ",
-			func(a, b uint) {
-				result := number.CompareInt(a, b)
-				Expect(result).To(Equal(-1))
-			},
-			Entry("should return -1", uint(0), uint(1)),
-			Entry("should return -1", uint(1), uint(2)),
-			Entry("should return -1", maxUint-1, maxUint),
-		)
-		DescribeTable("when a > b ",
-			func(a, b uint) {
-				result := number.CompareInt(a, b)
-				Expect(result).To(Equal(1))
-			},
-			Entry("should return 1", uint(1), uint(0)),
-			Entry("should return 1", uint(2), uint(1)),
-			Entry("should return 1", maxUint, maxUint-1),
-		)
-	})
-
 	Describe("min(x, y T) T", func() {
 		DescribeTable("when a == b",
 			func(a, b uint) {

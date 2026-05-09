@@ -7,8 +7,6 @@ import (
 	"math/bits"
 	"regexp"
 	"strconv"
-
-	"golang.org/x/exp/constraints"
 )
 
 const (
@@ -44,14 +42,3 @@ func IsNumeric(s string) bool {
 	return numericRegexp.MatchString(s)
 }
 
-func CompareInt[T constraints.Integer](a, b T) int {
-	if a == b {
-		return 0
-	}
-
-	if a < b {
-		return -1
-	}
-
-	return +1
-}
