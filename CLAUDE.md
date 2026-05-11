@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project
 
 A CLI tool and Go library for working with [Semantic Versions](https://semver.org/).
-Module path: `github.com/ffurrer2/semver/v2`. MIT-licensed.
+Module path: `github.com/ffurrer2/semver/v2`. Requires Go 1.26+. MIT-licensed.
 
 ## Commands
 
@@ -53,8 +53,10 @@ Key patterns:
 - Formatting: gofumpt (with `--extra`) + goimports (local prefix: `github.com/ffurrer2/semver`). Run `task fmt` before committing.
 - Import order: stdlib, then third-party, then local (`github.com/ffurrer2/semver/v2/...`).
 - Max line length: 160 chars.
-- Do not use `math/rand` (use `math/rand/v2`).
-- Linting uses `default: all` with specific disables. depguard restricts imports to declared dependencies only.
+- Linting uses `default: all` with specific disables. depguard strictly restricts imports:
+  - **Allowed**: stdlib, `github.com/ffurrer2/semver/v2`, `github.com/spf13/cobra`, `github.com/samber/lo`, `github.com/onsi` (Ginkgo/Gomega), `github.com/go-task/slim-sprig/v3`
+  - **Denied**: `math/rand` (use `math/rand/v2`), `github.com/pkg/errors` (use stdlib `errors`), `golang.org/x/net/context` (use stdlib `context`)
+  - Adding a new dependency requires updating the depguard allowlist in `.github/linters/.golangci.yml`.
 
 ## Testing
 
@@ -67,3 +69,11 @@ Key patterns:
 - `NextMajor/NextMinor/NextPatch` on a prerelease version strips prerelease/build metadata **without incrementing** the numeric component.
 - `CompareTo` implements SemVer spec section 11 (precedence rules). Build metadata does not affect ordering.
 - Overflow in `Next*` panics with exported sentinel errors.
+
+## Release Pipeline
+
+- GoReleaser (`build/package/.goreleaser.yaml`) builds static multi-platform binaries (darwin/linux/windows, amd64/arm64).
+- Docker images published to GHCR and Docker Hub with multi-tag strategy (latest, major, major.minor, full version).
+- Distribution: Homebrew tap (`ffurrer2/tap`), Scoop bucket, GitHub releases with cosign signatures.
+- Version string injected via ldflags into `internal/pkg/app.version` — computed by `scripts/version` script from git tags.
+- CI runs `task test` + `task lint` + GoReleaser snapshot on PRs; full release triggers on `v*.*.*` tags.

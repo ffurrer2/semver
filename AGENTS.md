@@ -11,7 +11,7 @@ cmd/semver/          CLI entrypoint (Cobra); one file per command, wired in init
 pkg/semver/          Public domain library (Parse, IsValid, CompareTo, Next*, Builder)
 internal/pkg/cli/    Shared CLI plumbing: Apply (stream-per-item), Map (batch)
 internal/pkg/app/    Build metadata/version info (linker-injected via ldflags)
-internal/pkg/number/ Numeric parsing (ParseUint, MustParseUint) and generic CompareInt
+internal/pkg/number/ Numeric parsing (ParseUint, MustParseUint, IsNumeric)
 internal/pkg/predicate/ Functional combinators (And, Or, Negate) using samber/lo
 build/package/       Dockerfile + .goreleaser.yaml
 tasks/               Task include files (GoTasks, GoreleaserTasks, LicensedTasks, etc.)
@@ -43,16 +43,18 @@ test/                Container structure tests (semver_container_test.yml)
 
 - `SemVer` struct: `Major`, `Minor`, `Patch` (uint), `PreRelease`, `BuildMetadata` ([]string).
 - Parsing is regex-based (`NamedGroupsPattern`), extracted via named capture groups.
+- `Parse(s string) (*SemVer, error)` / `MustParse(s string) *SemVer` (panics on error) / `IsValid(s string) bool`.
+- Key receiver methods: `IsRelease()`, `IsPreRelease()`, `HasBuildMetadata()`, `CompareTo(SemVer) int`, `String()`, `PreReleaseString()`, `BuildMetadataString()`, `Equal(SemVer) bool`.
 - `CompareTo` compares major/minor/patch numerically, then prerelease precedence per spec. Build metadata does **not** affect ordering.
 - `NextMajor/NextMinor/NextPatch`: if current version is prerelease, strip prerelease/build metadata without incrementing. Otherwise increment the relevant component. Overflow panics with exported errors (`ErrNextMajorUintOverflow`, etc.).
-- `Builder`: fluent builder pattern returning immutable copies. `Build()` returns `(*SemVer, bool)`.
+- `Builder`: fluent builder pattern returning immutable copies. `Build()` returns `(*SemVer, bool)`. Use `PreReleaseField(s string)` / `BuildMetadataField(s string)` to append individual dot-separated identifiers.
 - `BySemVer`: implements `sort.Interface`.
 
 ### Internal packages
 
-- `cli.Apply(args, reader, fn)`: iterates args or stdin lines, calls `fn` per item, then `os.Exit(0)`.
-- `cli.Map(args, reader, fn)`: collects args or stdin lines into a slice, calls `fn` once with the full slice, then `os.Exit(0)`.
-- `number.CompareInt[T constraints.Integer]`: generic three-way comparison.
+- `cli.Apply(args, reader, fn)`: iterates args or stdin lines, calls `fn` per item, then returns (no `os.Exit`).
+- `cli.Map(args, reader, fn)`: collects args or stdin lines into a slice, calls `fn` once with the full slice, then returns (no `os.Exit`).
+- `number.ParseUint/MustParseUint`: parse a string as `uint`. `number.IsNumeric(s string) bool`: checks whether a string is a non-negative integer (used by `comparePreReleaseIdentifier`). No `CompareInt` — numeric comparison uses stdlib `cmp.Compare` directly in `semver.go`.
 - `predicate.And/Or/Negate`: generic higher-order predicate combinators using `lo.Reduce`.
 
 ## Build, test, and lint
