@@ -41,4 +41,3 @@ func MustParseUint(s string) uint {
 func IsNumeric(s string) bool {
 	return numericRegexp.MatchString(s)
 }
-

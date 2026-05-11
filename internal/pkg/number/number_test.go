@@ -88,7 +88,8 @@ var _ = Describe("number: ", func() {
 
 	Describe("func IsNumeric(s string) bool", func() {
 		Describe("when s corresponds to a valid unsigned integer", func() {
-			DescribeTable("it ",
+			DescribeTable(
+				"it ",
 				func(input string) {
 					actual := number.IsNumeric(input)
 					Expect(actual).To(BeTrue())
@@ -99,7 +100,8 @@ var _ = Describe("number: ", func() {
 				Entry(maxUintAsString, maxUintAsString),
 			)
 		})
-		DescribeTable("when s corresponds to an invalid unsigned integer",
+		DescribeTable(
+			"when s corresponds to an invalid unsigned integer",
 			func(input string) {
 				actual := number.IsNumeric(input)
 				Expect(actual).To(BeFalse())
@@ -112,7 +114,8 @@ var _ = Describe("number: ", func() {
 	})
 
 	Describe("min(x, y T) T", func() {
-		DescribeTable("when a == b",
+		DescribeTable(
+			"when a == b",
 			func(a, b uint) {
 				result := min(a, b)
 				Expect(result).To(Equal(a))
@@ -122,7 +125,8 @@ var _ = Describe("number: ", func() {
 			Entry("should return 0", uint(1), uint(1)),
 			Entry("should return 0", maxUint, maxUint),
 		)
-		DescribeTable("when a < b ",
+		DescribeTable(
+			"when a < b ",
 			func(a, b uint) {
 				result := min(a, b)
 				Expect(result).To(Equal(a))
@@ -131,7 +135,8 @@ var _ = Describe("number: ", func() {
 			Entry("should return -1", uint(1), uint(2)),
 			Entry("should return -1", maxUint-1, maxUint),
 		)
-		DescribeTable("when a > b ",
+		DescribeTable(
+			"when a > b ",
 			func(a, b uint) {
 				result := min(a, b)
 				Expect(result).To(Equal(b))
