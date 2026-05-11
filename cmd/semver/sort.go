@@ -33,13 +33,16 @@ var (
 						cmd.PrintErrf("error: %v\n", err)
 						os.Exit(1)
 					}
+
 					semverSlice = append(semverSlice, *semVer)
 				}
+
 				if reverseFlag {
 					sort.Sort(sort.Reverse(semver.BySemVer(semverSlice)))
 				} else {
 					sort.Sort(semver.BySemVer(semverSlice))
 				}
+
 				for _, s := range semverSlice {
 					cmd.Printf("%s\n", s.String())
 				}

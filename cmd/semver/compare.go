@@ -30,11 +30,13 @@ The output will be:
 			cmd.PrintErrf("error: %v\n", err)
 			os.Exit(1)
 		}
+
 		semver2, err := semver.Parse(args[1])
 		if err != nil {
 			cmd.PrintErrf("error: %v\n", err)
 			os.Exit(1)
 		}
+
 		result := semver1.CompareTo(*semver2)
 		cmd.Printf("%d\n", result)
 	},

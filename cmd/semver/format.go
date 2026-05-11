@@ -41,17 +41,20 @@ type SemVer struct {
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
 		text := args[0]
+
 		tpl, err := template.New("semver").Funcs(sprig.FuncMap()).Parse(text)
 		if err != nil {
 			cmd.PrintErrf("error: %v\n", err)
 			os.Exit(1)
 		}
+
 		format := func(s string) {
 			semver, err := semver.Parse(s)
 			if err != nil {
 				cmd.PrintErrf("error: %v\n", err)
 				os.Exit(1)
 			}
+
 			data := semVer{
 				Major:         semver.Major,
 				Minor:         semver.Minor,
@@ -59,11 +62,13 @@ type SemVer struct {
 				PreRelease:    semver.PreReleaseString(),
 				BuildMetadata: semver.BuildMetadataString(),
 			}
+
 			err = tpl.Execute(cmd.OutOrStdout(), data)
 			if err != nil {
 				cmd.PrintErrf("error: %v\n", err)
 				os.Exit(1)
 			}
+
 			cmd.Printf("\n")
 		}
 		cli.Apply(args[1:], cmd.InOrStdin(), format)

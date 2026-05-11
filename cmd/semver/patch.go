@@ -25,6 +25,7 @@ var patchCmd = &cobra.Command{
 				cmd.PrintErrf("error: %v\n", err)
 				os.Exit(1)
 			}
+
 			cmd.Printf("%s\n", semver.NextPatch().String())
 		}
 		cli.Apply(args, cmd.InOrStdin(), nextPatch)

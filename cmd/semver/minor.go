@@ -25,6 +25,7 @@ var minorCmd = &cobra.Command{
 				cmd.PrintErrf("error: %v\n", err)
 				os.Exit(1)
 			}
+
 			cmd.Printf("%s\n", semver.NextMinor().String())
 		}
 		cli.Apply(args, cmd.InOrStdin(), nextMinor)
