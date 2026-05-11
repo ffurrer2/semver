@@ -52,6 +52,7 @@ var _ = Describe("number: ", func() {
 		})
 		Context("when s corresponds to the maximum unsigned integer + 1", func() {
 			maxUintPlusOneAsString := fmt.Sprintf("%.0f", float64(maxUint)+1.0)
+
 			It("should return 0", func() {
 				number, _ := number.ParseUint(maxUintPlusOneAsString)
 				Expect(number).To(Equal(uint(0)))

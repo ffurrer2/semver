@@ -33,6 +33,7 @@ var _ = Describe("semver:", func() {
 				{Major: 1, Minor: 0, Patch: 0, PreRelease: []string{}, BuildMetadata: []string{}},
 			}
 			sort.Sort(semver.BySemVer(actual))
+
 			expected := []semver.SemVer{
 				{Major: 1, Minor: 0, Patch: 0, PreRelease: []string{}, BuildMetadata: []string{}},
 				{Major: 1, Minor: 0, Patch: 0, PreRelease: []string{}, BuildMetadata: []string{}},
@@ -56,6 +57,7 @@ var _ = Describe("semver:", func() {
 						PreRelease:    splitDotSeparatedString(preRelease),
 						BuildMetadata: splitDotSeparatedString(buildMetadata),
 					}
+
 					Expect(err).ShouldNot(HaveOccurred())
 					Expect(actual).To(Equal(&expected))
 				},
@@ -306,6 +308,7 @@ var _ = Describe("semver:", func() {
 			func(input, expected string) {
 				sut, err := semver.Parse(input)
 				Expect(err).ShouldNot(HaveOccurred())
+
 				actual := sut.NextMajor().String()
 				Expect(actual).To(Equal(expected))
 			},
@@ -362,6 +365,7 @@ var _ = Describe("semver:", func() {
 			func(input, expected string) {
 				sut, err := semver.Parse(input)
 				Expect(err).ShouldNot(HaveOccurred())
+
 				actual := sut.NextMinor().String()
 				Expect(actual).To(Equal(expected))
 			},
@@ -418,6 +422,7 @@ var _ = Describe("semver:", func() {
 			func(input, expected string) {
 				sut, err := semver.Parse(input)
 				Expect(err).ShouldNot(HaveOccurred())
+
 				actual := sut.NextPatch().String()
 				Expect(actual).To(Equal(expected))
 			},
@@ -475,6 +480,7 @@ var _ = Describe("semver:", func() {
 				func(input string) {
 					sut, err := semver.Parse(input)
 					Expect(err).ShouldNot(HaveOccurred())
+
 					actual := sut.IsValid()
 					Expect(actual).To(BeTrue())
 				},
@@ -531,6 +537,7 @@ var _ = Describe("semver:", func() {
 				func(input string) {
 					sut, err := semver.Parse(input)
 					Expect(err).ShouldNot(HaveOccurred())
+
 					actual := sut.IsRelease()
 					Expect(actual).To(BeTrue())
 				},
@@ -554,6 +561,7 @@ var _ = Describe("semver:", func() {
 				func(input string) {
 					sut, err := semver.Parse(input)
 					Expect(err).ShouldNot(HaveOccurred())
+
 					actual := sut.IsRelease()
 					Expect(actual).To(BeFalse())
 				},
@@ -586,6 +594,7 @@ var _ = Describe("semver:", func() {
 					Expect(err).ShouldNot(HaveOccurred())
 					semverB, err := semver.Parse(b)
 					Expect(err).ToNot(HaveOccurred())
+
 					actual := semverA.CompareTo(*semverB)
 					Expect(actual).To(Equal(-1))
 				},
@@ -611,6 +620,7 @@ var _ = Describe("semver:", func() {
 					Expect(err).ShouldNot(HaveOccurred())
 					semverB, err := semver.Parse(b)
 					Expect(err).ToNot(HaveOccurred())
+
 					actual := semverA.CompareTo(*semverB)
 					Expect(actual).To(Equal(1))
 				},
@@ -636,6 +646,7 @@ var _ = Describe("semver:", func() {
 					Expect(err).ShouldNot(HaveOccurred())
 					semverB, err := semver.Parse(b)
 					Expect(err).ShouldNot(HaveOccurred())
+
 					actual := semverA.CompareTo(*semverB)
 					Expect(actual).To(Equal(0))
 				},
@@ -662,6 +673,7 @@ var _ = Describe("semver:", func() {
 					Expect(err).ShouldNot(HaveOccurred())
 					semverB, err := semver.Parse(b)
 					Expect(err).ShouldNot(HaveOccurred())
+
 					actual := semverA.Equal(*semverB)
 					Expect(actual).To(BeTrue())
 				},
@@ -685,6 +697,7 @@ var _ = Describe("semver:", func() {
 					Expect(err).ShouldNot(HaveOccurred())
 					semverB, err := semver.Parse(b)
 					Expect(err).ShouldNot(HaveOccurred())
+
 					actual := semverA.Equal(*semverB)
 					Expect(actual).To(BeFalse())
 				},
