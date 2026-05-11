@@ -36,6 +36,7 @@ tasks:
     desc: Create release with GoReleaser without publishing artifacts
     vars:
       IMAGE_BASE_NAME: {sh: 'sed -nE "/^FROM/ { s/^FROM ([^:]+):([^@]+)@([^ ]+).*$/\1/; p; q; }" build/package/Dockerfile'}
+      IMAGE_BASE_TAG: {sh: 'sed -nE "/^FROM/ { s/^FROM ([^:]+):([^@]+)@([^ ]+).*$/\2/; p; q; }" build/package/Dockerfile'}
       IMAGE_BASE_DIGEST: {sh: 'sed -nE "/^FROM/ { s/^FROM ([^:]+):([^@]+)@([^ ]+).*$/\3/; p; q; }" build/package/Dockerfile'}
     env:
       IMAGE_BASE_NAME: '{{.IMAGE_BASE_NAME}}:{{.IMAGE_BASE_TAG}}'

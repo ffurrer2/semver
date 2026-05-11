@@ -7,8 +7,10 @@ tasks:
     desc: Run container structure tests
     cmds:
     - container-structure-test test --image ghcr.io/ffurrer2/semver:latest --config test/semver_container_test.yml
+    silent: true
 
   grype:
     desc: Run Grype scan
     cmds:
     - grype ghcr.io/ffurrer2/semver:latest
+    silent: true

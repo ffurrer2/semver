@@ -25,7 +25,7 @@ tasks:
 
   cache:
     desc: Update licensed cache
-    envs:
+    env:
       GOFLAGS: -mod=vendor
     cmds:
     - licensed cache --force
