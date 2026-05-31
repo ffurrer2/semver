@@ -8,7 +8,7 @@ on:
 
 env:
   # renovate: datasource=github-releases depName=goreleaser packageName=goreleaser/goreleaser versioning=semver
-  GORELEASER_VERSION: '2.15.4'
+  GORELEASER_VERSION: '2.16.0'
   REGISTRY: ghcr.io
 
 jobs:
