@@ -5,7 +5,7 @@ go 1.26.4
 
 require (
 	github.com/go-task/slim-sprig/v3 v3.0.0
-	github.com/onsi/ginkgo/v2 v2.29.0
+	github.com/onsi/ginkgo/v2 v2.30.0
 	github.com/onsi/gomega v1.41.0
 	github.com/samber/lo v1.53.0
 	github.com/spf13/cobra v1.10.2
