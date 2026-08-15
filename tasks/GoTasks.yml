@@ -98,3 +98,9 @@ tasks:
     cmds:
     - goimports -w -local {{.MODULE_PATH}} .
     silent: true
+
+  vendor:
+    desc: Create vendor directory
+    cmds:
+    - go mod vendor -v
+    silent: true
