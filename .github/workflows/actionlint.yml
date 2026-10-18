@@ -21,4 +21,4 @@ permissions:
 jobs:
   actionlint:
     name: actionlint
-    uses: ffurrer2/reusable-workflows/.github/workflows/actionlint.yml@d97569953837d175b3a6007b1db029d8f7f3a5cf # v1.1.0
+    uses: ffurrer2/reusable-workflows/.github/workflows/actionlint.yml@2e77d0591a0f5b8559ce2e22314222c309e6eedf # v1.2.0
