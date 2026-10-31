@@ -60,8 +60,9 @@ formatters:
       # module-path: github.com/org/project
 
       # Choose whether to use the extra rules.
-      # Default: false
-      extra-rules: true
+      extra:
+        group-params: true
+        clothe-returns: true
 
     goimports:
       # A list of prefixes, which, if set, checks import paths
