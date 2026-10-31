@@ -12,15 +12,15 @@ on:
     - '**.md'
     - '.gitignore'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   # renovate: datasource=github-releases depName=goreleaser packageName=goreleaser/goreleaser versioning=semver
   GORELEASER_VERSION: '2.19.0'
   # renovate: datasource=github-releases depName=task packageName=go-task/task versioning=semver
   TASK_VERSION: '3.54.0'
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   local-build:

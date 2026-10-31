@@ -19,11 +19,16 @@ vars:
   PROJECT_OWNER: ffurrer2
   BUILD_VERSION: {sh: bash ./scripts/version}
   BUILD_VERSION_SHORT: {sh: bash ./scripts/version --short}
+  BUILD_DATE: '1970-01-01T00:00:00Z'
   GIT_SHA: {sh: git rev-parse HEAD}
   GIT_SHA_SHORT: {sh: git rev-parse --short HEAD}
   GIT_TREE_STATE: {sh: 'if [[ -n "$(git status --porcelain)" ]]; then echo "dirty"; else echo "clean"; fi'}
+  GIT_REPOSITORY_URL: {sh: git config --get remote.origin.url}
+  REGISTRY: ghcr.io
+  REPOSITORY: ffurrer2/semver
 
 tasks:
+  desc: List available tasks
   default:
     cmds:
     - task --list
@@ -51,6 +56,14 @@ tasks:
     - task: yamllint:lint
     silent: true
 
+  upgrade:
+    desc: Upgrade dependencies
+    cmds:
+    - task: go:go-mod-upgrade
+    - task: go:upgrade-major-dependencies
+    - task: go:upgrade-indirect-dependencies
+    silent: true
+
   build:
     desc: Build project
     cmds:
@@ -66,21 +79,16 @@ tasks:
 
   scan:
     desc: Run image scans
+    deps:
+    - goreleaser:snapshot
     cmds:
     - task: dockle:lint
       vars:
-        IMAGE_NAME: 'ghcr.io/ffurrer2/semver:latest'
+        IMAGE_NAME: '{{.REGISTRY}}/{{.REPOSITORY}}:latest'
     - task: trivy:image:scan
       vars:
-        IMAGE_NAME: 'ghcr.io/ffurrer2/semver:latest'
+        IMAGE_NAME: '{{.REGISTRY}}/{{.REPOSITORY}}:latest'
     - task: trivy:filesystem:scan
-    silent: true
-
-  upgrade:
-    desc: Upgrade dependencies
-    cmds:
-    - task: go:upgrade-major-dependencies
-    - task: go:upgrade-indirect-dependencies
     silent: true
 
   version:
@@ -92,6 +100,7 @@ tasks:
       printf 'docker:                   %s\n' "$(docker version --format json | jq --raw-output '.Client.Version')"
       printf 'dockle:                   %s\n' "$(dockle --version | cut -d ' ' -f 3)"
       printf 'git:                      %s\n' "$(git --version | cut -d ' ' -f 3)"
+      printf 'go-mod-upgrade:           %s\n' "$(go-mod-upgrade --version | tail -n 1 | cut -d ' ' -f 3 | cut -c 2-)"
       printf 'go:                       %s\n' "$(go version | cut -d ' ' -f 3 | cut -c 3-)"
       printf 'gofumpt:                  %s\n' "$(gofumpt --version | cut -c 1-)"
       printf 'golangci-lint:            %s\n' "$(golangci-lint version --short)"
