@@ -1,2 +1,2 @@
-# Add HEALTHCHECK instruction in your Dockerfile (https://avd.aquasec.com/misconfig/ds026)
-AVD-DS-0026
+# Add HEALTHCHECK instruction in your Dockerfile (https://avd.aquasec.com/misconfig/dockerfile/general/ds-0026/#no-healthcheck-defined)
+DS-0026
