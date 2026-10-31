@@ -6,7 +6,7 @@ summary:
 homepage: https://pkg.go.dev/github.com/samber/lo/internal/xtime
 license: mit
 licenses:
-- sources: lo@v1.53.0/LICENSE
+- sources: lo/LICENSE
   text: |
     MIT License
 
