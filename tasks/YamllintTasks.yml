@@ -5,6 +5,8 @@ version: '3'
 tasks:
   lint:
     desc: Lint YAML files
+    vars:
+      ADDITIONAL_ARGS: '{{.ADDITIONAL_ARGS}}'
     cmds:
-    - docker run -it --rm --volume "$(pwd):/work" --workdir /work docker.io/cytopia/yamllint:latest --config-file .github/linters/.yaml-lint.yml --format auto --strict .
+    - docker run -it --rm --volume "$(pwd):/work" --workdir /work docker.io/cytopia/yamllint:latest --config-file .github/linters/.yaml-lint.yml --format auto --strict {{.ADDITIONAL_ARGS}} .
     silent: true
