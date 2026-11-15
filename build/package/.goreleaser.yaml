@@ -1,3 +1,8 @@
+# The lines below are called `modelines`. See `:help modeline`
+# Feel free to remove those if you don't want/need to use them.
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+
 version: 2
 
 project_name: semver
@@ -38,10 +43,10 @@ homebrew_casks:
   directory: Casks
   description: A semantic versioning command line utility written in Go.
   homepage: https://github.com/ffurrer2/semver
-  license: MIT
   ids:
   - semver
   binaries: [semver]
+  license: MIT
 scoops:
 - name: semver
   repository:
@@ -115,6 +120,29 @@ checksum:
   name_template: '{{.ProjectName}}_checksums.txt'
   algorithm: sha256
 
+changelog:
+  format: '{{ .SHA }} {{ .Message }}'
+dist: artifacts/dist
+
+signs:
+  - cmd: cosign
+    args:
+      - sign-blob
+      - --bundle=${signature}
+      - ${artifact}
+      - --yes
+    signature: ${artifact}.sigstore.json
+    artifacts: checksum
+
+env_files:
+  github_token: ~/.config/goreleaser/github_token
+
+before:
+  hooks:
+    - go mod verify
+    - go mod tidy -v
+    - go generate ./...
+
 dockers:
 - ids:
   - semver
@@ -148,34 +176,7 @@ dockers:
   - --label=org.opencontainers.image.vendor=Felix Furrer
   - --label=org.opencontainers.image.version={{.Version}}
   use: buildx
-changelog:
-  format: '{{ .SHA }} {{ .Message }}'
-dist: artifacts/dist
 
-env_files:
-  github_token: ~/.config/goreleaser/github_token
-  gitlab_token: ~/.config/goreleaser/gitlab_token
-  gitea_token: ~/.config/goreleaser/gitea_token
-
-before:
-  hooks:
-  - go mod verify
-  - go generate ./...
-  - go mod tidy -v
-  - go test -race -v ./...
-
-# signs:
-# - cmd: cosign
-#   signature: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.sig'
-#   args:
-#   - 'sign-blob'
-#   - '--output-signature=${signature}'
-#   - '--output-certificate=${certificate}'
-#   - '--yes'
-#   - '${artifact}'
-#   artifacts: all
-#   certificate: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.pem'
-#
 # docker_signs:
 # - cmd: cosign
 #   signature: '{{ trimsuffix .Env.artifact ".tar.gz" }}-keyless.sig'
