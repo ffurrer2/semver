@@ -8,7 +8,4 @@ allowed:
 sources:
   go: true
 
-go:
-  GOPATH: ~/go
-
 source_path: cmd/semver
