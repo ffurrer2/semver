@@ -1,1 +1,5 @@
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# The entries below define the default owners for this repo. Unless a later match takes precedence,
+# the listed owners will be requested for review when someone opens a pull request.
 * @ffurrer2
