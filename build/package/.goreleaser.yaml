@@ -125,23 +125,22 @@ changelog:
 dist: artifacts/dist
 
 signs:
-  - cmd: cosign
-    args:
-      - sign-blob
-      - --bundle=${signature}
-      - ${artifact}
-      - --yes
-    signature: ${artifact}.sigstore.json
-    artifacts: checksum
+- cmd: cosign
+  args:
+  - sign-blob
+  - --bundle=${signature}
+  - ${artifact}
+  - --yes
+  signature: ${artifact}.sigstore.json
+  artifacts: checksum
 
 env_files:
   github_token: ~/.config/goreleaser/github_token
 
 before:
   hooks:
-    - go mod verify
-    - go mod tidy -v
-    - go generate ./...
+  - go mod verify
+  - go mod tidy -v
 
 dockers:
 - ids:
